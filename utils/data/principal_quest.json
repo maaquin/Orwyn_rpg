@@ -1,0 +1,150 @@
+{
+    "Quest 1": {
+        "id": "mision_rumores_piedra",
+        "nombre": "Rumores de piedra",
+        "descripcion": "En una taberna lejana, te enteras de que el Rey de Valdoren ha sido convertido en piedra. ¿Qué hechicería ha caído sobre él?",
+        "objetivos": [
+            "Llegar a una taberna fuera de tu pueblo",
+            "Investigar la causa de la petrificación del Rey",
+            "Intentar acceder al castillo (fallido)",
+            "Seguir rumores sobre una isla viviente en Nymbria"
+        ]
+    },
+    "Quest 2": {
+        "id": "mision_isla_viviente",
+        "nombre": "La isla dormida",
+        "descripcion": "Un viejo curandero te guía hacia la misteriosa isla viviente. Lo que parecía un mito, despierta ante tus ojos.",
+        "objetivos": [
+            "Viajar a Nymbria",
+            "Conocer al curandero en el santuario",
+            "Navegar hasta la isla viviente",
+            "Descubrir que la isla es en realidad una criatura dormida"
+        ],
+        "dependencias": [
+            "mision_rumores_piedra"
+        ]
+    },
+    "Quest 3": {
+        "id": "mision_maestro_sanador",
+        "nombre": "El maestro sanador",
+        "descripcion": "Para despertar a la criatura que es la isla viviente, necesitas la ayuda del maestro sanador de Myrrwood.",
+        "objetivos": [
+            "Viajar a Myrrwood",
+            "Hablar con el maestro sanador",
+            "Colaborar con la tienda de hierbas",
+            "Preparar una poción especial"
+        ],
+        "submisiones": [
+            "Recolectar ingredientes raros por el mundo"
+        ],
+        "dependencias": [
+            "mision_isla_viviente"
+        ]
+    },
+    "Quest 4": {
+        "id": "mision_lenguas_antiguas",
+        "nombre": "Lenguas antiguas",
+        "descripcion": "La isla viviente habla de una antigua raza élfica. Sus textos podrían tener la clave para curar la petrificación.",
+        "objetivos": [
+            "Viajar a Silvareth",
+            "Investigar el monolito antiguo",
+            "Copiar el texto élfico olvidado",
+            "Regresar a la isla para traducirlo"
+        ],
+        "dependencias": [
+            "mision_maestro_sanador"
+        ]
+    },
+    "Quest 5": {
+        "id": "mision_corona_fragmentada",
+        "nombre": "La corona fragmentada",
+        "descripcion": "Los textos élficos mencionan una corona mágica, dividida en tres partes y escondida en templos olvidados. Solo reuniéndola podrás revertir la petrificación.",
+        "objetivos": [
+            "Viajar al Templo del Bosque en Altheria",
+            "Viajar al Templo del Desierto en Thar-Zuun",
+            "Viajar al Templo del Volcán en el Monte Ardak",
+            "Reunir los tres fragmentos de la corona",
+            "Volver a la isla viviente para revelar lo descubierto"
+        ],
+        "dependencias": [
+            "mision_lenguas_antiguas"
+        ]
+    },
+    "Quest 5.1": {
+        "id": "mision_fragmento_bosque",
+        "nombre": "El fragmento esmeralda",
+        "descripcion": "Viaja a Altheria y encuentra el Santuario de Jade Raen, oculto entre raíces colosales. Recupera el fragmento de la corona ancestral.",
+        "objetivos": [
+            "Llegar al santuario escondido en Altheria",
+            "Resolver el acertijo de las raíces élficas",
+            "Derrotar al guardián espectral del bosque",
+            "Obtener el fragmento esmeralda de la corona"
+        ],
+        "coordenadas": "5,7",
+        "ubicacion": "Altheria",
+        "dependencias": [
+            "mision_lenguas_antiguas"
+        ]
+    },
+    "Quest 5.2": {
+        "id": "mision_fragmento_desierto",
+        "nombre": "El fragmento del alba",
+        "descripcion": "Adéntrate en las dunas de Thar-Zuun y localiza las Ruinas de Zepharos, visibles solo al alba. Recupera el fragmento perdido entre arenas encantadas.",
+        "objetivos": [
+            "Viajar a Thar-Zuun",
+            "Encontrar las ruinas al amanecer",
+            "Superar las pruebas de viento",
+            "Obtener el fragmento dorado de la corona"
+        ],
+        "coordenadas": "2,9",
+        "ubicacion": "Desierto de Thar-Zuun",
+        "dependencias": [
+            "mision_lenguas_antiguas"
+        ]
+    },
+    "Quest 5.3": {
+        "id": "mision_fragmento_volcan",
+        "nombre": "El fragmento de fuego",
+        "descripcion": "Escala el Monte Ardak y desciende al Abismo Ardiente. Enfréntate a las salamandras ígneas para reclamar el fragmento de la corona sellado por el fuego.",
+        "objetivos": [
+            "Llegar al Monte Ardak",
+            "Sobrevivir al descenso en el abismo",
+            "Vencer a las salamandras ígneas",
+            "Obtener el fragmento de fuego de la corona"
+        ],
+        "coordenadas": "10,3",
+        "ubicacion": "Monte Ardak",
+        "dependencias": [
+            "mision_lenguas_antiguas"
+        ]
+    },
+    "Quest 6": {
+        "id": "mision_forja_sol",
+        "nombre": "Forja del sol",
+        "descripcion": "Los enanos de Drakmir custodian la legendaria forja solar, capaz de unir los fragmentos. Prepárate para enfrentarte al calor y a los peligros de la mina.",
+        "objetivos": [
+            "Llegar a Drakmir",
+            "Conseguir protección contra el calor extremo",
+            "Entrar en la mina ancestral",
+            "Superar enemigos y trampas",
+            "Forjar la corona unificada"
+        ],
+        "dependencias": [
+            "mision_corona_fragmentada"
+        ]
+    },
+    "Quest 7": {
+        "id": "mision_regreso_rey",
+        "nombre": "El regreso del Rey",
+        "descripcion": "Con la corona restaurada, es hora de entrar en el castillo de Valdoren. Pero no estás solo: el consejero del rey podría saber más de lo que aparenta.",
+        "objetivos": [
+            "Escabullirte en el castillo de Valdoren",
+            "Encontrarte con el consejero mágico",
+            "Llegar ante el Rey petrificado",
+            "Usar la corona y el hechizo para devolverle la vida"
+        ],
+        "dependencias": [
+            "mision_forja_sol"
+        ]
+    }
+}

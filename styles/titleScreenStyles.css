@@ -1,0 +1,100 @@
+.title-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-shadow:
+        -1px -1px 0 rgb(255, 255, 255),
+        1px -1px 0 rgb(255, 255, 255),
+        -1px 1px 0 rgb(235, 235, 235),
+        1px 1px 0 rgb(255, 255, 255);
+}
+
+.background-video {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    object-fit: cover;
+    transition: opacity 1s ease-in-out;
+    opacity: 1;
+}
+
+.background-video.fade-out {
+    opacity: 0;
+}
+
+.overlay-fade-onload {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(231, 222, 231, 0.6);
+    animation: fadeOutOverlay 1s forwards ease-in-out;
+    pointer-events: none;
+}
+
+@keyframes fadeOutOverlay {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .3;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.title {
+    font-family: 'Cinzel', serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 80px;
+}
+
+.title h3 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+.title h1 {
+    font-size: 10rem;
+    margin: 0;
+}
+
+.buttons-container {
+    display: flex;
+    gap: 30px;
+}
+
+.buttons-container .btn-title-screen,
+.disabled-btn {
+    border-radius: 15px;
+    font-size: 1.3rem;
+    transition: all .3s;
+    background: rgba(97, 96, 92, 0.279);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: #d4c7beb3 1px solid;
+    color: #fff;
+}
+
+.buttons-container .btn-title-screen:hover {
+    background-color: #302924cc;
+}
+
+.disabled-btn:hover {
+    background-color: #f6f6f6;
+    cursor: default;
+    border: none;
+}

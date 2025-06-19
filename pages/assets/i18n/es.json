@@ -1,0 +1,111 @@
+{
+  "title": "Las Crónicas de",
+  "start_button": "Nuevo juego",
+  "load": "Cargar juego",
+  "continue": "Continuar",
+  "options": "Opciones",
+
+  "map_structures":"Mostrar nombres de ciudades",
+  "map_lines":"Mostrar cuadrícula",
+
+  "race":"Selecciona una raza",
+  "human":"Humano",
+  "elf":"Elfo",
+  "seaFolk":"Seafolk",
+  "sprite":"Sprite",
+  "warewolf":"Warewolf",
+  "dwarf":"Dwarf",
+
+  "raceInfo":"Información de la raza",
+  "descriptionHumanRace": "Versátiles y equilibrados. No destacan en nada, pero tampoco tienen puntos débiles. Ideales para cualquier rol.",
+  "descriptionElfRace": "Sabios y longevos. Maestros de la magia y el arco, rápidos pero físicamente frágiles. Alta magia y velocidad.",
+  "descriptionSeafolkRace": "Seres del océano. Mágicos y móviles, aunque vulnerables fuera del agua. Buen ataque mágico y velocidad.",
+  "descriptionSpriteRace": "Seres etéreos. Muy rápidos y mágicos, pero frágiles y dependientes del entorno. Máxima magia y velocidad, baja defensa",
+  "descriptionWarewolfRace": "Ágiles y sigilosos. Cazadores rápidos con gran ataque físico, pero poca defensa. Velocidad y reflejos muy altos.",
+  "descriptionDwarfRace": "Fuertes y resistentes. Guerreros de gran defensa, pero lentos y poco mágicos. Defensa y vida elevadas.",
+  "noRaceSelected":"Por favor selecciona una raza.",
+  
+  "class":"Selecciona una clase",
+  "hermit":"Hermitaño",
+  "wizard":"Hechicero",
+  "hunter":"Cazador",
+  "squire":"Escudero",
+
+  
+  "classInfo":"Información de la clase",
+  "descriptionHermitClass": "Clase equilibrada. Entrenados en la supervivencia y la adaptación. No destacan en nada, pero tampoco tienen debilidades claras.",
+  "descriptionWizardClass": "Maestro de los secretos arcanos. Capaz de invocar poderosas magias ofensivas y defensivas, aunque frágil en el combate físico.",
+  "descriptionHunterClass": "Especialista en el combate rápido. Ágil y certero con ataques físicos, pero débil ante defensas sostenidas.",
+  "descriptionSquireClass": "Guardián robusto. Ideal para resistir daños y proteger aliados, pero poco hábil con la magia o la velocidad.",
+  "noClassSelected":"Por favor selecciona una clase.",
+
+  "data_player":"Registro de personaje",
+  "done":"Listo",
+  "back":"Regresar",
+
+  "name":"Nombre",
+  "age":"Edad",
+
+  "sex":"Seleccionar sexo...",
+  "rol":"Seleccionar clase...",
+
+
+  "languaje":"Idioma",
+  "text_speed":"Velocidad de texto",
+  "reading_mode":"Modo de lectura",
+  "font_size":"Tamaño de fuente",
+  "music_volume":"Volumen de música",
+  "theme":"Tema",
+
+  "inmersive":"Inmersivo",
+  "compact":"Compacto",
+
+  "low":"Bajo",
+  "mid":"Medio",
+  "high":"Alto",
+
+  "slow":"Despacio",
+  "normal":"Normal",
+  "fast":"Rápido",
+
+  "small":"Pequeño",
+  "medium":"Mediano",
+  "large":"Grande",
+
+  "silence":"Silencio",
+
+  "highland":"Planicie de Elyndor",
+  "sunset":"Atardecer en Orwyn",
+  "mountain":"Montañas de Thaldoren",
+  "cave":"Cueva en Fungalith",
+
+
+  "health":"Salud",
+
+  "atk":"Ataque",
+  "mat":"Ataque mágico",
+  "def":"Defensa",
+  "mdf":"Defensa mágica",
+  "spd":"Velocidad",
+  "acc":"Puntería",
+
+
+  "courage":"Valiente",
+  "wisdom":"Sensato",
+  "power":"Impulsivo",
+
+
+  "classs":"Clase",
+  "racee":"Raza",
+  "nature":"Naturaleza",
+
+
+
+
+  "items":"Ítems",
+  "money":"Doblones",
+
+
+
+  "quests":"Crónicas"
+}

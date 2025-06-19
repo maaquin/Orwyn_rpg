@@ -1,0 +1,229 @@
+.new-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.new-card {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(252, 251, 250, 0.279);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(39, 31, 31, 0.2);
+    border-radius: 40px;
+    gap: 50px;
+}
+
+.new-sub-container {
+    width: 100%;
+    height: 55%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: center;
+    gap: 50px;
+}
+
+.title-new-character {
+    font-size: 3.5rem;
+    margin: 0;
+}
+
+.race-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.race-option {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.race-option p {
+    margin: 0;
+}
+
+.img-race-grid {
+    display: flex;
+    border-radius: 25px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    padding: 10px;
+}
+
+.selected {
+    border: 2px solid #302924;
+    background-color: #f7ebe3;
+}
+
+.race-option img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+.data-player-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.data-player-container input,
+.data-player-container select {
+    border: #302924 solid 1.5px;
+    border-radius: 12px;
+    padding: 10px;
+    font-size: 1.3rem;
+    font-family: 'Lora', serif;
+}
+
+.data-player-container select {
+    width: 100%;
+    cursor: pointer;
+}
+
+.buttons-new-character {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.data-player-container button {
+    background: rgba(255, 255, 255, 0.507);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: #d4c7beb3 1px solid;
+    border-radius: 15px;
+    font-size: 1.3rem;
+    transition: all .3s;
+}
+
+.data-player-container button:hover {
+    background-color: #302924c3;
+    color: #fff;
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(57, 49, 40, 0.256);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(39, 31, 31, 0.2);
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    transition: all 0.3s;
+
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+.modal-content {
+    background: white;
+    padding: 1rem;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    font-size: 1.5rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.options-grid {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.option-item {
+    cursor: pointer;
+}
+
+.option-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.selected-image-display,
+.selected-image-display-true {
+    border: 2px dashed #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+
+.selected-image-display {
+    width: 150px;
+    height: 150px;
+
+}
+
+.selected-image-display-true {
+    width: 120px;
+    height: 120px;
+    padding: 15px;
+}
+
+.selected-image-display img,
+.selected-image-display-true img {
+    height: 100%;
+    width: 100%;
+}
+
+.section-info-new-character {
+    max-width: 250px;
+}
+
+.section-info-new-character h1 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+.section-info-new-character p {
+    display: block;
+    text-align: justify;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.race-container {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

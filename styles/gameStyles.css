@@ -1,0 +1,445 @@
+.game-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    position: relative;
+    color: #131212;
+}
+
+.side-bar {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    height: 100%;
+    min-height: 750px;
+    width: 20%;
+    min-width: 300px;
+    padding: 20px;
+    box-sizing: border-box;
+    gap: 15px;
+}
+
+.game {
+    height: 100%;
+    width: 80%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.map-container-image {
+    max-height: 100%;
+    max-width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.map-container-box {
+    padding: 10px;
+    box-sizing: border-box;
+    position: relative;
+    min-width: 280px;
+}
+
+.map-container-box.expanded {
+    display: none;
+}
+
+.map-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 38px;
+}
+
+.map-container:hover {
+    cursor: pointer;
+}
+
+.map-container img {
+    position: absolute;
+    width: 333.333%;
+}
+
+.text-container {
+    background: rgba(252, 251, 250, 0.797);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    hyphens: auto;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    font-size: 20px;
+    border-radius: 20px;
+}
+
+.separator-game-header {
+    width: 50%;
+}
+
+.separator-moves-text {
+    background-color: #8a7b7b;
+    height: 5px;
+    width: 90%;
+}
+
+.text-rpg-game {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.text-narrative-container {
+    width: 90%;
+    display: block;
+    text-align: justify;
+}
+
+.moves-text-rpg-game {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 35px;
+}
+
+.moves-text-rpg-game button {
+    background-color: transparent;
+    text-align: left;
+    padding: 5px;
+    color: #302924;
+}
+
+.moves-text-rpg-game button:hover {
+    text-decoration: underline;
+}
+
+.option_move {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.option_move img {
+    height: 24px;
+    width: 20px;
+}
+
+
+
+
+
+
+.inventory-container {
+    position: absolute;
+    bottom: 20px;
+    height: calc(60% - 20px);
+    background: rgba(252, 251, 250, 0.279);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    transition: all .5s;
+    min-width: 280px;
+}
+
+.inventory-container.expanded {
+    height: calc(100% - 40px);
+}
+
+.info-player {
+    box-sizing: border-box;
+    padding: 5px;
+    width: 100%;
+}
+
+.name-image-player {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.name-health-bar-player {
+    display: flex;
+    flex-direction: column;
+    width: calc(50% - 8px);
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.name-health-bar-player.expanded {
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    gap: 15px;
+    justify-content: center;
+}
+
+.health-bar {
+    height: 10px;
+    width: 100%;
+    background-color: #ccc;
+    border: 2px solid #333;
+    overflow: hidden;
+}
+
+.name-health-bar-player.expanded .health-bar {
+    min-width: 100px;
+}
+
+.hp-fill {
+    height: 100%;
+    background-color: #e63946;
+    transition: width 0.3s ease;
+}
+
+.name-player-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.name-health-bar-player.expanded .name-player-title {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.health-player {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.class-race-nature {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 5px;
+    justify-content: space-between;
+    transition: all .3s;
+}
+
+.class-race-nature.expanded {
+    display: none;
+}
+
+.class-race-nature-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    scale: 110%;
+}
+
+.class-race-nature img {
+    height: 3.5rem;
+    min-width: 3.5rem;
+}
+
+
+
+.inventory {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.25rem;
+    position: relative;
+}
+
+.player-block {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    padding: 5px;
+}
+
+.player-image {
+    width: calc(50% - 8px);
+    position: relative;
+    aspect-ratio: 1;
+}
+
+.player-image.expanded {
+    display: none;
+}
+
+.player {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 15px 10px;
+    border-radius: 20px 0 20px 0;
+    background-color: #526d56;
+    max-height: 100%;
+    overflow: hidden;
+}
+
+.container-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+}
+
+.player-block img {
+    width: 80%;
+}
+
+.stats-icons-player {
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 10px 10px 0 10px;
+    gap: 5px;
+    transition: all .3s;
+}
+
+.stats-icons-player.expanded {
+    display: none;
+}
+
+.stat-icon-name {
+    border-radius: 15px;
+    padding: 0 2px;
+}
+
+.stat-icon-name img {
+    height: 1.3rem;
+    width: 1.3rem;
+}
+
+
+
+
+
+
+.inventory-block {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #493d34bb;
+    border-radius: 0 0 20px 20px;
+}
+
+.items-title-span {
+    font-weight: 600;
+    padding: 10px 0 5px 15px;
+    font-size: 1.8rem;
+    line-height: 1;
+    color: #fff;
+}
+
+.inventory-block img {
+    width: 40px;
+    height: 40px;
+}
+
+.inventory-object {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all .3s;
+    max-height: 70px;
+    padding: 0 10px;
+}
+
+.inventory-object.expanded {
+    max-height: 100%;
+    height: 100%;
+}
+
+.items-inventory-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.arrow-expand-inventory {
+    scale: 90%;
+    transform: rotate(180deg);
+    transition: all .3s;
+}
+
+.arrow-expand-inventory.rotated {
+    transform: rotate(0deg);
+}
+
+.items-inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    box-sizing: border-box;
+    padding: 10px;
+    gap: 10px;
+    place-items: center;
+    width: 100%;
+}
+
+.inventory-slot {
+    width: 90%;
+    aspect-ratio: 1;
+    border: 1px solid gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1c1c1c;
+    border: 2px solid #807868;
+    border-radius: 6px;
+    position: relative;
+    cursor: grab;
+}
+
+
+
+.data-money-player {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 1.7rem;
+    line-height: 1;
+    color: #fff;
+}
+
+.data-money-player span {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 1.7rem;
+}
+
+.data-money-player img {
+    scale: 80%;
+}
+
+
+
+
+.misions-container {
+    background-color: #807868;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    height: 100%;
+    border-radius: 20px;
+}

@@ -1,0 +1,76 @@
+.options-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.background-color {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(117, 101, 117, 0.65);
+    z-index: -2;
+}
+
+.options-card {
+    width: 70%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(252, 251, 250, 0.279);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(39, 31, 31, 0.2);
+    border-radius: 40px;
+    gap: 30px;
+}
+
+.options-row-container {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.option-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  align-items: center;
+  width: 90%;
+  font-size: 1.7rem;
+}
+
+.option-row select {
+    background: rgba(255, 255, 255, 0.507);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: #d4c7beb3 1px solid;
+    border-radius: 12px;
+    padding: 5px 10px;
+    font-size: 1.2rem;
+    font-family: 'Lora', serif;
+    cursor: pointer;
+}
+
+.options-card button {
+    background: rgba(255, 255, 255, 0.507);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: #d4c7beb3 1px solid;
+    border-radius: 15px;
+    font-size: 1.3rem;
+    transition: all .3s;
+}
+
+.options-card button:hover {
+    background-color: #302924c3;
+    color: #fff;
+    cursor: pointer;
+}

@@ -1,0 +1,105 @@
+{
+  "title": "The Chronicles of",
+  "start_button": "New game",
+  "load": "Load game",
+  "continue": "Continue",
+  "options": "Options",
+
+  "map_structures":"Show city names",
+  "map_lines":"Show grid lines",
+
+  "race":"Select race",
+  "human":"Human",
+  "elf":"Elf",
+  "seaFolk":"Seafolk",
+  "sprite":"Sprite",
+  "warewolf":"Warewolf",
+  "dwarf":"Dwarf",
+
+  "descriptionHumanRace": "Versatile and balanced. They don't excel at anything, but have no major weaknesses. Ideal for any role.",
+  "descriptionElfRace": "Wise and long-lived. Masters of magic and archery, fast but physically fragile. High magic and speed.",
+  "descriptionSeafolkRace": "Ocean dwellers. Magical and mobile, though vulnerable on land. Strong magic attack and good speed.",
+  "descriptionSpriteRace": "Ethereal beings. Very fast and magical, but fragile and environment-dependent. Max magic and speed, low defense.",
+  "descriptionWarewolfRace": "Agile and stealthy. Fast hunters with strong physical attacks, but low defense. Very high speed and reflexes.",
+  "descriptionDwarfRace": "Strong and resilient. High-defense warriors, but slow and not magical. Elevated defense and health.",
+  "noRaceSelected":"Please select one race.",
+
+  "class":"Select class",
+  "hermit":"Hermit",
+  "wizard":"Wizard",
+  "hunter":"Hunter",
+  "squire":"Squire",
+
+  "descriptionHermitClass": "Balanced class. Trained in survival and adaptation. Doesn't excel in any area, but has no clear weaknesses.",
+  "descriptionWizardClass": "Master of arcane secrets. Can summon powerful offensive and defensive spells, but fragile in physical combat.",
+  "descriptionHunterClass": "Fast-combat specialist. Agile and precise with physical attacks, but weak against sustained defenses.",
+  "descriptionSquireClass": "Sturdy guardian. Ideal for taking damage and protecting allies, but lacks skill in magic and speed.",
+  "noClassSelected":"Please select one class.",
+
+  "data_player":"Register character",
+  "done":"Done",
+  "back":"Back",
+
+  "name":"Name",
+  "age":"Age",
+
+  "sex":"Select sex...",
+
+
+  "languaje":"Languaje",
+  "text_speed":"Text speed",
+  "reading_mode":"Reading mode",
+  "font_size":"Font size",
+  "music_volume":"Music volume",
+  "theme":"Theme",
+
+  "inmersive":"Inmersive",
+  "compact":"Compact",
+
+  "low":"Low",
+  "mid":"Medium",
+  "high":"High",
+
+  "slow":"Slow",
+  "normal":"Normal",
+  "fast":"Fast",
+
+  "small":"Small",
+  "medium":"Medium",
+  "large":"Large",
+
+  "silence":"Silence",
+
+  "highland":"Elyndor highlands",
+  "sunset":"Orwyn sunset",
+  "mountain":"Thaldoren mountains",
+  "cave":"Fungalith cave",
+
+
+  "atk":"Attack",
+  "mat":"Magic attack",
+  "def":"Defense",
+  "mdf":"Magic defense",
+  "spd":"Speed",
+  "acc":"Accuracy",
+
+
+  "courage":"Brave",
+  "wisdom":"Headed",
+  "power":"Impulsive",
+
+
+  "classs":"Class",
+  "racee":"Race",
+  "nature":"Nature",
+
+
+
+
+  "items":"Items",
+  "money":"Doubloons",
+
+
+
+  "quests":"Chronicles"
+}

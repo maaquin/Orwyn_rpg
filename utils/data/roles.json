@@ -1,0 +1,58 @@
+[
+  {
+    "nombre": "hermit",
+    "nombre_es": "hermitaño",
+    "descripcion": "Clase equilibrada. Entrenados en la supervivencia y la adaptación. No destacan en nada, pero tampoco tienen debilidades claras.",
+    "stats_base": {
+      "ataque": 10,
+      "ataque_magico": 10,
+      "defensa": 10,
+      "defensa_magica": 10,
+      "velocidad": 10,
+      "accuracy": 10,
+      "vida": 100
+    }
+  },
+  {
+    "nombre": "wizard",
+    "nombre_es": "hechicero",
+    "descripcion": "Maestro de los secretos arcanos. Capaz de invocar poderosas magias ofensivas y defensivas, aunque frágil en el combate físico.",
+    "stats_base": {
+      "ataque": 6,
+      "ataque_magico": 15,
+      "defensa": 6,
+      "defensa_magica": 14,
+      "velocidad": 9,
+      "accuracy": 12,
+      "vida": 85
+    }
+  },
+  {
+    "nombre": "hunter",
+    "nombre_es": "cazador",
+    "descripcion": "Especialista en el combate rápido. Ágil y certero con ataques físicos, pero débil ante defensas sostenidas.",
+    "stats_base": {
+      "ataque": 14,
+      "ataque_magico": 9,
+      "defensa": 7,
+      "defensa_magica": 6,
+      "velocidad": 14,
+      "accuracy": 14,
+      "vida": 90
+    }
+  },
+  {
+    "nombre": "squire",
+    "nombre_es": "escudero",
+    "descripcion": "Guardián robusto. Ideal para resistir daños y proteger aliados, pero poco hábil con la magia o la velocidad.",
+    "stats_base": {
+      "ataque": 9,
+      "ataque_magico": 6,
+      "defensa": 15,
+      "defensa_magica": 14,
+      "velocidad": 6,
+      "accuracy": 7,
+      "vida": 115
+    }
+  }
+]

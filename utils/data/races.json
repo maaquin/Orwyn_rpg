@@ -1,0 +1,189 @@
+{
+  "human": {
+    "nombre": "Humano",
+    "descripcion": "Versátiles y adaptables, los humanos habitan casi todas las regiones del reino. Aunque no sobresalen en nada, tampoco tienen grandes debilidades.",
+    "afinidades": [
+      "equilibrio",
+      "resiliencia"
+    ],
+    "debilidades": [
+      "limitado potencial mágico"
+    ],
+    "naturalezas_probables": [
+      "curioso",
+      "valiente",
+      "ambicioso"
+    ],
+    "stats_base": {
+      "ataque": 10,
+      "ataque_magico": 10,
+      "defensa": 10,
+      "defensa_magica": 10,
+      "velocidad": 10,
+      "accuracy": 10,
+      "vida": 100
+    },
+    "ciudades_comunes": [
+      "Valdoren",
+      "Nymbria",
+      "Myrrwood",
+      "Drakmir",
+      "Silvareth"
+    ]
+  },
+  "elf": {
+    "nombre": "Elfo",
+    "descripcion": "Los elfos son conocidos por su longevidad, sabiduría ancestral y habilidades mágicas superiores. Viven en bosques y ciudades ocultas.",
+    "afinidades": [
+      "magia",
+      "percepción"
+    ],
+    "debilidades": [
+      "fragilidad física",
+      "orgullo"
+    ],
+    "naturalezas_probables": [
+      "sabio",
+      "reservado",
+      "arrogante"
+    ],
+    "stats_base": {
+      "ataque": 8,
+      "ataque_magico": 14,
+      "defensa": 8,
+      "defensa_magica": 12,
+      "velocidad": 12,
+      "accuracy": 14,
+      "vida": 90
+    },
+    "ciudades_comunes": [
+      "Valdoren",
+      "Silvareth",
+      "Myrrwood"
+    ]
+  },
+  "seafolk": {
+    "nombre": "Seafolk",
+    "descripcion": "Seres adaptados a la vida acuática. Su cultura gira en torno a los océanos, y su magia fluye como las mareas.",
+    "afinidades": [
+      "magia acuática",
+      "navegación"
+    ],
+    "debilidades": [
+      "desventaja en terrenos secos",
+      "vulnerabilidad al fuego"
+    ],
+    "naturalezas_probables": [
+      "sereno",
+      "curioso",
+      "volátil"
+    ],
+    "stats_base": {
+      "ataque": 9,
+      "ataque_magico": 13,
+      "defensa": 9,
+      "defensa_magica": 11,
+      "velocidad": 11,
+      "accuracy": 12,
+      "vida": 95
+    },
+    "ciudades_comunes": [
+      "Valdoren",
+      "Nymbria"
+    ]
+  },
+  "warewolf": {
+    "nombre": "Warewolf",
+    "descripcion": "Seres humanoides con rasgos felinos: agudos sentidos, gran agilidad y una cultura nómada basada en la caza y la luna. Se mueven con sigilo y atacan con precisión.",
+    "afinidades": [
+      "sigilo",
+      "percepción",
+      "reflejos"
+    ],
+    "debilidades": [
+      "impacientes",
+      "desconfiados"
+    ],
+    "naturalezas_probables": [
+      "instintivo",
+      "silencioso",
+      "alerta"
+    ],
+    "stats_base": {
+      "ataque": 11,
+      "ataque_magico": 6,
+      "defensa": 8,
+      "defensa_magica": 6,
+      "velocidad": 14,
+      "accuracy": 9,
+      "vida": 90
+    },
+    "ciudades_comunes": [
+      "Valdoren",
+      "Myrrwood",
+      "Nymbria"
+    ]
+  },
+  "dwarf": {
+    "nombre": "Dwarf",
+    "descripcion": "Fuertes y resistentes, los enanos son famosos por sus forjas, sus minas y su testarudez. Pueden soportar las peores condiciones.",
+    "afinidades": [
+      "resistencia",
+      "forja"
+    ],
+    "debilidades": [
+      "baja velocidad",
+      "desconfianza mágica"
+    ],
+    "naturalezas_probables": [
+      "terco",
+      "disciplinado",
+      "leal"
+    ],
+    "stats_base": {
+      "ataque": 13,
+      "ataque_magico": 6,
+      "defensa": 14,
+      "defensa_magica": 8,
+      "velocidad": 7,
+      "accuracy": 7,
+      "vida": 120
+    },
+    "ciudades_comunes": [
+      "Valdoren",
+      "Drakmir",
+      "Nymbria"
+    ]
+  },
+  "sprite": {
+    "nombre": "Sprite",
+    "descripcion": "Espíritus naturales en forma física. Son criaturas mágicas extremadamente raras, con habilidades que dependen del entorno.",
+    "afinidades": [
+      "magia elemental",
+      "camuflaje"
+    ],
+    "debilidades": [
+      "dependencia ambiental",
+      "confusión social"
+    ],
+    "naturalezas_probables": [
+      "etéreo",
+      "misterioso",
+      "soñador"
+    ],
+    "stats_base": {
+      "ataque": 7,
+      "ataque_magico": 14,
+      "defensa": 6,
+      "defensa_magica": 12,
+      "velocidad": 13,
+      "accuracy": 10,
+      "vida": 80
+    },
+    "ciudades_comunes": [
+      "Valdoren",
+      "Silvareth",
+      "Myrrwood"
+    ]
+  }
+}
