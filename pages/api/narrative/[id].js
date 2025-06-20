@@ -8,11 +8,11 @@ export default async function handler(req, res) {
 
   if (req.method === 'GET') {
     try {
-      const GameSession = await GameSession.findOne({ playerId });
-      if (!GameSession) {
+      const session = await GameSession.findOne({ playerId });
+      if (!session) {
         return res.status(404).json({ message: 'Not found' });
       }
-      res.status(200).json(GameSession);
+      res.status(200).json(session);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Error interno' });

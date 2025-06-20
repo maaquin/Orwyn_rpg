@@ -60,7 +60,7 @@ export const mapaData = [
         coordinate: "2,2",
         descripcion: "Entrada a la mina abandonada de Miokonos. Antiguo complejo minero enano. Abandonado sin explicación. Aquí también nace el río Gonia",
         terrain: "montaña",
-        structure: ["Mina abandonada de Miokonos"]
+        structure: [{ name: "Mina abandonada de Miokonos", key: "abandoned_mine" }]
     },
     {
         coordinate: "3,2",
@@ -134,14 +134,36 @@ export const mapaData = [
         descripcion: "Fungarlith central. Setas gigantes. Brillo azul. El bosque Fungarlith en todo su esplendor. También se vislumbra el oeste del misterioso pueblo Myrrwood, hogar de duendes y gnomos.",
         city: "Myrrwood",
         terrain: "bosque de hongos y setas / ciudad / comuna",
-        structure: ["Restaurante La Sopa de Hongos", "Tienda de hierbas El Brote del Bosque", "Tienda de objetos rúnicos Hojas del Recuerdo"]
+        structure: [
+            {
+                name: "Restaurante La Sopa de Hongos",
+                key: "restaurant"
+            },
+            {
+                name: "Tienda de hierbas El Brote del Bosque",
+                key: "store"
+            },
+            {
+                name: "Tienda de objetos rúnicos Hojas del Recuerdo",
+                key: "store"
+            }
+        ]
     },
     {
         coordinate: "7,3",
         descripcion: "Entrda del bosque Fungarlith en el sur. Este del pueblo Myrrwood. Casas seta. Puentes vivos.",
         city: "Myrrwood",
         terrain: "bosque de hongos y setas / ciudad / comuna",
-        structure: ["Centro de Sanación de los Espíritus", "Casa Comunal del Bosque"]
+        structure: [
+            {
+                name: "Centro de Sanación de los Espíritus",
+                key: "healing_center"
+            },
+            {
+                name: "Casa Comunal del Bosque",
+                key: "community_center"
+            }
+        ]
     },
     {
         coordinate: "8,3",
@@ -157,7 +179,7 @@ export const mapaData = [
         coordinate: "10,3",
         descripcion: "Abismo ardiente dentro del Monte Ardak. Custodiado por salamandras ígneas que protegen un antiguo corazón de fuego.",
         terrain: "planicie rocosa / volcán",
-        structure: ["Abismo Ardak"]
+        structure: [{ name: "Abismo Ardak", key: "temple_fire" }]
     },
 
 
@@ -166,20 +188,46 @@ export const mapaData = [
         descripcion: "Ciudadela de Drakmir. Túneles secretos y forjas antiguas.",
         city: "Drakmir",
         terrain: "desierto / ciudad / comercial",
-        structure: ["Taberna La Arena y el Acero", "Tienda general Ojos del Desierto", "Posada La Sombra del Sol", "Mercado de Especias"]
+        structure: [
+            {
+                name: "Taberna La Arena y el Acero",
+                key: "tavern"
+            },
+            {
+                name: "Tienda general Ojos del Desierto",
+                key: "store"
+            },
+            {
+                name: "Posada La Sombra del Sol",
+                key: "inn"
+            },
+            {
+                name: "Mercado de Especias",
+                key: "market"
+            }
+        ]
     },
     {
         coordinate: "2,4",
         descripcion: "Palacio real de Drakmir. Excavado en piedra roja. Hogar del los líderes enanos y secretos de sangre.",
         city: "Drakmir",
         terrain: "desierto / ciudad / capitolio",
-        structure: ["Palacio de Arena Rojiza", "Consejo de las Dunas"]
+        structure: [
+            {
+                name: "Palacio de Arena Rojiza",
+                key: "palace"
+            },
+            {
+                name: "Consejo de las Dunas",
+                key: "palace"
+            }
+        ]
     },
     {
         coordinate: "3,4",
         descripcion: "Puente de Drakmir. Puente de piedra milenario que cruza el río Erial entre el desierto de Thar-Zuun y la planicie de Elyndor",
         terrain: "desierto / río / planicie",
-        structure: ["Puente de las dunas"]
+        structure: [{ name: "Puente de las dunas", key: "cobblestone_bridge" }]
     },
     {
         coordinate: "4,4",
@@ -191,14 +239,53 @@ export const mapaData = [
         descripcion: "Ciudadela de Valdoren, capital del reino de Orwyn. Centro político, comercial y cultural. El río Gonia pasa entre casas de Valdoren, prohibido bañarse en el río",
         city: "Valdoren",
         terrain: "planicie / río / ciudad / ciudadela",
-        structure: ["Taberna El Dragón Dorado", "Posada La Media Luna", "Tienda de armas El Yunque de Brann", "Tienda de objetos mágicos El Reflejo de Arcana", "Tienda general El Bazar del Viajero"]
+        structure: [
+            {
+                name: "Taberna El Dragón Dorado",
+                key: "tavern"
+            },
+            {
+                name: "Posada La Media Luna",
+                key: "inn"
+            },
+            {
+                name: "Tienda de armas El Yunque de Brann",
+                key: "store"
+            },
+            {
+                name: "Tienda de objetos mágicos El Reflejo de Arcana",
+                key: "store"
+            },
+            {
+                name: "Tienda general El Bazar del Viajero",
+                key: "store"
+            }
+        ]
     },
     {
         coordinate: "6,4",
         descripcion: "Castillo real de Valdoren. hogar de la alta nobleza de Orwyn. Fortificada, gótica, con puentes de piedra y canales.",
         city: "Valdoren",
         terrain: "planicie / ciudad / castillo",
-        structure: ["Castillo de Valdoren", "Templo de la Luz Ancestral", "Plaza Central de los Héroes", "Cuartel de la Guardia Real"]
+        structure: [
+            {
+                name: "Castillo de Valdoren",
+                key: "castle"
+            },
+            {
+                name: "Templo de la Luz Ancestral",
+                key: "temple"
+            },
+            {
+                name: "Plaza Central de los Héroes",
+                key: "plaza"
+            },
+            {
+                name: "Cuartel de la Guardia Real",
+                key: "barracks"
+            }
+        ]
+
     },
     {
         coordinate: "7,4",
@@ -251,7 +338,7 @@ export const mapaData = [
         coordinate: "6,5",
         descripcion: "Puente de Valdoren. Puente de madera que conecta el corazón del reino con Valdoren, cruzando el inicio del Lago Virell.",
         terrain: "planicie / lago",
-        structure: ["Puente del alba"]
+        structure: [{ name: "Puente del alba", key: "wooden_bridge" }]
     },
     {
         coordinate: "7,5",
@@ -309,7 +396,7 @@ export const mapaData = [
         coordinate: "7,6",
         descripcion: "Isla Viviente de Nareen. Solo aparece en luna llena. En el centro del Lago Virell. Se mueve lentamente y su superficie está cubierta de árboles.",
         terrain: "lago",
-        structure: ["Isla Viviente de Nareen"]
+        structure: [{ name: "Isla Viviente de Nareen", key: "island" }]
     },
     {
         coordinate: "8,6",
@@ -321,7 +408,17 @@ export const mapaData = [
         descripcion: "Sendero norte de Nymbria. Camino comercial costero. Área de cultivo del pueblo. Un Santuario tradicional Nymbrio ocupa el lugar.",
         city: "Nymbria",
         terrain: "planicie / ciudad / comercial",
-        structure: ["Santuario de las Mareas", "Gran Plaza Central", "Molino de la Plaza"]
+        structure: [
+            {
+                name: "Santuario de las Mareas",
+                key: "sanctuary"
+            },
+            {
+                name: "Gran Plaza Central",
+                key: "plaza"
+            }
+        ]
+
     },
     {
         coordinate: "10,6",
@@ -354,13 +451,18 @@ export const mapaData = [
         coordinate: "5,7",
         descripcion: "Entrada al santuario de Jade Raen. Oculto entre raíces gigantes en Altheria. Monumento antiguo con inscripciones élficas olvidadas.",
         terrain: "bosque",
-        structure: ["Santuario de Jade Rean"]
+        structure: [{ name: "Santuario de Jade Rean", key: "temple_wooden" }]
     },
     {
         coordinate: "6,7",
         descripcion: "Monolito de Sylvareth. Cumbre de una montaña dentro del bosque de Altheria. Monumento de piedra tallado en una lengua élfica ancestral ya olvidada. Resguarda un secreto vinculado al equilibrio del bosque.",
         terrain: "bosque / pico de montaña",
-        structure: ["Monolito de Sylvareth"]
+        structure: [
+            {
+                name: "Monolito de Sylvareth",
+                key: "monolith"
+            }
+        ]
     },
     {
         coordinate: "7,7",
@@ -377,13 +479,39 @@ export const mapaData = [
         descripcion: "Ciudadela de Nymbria. Pueblo anfibio costero. Habitantes con escamas iridiscentes. Construcciones rurales pesqueras.",
         city: "Nymbria",
         terrain: "planicie / lago / ciudad / portuario",
-        structure: ["Puerto de Nymbria", "Sector de Cultivos", "Barracas de los Pescadores"]
+        structure: [
+            {
+                name: "Puerto de Nymbria",
+                key: "port"
+            },
+            {
+                name: "Sector de Cultivos",
+                key: "farmland"
+            },
+            {
+                name: "Barracas de los Pescadores",
+                key: "fisher_barracks"
+            }
+        ]
     },
     {
         coordinate: "10,7",
         descripcion: "Borde oriental de Nymbria. Comercios con producto marítimo abunda en este macro mercado portual",
         terrain: "planicie / ciudad / comercial",
-        structure: ["Posada Brisa del Mar", "Taberna El Kraken Azul", "Tienda de armas Espadas del Acantilado"]
+        structure: [
+            {
+                name: "Posada Brisa del Mar",
+                key: "inn"
+            },
+            {
+                name: "Taberna El Kraken Azul",
+                key: "tavern"
+            },
+            {
+                name: "Tienda de armas Espadas del Acantilado",
+                key: "store"
+            }
+        ]
     },
 
 
@@ -422,20 +550,40 @@ export const mapaData = [
         descripcion: "Zona oriental de Sylvareth. Plataforma elevada con salida hacia el sendero del Monolito de Sylvareth. Raíces entrelazadas forman el inicio del ascenso. Ambiente sereno y espiritual.",
         city: "Sylvareth",
         terrain: "bosque / ciudad / ciudadela",
-        structure: ["Escuela de Magia Sylvana", "Casas residenciales élficas"]
+        structure: [
+            {
+                name: "Escuela de Magia Sylvana",
+                key: "magic_school"
+            },
+            {
+                name: "Casas residenciales élficas",
+                key: "residential_area"
+            }
+        ]
+
     },
     {
         coordinate: "8,8",
         descripcion: "Zona occidental de Sylvareth. Camino descendente hacia la salida del bosque de Altheria. Conecta con el puente de Valdoren, que lleva a la ciudad anfibia de Nymbria.",
         city: "Sylvareth",
         terrain: "bosque / ciudad / ciudadela",
-        structure: ["Plaza de los Cantos Antiguos", "Tienda de magia y hechicería Sir Lancelot"]
+        structure: [
+            {
+                name: "Plaza de los Cantos Antiguos",
+                key: "plaza"
+            },
+            {
+                name: "Tienda de magia y hechicería Sir Lancelot",
+                key: "store"
+            }
+        ]
+
     },
     {
         coordinate: "9,8",
         descripcion: "Puente de Valdoren. Puente de madera que conecta el corazón del reino con Valdoren, cruzando el inicio del Lago Virell. Al oeste el bosque élfico de Altheria y su poblado Sylvareth. Al este la ciudad anfibia de Nymbria.",
         terrain: "bosque / río / planicie",
-        structure: ["Puente del viejo sauce"]
+        structure: [{ name: "Puente del viejo sauce", key: "wooden_bridge" }]
     },
     {
         coordinate: "10,8",
@@ -453,7 +601,7 @@ export const mapaData = [
         coordinate: "2,9",
         descripcion: "Ruinas de Zepharos. Columnas fantasmales visibles al alba. Solo visibles al alba, entre las dunas de Thar-Zuun.",
         terrain: "desierto",
-        structure: ["Ruinas de Zepharos"]
+        structure: [{ name: "Ruinas de Zepharos", key: "temple_desert" }]
     },
     {
         coordinate: "3,9",
@@ -485,7 +633,21 @@ export const mapaData = [
         descripcion: "Ciudad élfica oculta. Sylvareth termina aquí. Límite del bosque de Altheria. Transición a la planicie de Elyndor.",
         city: "Sylvareth",
         terrain: "bosque / ciudad / acrópolis",
-        structure: ["Palacio Real", "Templo Lunar de Éleath", "Archivo de Runas y Hechizos"]
+        structure: [
+            {
+                name: "Palacio Real",
+                key: "palace"
+            },
+            {
+                name: "Templo Lunar de Éleath",
+                key: "temple"
+            },
+            {
+                name: "Archivo de Runas y Hechizos",
+                key: "archive"
+            }
+        ]
+
     },
     {
         coordinate: "9,9",

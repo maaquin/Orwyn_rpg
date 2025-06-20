@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useLLM } from '@/hooks/useLLM';
+import { responseMove } from './MoveTrue';
 
 export const ChatComponent = ({ contexto, dataGame, mapData, moves }) => {
   const [input, setInput] = useState('');
@@ -22,13 +23,26 @@ export const ChatComponent = ({ contexto, dataGame, mapData, moves }) => {
   }, [])
 
   useEffect(() => {
-    const moves = localStorage.getItem('moves')
-    const text = localStorage.getItem('actualGame')
+    const fetchSession = async () => {
+      const playerId = localStorage.getItem("playerId");
+      if (!playerId) return;
 
-    if (moves && text) {
-      setButtons(JSON.parse(moves));
-      setResponse(text);
-    }
+      try {
+        const res = await fetch(`/api/narrative/${playerId}`);
+        const data = await res.json();
+
+        if (res.ok) {
+          setResponse(data.currentText);
+          setButtons(data.options);
+        } else {
+          console.error("Not found", data.message);
+        }
+      } catch (err) {
+        console.error("Error", err);
+      }
+    };
+
+    fetchSession();
   }, [])
 
   useEffect(() => {
@@ -108,8 +122,13 @@ export const ChatComponent = ({ contexto, dataGame, mapData, moves }) => {
     setInput('');
   };
 
-  const handleOptionClick = (accion) => {
-    askLLM(`${contexto}\nAcción escogida: ${accion}`);
+  const handleOptionClick = (action) => {
+
+
+
+    responseMove(action.key);
+
+    askLLM(`${contexto}\nAcción escogida: ${action.message}`);
   }
 
   function fontSize() {
@@ -142,7 +161,7 @@ export const ChatComponent = ({ contexto, dataGame, mapData, moves }) => {
                   key={index}
                   onClick={() => handleOptionClick(btn)}
                 >
-                  {btn}
+                  {btn.message}
                 </button>
               </div>
             ))}

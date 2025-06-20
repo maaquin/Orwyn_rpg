@@ -1,7 +1,15 @@
 import { Sidebar } from './Sidebar';
 import { Text } from './Text';
 import { useEffect, useState, useRef } from 'react';
-import { getValdoren, getDrakmir, getMyrrwood, getNymbria, getSylvareth, mapaData, acciones } from '../../../utils/data';
+import { 
+  getValdoren, 
+  getDrakmir, 
+  getMyrrwood, 
+  getNymbria, 
+  getSylvareth, 
+  mapaData, 
+  actions 
+} from '../../../utils/data';
 
 const cities = {
   valdoren: getValdoren,
@@ -32,17 +40,15 @@ export const Game = () => {
           setDataGame(data);
           fetchMapAndCity(data.location);
         } else {
-          console.error("No se pudo cargar el jugador:", data.message);
+          console.error("Not found", data.message);
         }
       } catch (err) {
-        console.error("Error al obtener jugador:", err);
+        console.error("Error", err);
       }
     };
 
     fetchPlayer();
   }, []);
-
-  console.log(dataGame)
 
   useEffect(() => {
     const settings2 = localStorage.getItem('settings');
@@ -60,8 +66,9 @@ export const Game = () => {
     }
   }, [settings])
 
-  function getMoves(categoria, estructuras) {
-    const accionesCategoria = acciones[categoria];
+  function getMoves(categoria, atribute) {
+
+    const accionesCategoria = actions[categoria];
 
     if (!accionesCategoria) {
       throw new Error(`Categoría "${categoria}" no encontrada.`);
@@ -71,7 +78,7 @@ export const Game = () => {
 
     for (const [clave, entrada] of Object.entries(accionesCategoria)) {
       if (typeof entrada === "function") {
-        const frases = entrada(estructuras);
+        const frases = entrada(atribute);
         resultado[clave] = frases;
       } else if (Array.isArray(entrada)) {
         resultado[clave] = entrada[Math.floor(Math.random() * entrada.length)];
@@ -79,7 +86,6 @@ export const Game = () => {
         console.warn(`Entrada inesperada en acciones["${categoria}"]["${clave}"]`);
       }
     }
-
     return resultado;
   }
 

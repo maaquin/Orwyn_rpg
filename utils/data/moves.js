@@ -1,19 +1,71 @@
-export const acciones = {
+export const actions = {
     terreno: {
-        norte: ["caminar al norte", "avanzar hacia el norte", "explorar hacia el norte", "andar en dirección norte"],
-        sur: ["caminar al sur", "avanzar hacia el sur", "explorar hacia el sur", "andar en dirección sur"],
-        este: ["caminar al este", "avanzar hacia el este", "explorar hacia el este", "andar en dirección este"],
-        oeste: ["caminar al oeste", "avanzar hacia el oeste", "explorar hacia el oeste", "andar en dirección oeste"],
-        interactuar: ["interactuar con el entorno", "analizar el entorno", "examinar los alrededores", "mirar a tu alrededor"]
+        north: [
+            { message: "caminar al norte", key: "north" },
+            { message: "avanzar hacia el norte", key: "north" },
+            { message: "explorar hacia el norte", key: "north" },
+            { message: "andar en dirección norte", key: "north" }
+        ],
+
+        south: [
+            { message: "caminar al sur", key: "south" },
+            { message: "avanzar hacia el sur", key: "south" },
+            { message: "explorar hacia el sur", key: "south" },
+            { message: "andar en dirección sur", key: "south" }
+        ],
+
+        east: [
+            { message: "caminar al este", key: "east" },
+            { message: "avanzar hacia el este", key: "east" },
+            { message: "explorar hacia el este", key: "east" },
+            { message: "andar en dirección este", key: "east" }
+        ],
+
+        west: [
+            { message: "caminar al oeste", key: "west" },
+            { message: "avanzar hacia el oeste", key: "west" },
+            { message: "explorar hacia el oeste", key: "west" },
+            { message: "andar en dirección oeste", key: "west" }
+        ],
+
+        interact: [
+            { message: "interactuar con el entorno", key: "interact" },
+            { message: "analizar el entorno", key: "interact" },
+            { message: "examinar los alrededores", key: "interact" },
+            { message: "mirar a tu alrededor", key: "interact" }
+        ]
     },
     combate: {
-        ataqueRapido: ["ataque rápido", "golpe veloz", "ataque relámpago", "asestar un golpe ligero"],
-        ataqueCargado: ["ataque cargado", "golpe poderoso", "ataque fuerte", "descargar energía en un golpe"],
-        defenderse: ["defenderse", "bloquear", "prepararse para recibir daño", "cubrirse"],
-        huir: ["huir", "escapar", "salir corriendo", "retirarse"]
+        quick: [
+            { message: "ataque rápido", key: "quick" },
+            { message: "golpe veloz", key: "quick" },
+            { message: "ataque relámpago", key: "quick" },
+            { message: "asestar un golpe ligero", key: "quick" }
+        ],
+
+        strong: [
+            { message: "ataque cargado", key: "strong" },
+            { message: "golpe poderoso", key: "strong" },
+            { message: "ataque fuerte", key: "strong" },
+            { message: "descargar energía en un golpe", key: "strong" }
+        ],
+
+        defense: [
+            { message: "defenderse", key: "defense" },
+            { message: "bloquear", key: "defense" },
+            { message: "prepararse para recibir daño", key: "defense" },
+            { message: "cubrirse", key: "defense" }
+        ],
+
+        run: [
+            { message: "huir", key: "run" },
+            { message: "escapar", key: "run" },
+            { message: "salir corriendo", key: "run" },
+            { message: "retirarse", key: "run" }
+        ]
     },
     ciudad: {
-        entrarEstructura: (estructuras) => {
+        enter: (estructuras) => {
             if (!estructuras || estructuras.length === 0) return [];
 
             const plantillas = [
@@ -24,22 +76,80 @@ export const acciones = {
                 "ingresar a ___"
             ];
 
+
             return estructuras.map(estructura => {
                 const plantillaAleatoria = plantillas[Math.floor(Math.random() * plantillas.length)];
-                return plantillaAleatoria.replace("___", estructura);
+                return {
+                    message: plantillaAleatoria.replace("___", estructura.name),
+                    key: `enter_${estructura.key}`
+                }
             });
         },
-        caminarCiudad: ["caminar al otro sector de la ciudad", "cambiar de zona de la ciudad", "pasar al sector opuesto de la ciudad"],
-        salirCiudad: ["salir de la ciudad", "abandonar la ciudad", "irse de la ciudad", "caminar hacia las afueras"]
+
+        walk: [
+            { message: "caminar al otro sector de la ciudad", key: "walk" },
+            { message: "cambiar de zona de la ciudad", key: "walk" },
+            { message: "pasar al sector opuesto de la ciudad", key: "walk" }
+        ],
+
+        out: [
+            { message: "salir de la ciudad", key: "out" },
+            { message: "abandonar la ciudad", key: "out" },
+            { message: "irse de la ciudad", key: "out" },
+            { message: "caminar hacia las afueras", key: "out" }
+        ]
     },
     estructura: {
-        salir: ["salir de la estructura", "abandonar el edificio", "dejar la construcción", "retirarse del lugar"],
-        observar: ["observar el entorno", "mirar alrededor", "examinar el lugar", "detallar lo que te rodea"],
-        hablarPrincipal: ["hablar con el NPC principal", "iniciar conversación con el personaje importante", "dirigirse al personaje principal"],
-        hablarSecundario: ["hablar con un cliente o visitante", "interactuar con otro personaje", "conversar con un visitante"]
+        out: [
+            { message: "salir de la estructura", key: "out" },
+            { message: "abandonar el edificio", key: "out" },
+            { message: "dejar la construcción", key: "out" },
+            { message: "retirarse del lugar", key: "out" }
+        ],
+
+        see: [
+            { message: "observar el entorno", key: "see" },
+            { message: "mirar alrededor", key: "see" },
+            { message: "examinar el lugar", key: "see" },
+            { message: "detallar lo que te rodea", key: "see" }
+        ],
+
+        principal: (npc) => {
+            if (!npc) return [];
+
+            const plantillas = [
+                "hablar con ___",
+                "conversar con ___",
+                "dirigirse a ___"
+            ];
+
+
+            const plantillaAleatoria = plantillas[Math.floor(Math.random() * plantillas.length)];
+            return {
+                    message: plantillaAleatoria.replace("___", npc),
+                    key: 'talk'
+                }
+        },
+
+        talk: [
+            { message: "hablar con alguien", key: "talk" },
+            { message: "interactuar con alguien", key: "talk" },
+            { message: "conversar con un alguien", key: "talk" }
+        ]
     },
     npc: {
-        rumores: ["preguntar por rumores", "indagar por chismes", "averiguar noticias", "curiosear información"],
-        irse: ["irse", "marcharse", "abandonar la conversación", "dar media vuelta"]
+        talk: [
+            { message: "preguntar por rumores", key: "talk" },
+            { message: "indagar por chismes", key: "talk" },
+            { message: "averiguar noticias", key: "talk" },
+            { message: "curiosear información", key: "talk" }
+        ],
+
+        bye: [
+            { message: "irse", key: "bye" },
+            { message: "marcharse", key: "bye" },
+            { message: "abandonar la conversación", key: "bye" },
+            { message: "dar media vuelta", key: "bye" }
+        ]
     }
 };
