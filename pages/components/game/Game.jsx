@@ -20,13 +20,29 @@ export const Game = () => {
   const videoRef = useRef(null);
 
   useEffect(() => {
-    const data = localStorage.getItem("partida");
-    if (data) {
-      const parsed = JSON.parse(data);
-      setDataGame(parsed);
-      fetchMapAndCity(parsed.location);
-    }
+    const fetchPlayer = async () => {
+      const playerId = localStorage.getItem("playerId");
+      if (!playerId) return;
+
+      try {
+        const res = await fetch(`/api/player/${playerId}`);
+        const data = await res.json();
+
+        if (res.ok) {
+          setDataGame(data);
+          fetchMapAndCity(data.location);
+        } else {
+          console.error("No se pudo cargar el jugador:", data.message);
+        }
+      } catch (err) {
+        console.error("Error al obtener jugador:", err);
+      }
+    };
+
+    fetchPlayer();
   }, []);
+
+  console.log(dataGame)
 
   useEffect(() => {
     const settings2 = localStorage.getItem('settings');
@@ -110,7 +126,9 @@ export const Game = () => {
         <div className="overlay-fade-onload" />
       )}
 
-      <Sidebar />
+      <Sidebar
+        data={dataGame}
+      />
       <div className='game'>
         <Text
           dataGame={dataGame}

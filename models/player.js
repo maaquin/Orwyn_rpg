@@ -10,18 +10,23 @@ const StatsSchema = new mongoose.Schema({
   health: { type: Number, default: 0 },
 }, { _id: false });
 
+const ParentSchema = new mongoose.Schema({
+  name: { type: String, default: "" },
+  profession: { type: String, default: "" },
+}, { _id: false });
+
 const ParentsSchema = new mongoose.Schema({
-  father: { type: String, default: "" },
-  mother: { type: String, default: "" }
+  father: { type: ParentSchema, default: () => ({}) },
+  mother: { type: ParentSchema, default: () => ({}) }
 }, { _id: false });
 
 const PlayerDataSchema = new mongoose.Schema({
   hometown: { type: String, default: "" },
-  money: { type: String, default: "" },
+  money: { type: Number, default: 0 },
   status: { type: String, default: "" },
   nature: { type: String, default: "" },
   name: { type: String, default: "" },
-  hp: { type: String, default: "0" },
+  hp: { type: Number, default: 0 },
   parents: { type: ParentsSchema, default: () => ({}) },
   race: { type: String, default: "" },
   class: { type: String, default: "" },
@@ -56,5 +61,9 @@ const PlayerSchema = new mongoose.Schema({
     default: () => ({})
   }
 });
+
+if (mongoose.models.Player) {
+  delete mongoose.models.Player;
+}
 
 export default mongoose.models.Player || mongoose.model('Player', PlayerSchema);

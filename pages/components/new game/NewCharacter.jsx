@@ -152,7 +152,28 @@ export const NewCharacter = () => {
         navigate.push('/');
     }
 
-    const handleSubmit = (e) => {
+    const startGame = async ({ defaultData }) => {
+        try {
+            const res = await fetch('/api/player/create', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(defaultData),
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                localStorage.setItem('playerId', data.playerId);
+                console.log("Jugador creado con ID:", data.playerId);
+            } else {
+                console.error("Fallo al crear jugador:", data.message);
+            }
+        } catch (err) {
+            console.error("Error al crear jugador:", err);
+        }
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
@@ -177,7 +198,8 @@ export const NewCharacter = () => {
             };
 
             localStorage.removeItem("llm_iniciado");
-            localStorage.setItem('partida', JSON.stringify(defaultData));
+            await startGame({ defaultData });
+            
             navigate.push('/orwyn-game');
         } catch (error) {
             console.error("Error al crear personaje:", error);

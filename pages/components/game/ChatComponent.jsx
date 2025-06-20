@@ -44,8 +44,6 @@ export const ChatComponent = ({ contexto, dataGame, mapData, moves }) => {
         const valor = acciones[clave];
         opciones.push(...(Array.isArray(valor) ? valor : [valor]));
       }
-
-      localStorage.setItem('moves', JSON.stringify(opciones));
       setButtons(opciones);
     }
   }, [dataGame, mapData, loading])
@@ -54,12 +52,28 @@ export const ChatComponent = ({ contexto, dataGame, mapData, moves }) => {
     if (history && lastMessage && lastMessage.role === 'assistant') {
       try {
         setResponse(lastMessage.content);
-        localStorage.setItem('actualGame', lastMessage.content);
       } catch (e) {
         console.error("Error al parsear respuesta:", e);
       }
     }
   }, [history]);
+
+  useEffect(() => {
+
+    if (!dataGame) return;
+
+    fetch(`/api/narrative/${dataGame._id}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        currentText: response || '',
+        options: buttons
+      })
+    }).catch(console.error);
+
+  }, [buttons, response]);
+
+
 
   // Mensaje inicial automático
   useEffect(() => {

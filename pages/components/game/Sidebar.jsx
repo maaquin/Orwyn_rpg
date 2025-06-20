@@ -2,17 +2,14 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from "react";
 import { DataPlayer } from './DataPlayer';
 
-export const Sidebar = () => {
+export const Sidebar = ({ data}) => {
     const [dataGame, setData] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
-        const data = localStorage.getItem("partida");
-        if (data) {
-            setData(JSON.parse(data));
-        }
-    }, []);
+            setData(data);
+    }, [data]);
 
     if (!dataGame || !dataGame.location) return null;
 
