@@ -145,7 +145,7 @@ export const mapaData = [
             },
             {
                 name: "Tienda de objetos rúnicos Hojas del Recuerdo",
-                key: "store"
+                key: "magic_store"
             }
         ]
     },
@@ -225,7 +225,7 @@ export const mapaData = [
     },
     {
         coordinate: "3,4",
-        descripcion: "Puente de Drakmir. Puente de piedra milenario que cruza el río Erial entre el desierto de Thar-Zuun y la planicie de Elyndor",
+        descripcion: "Puente de Drakmir. Puente de piedra milenario que cruza el río Erial entre el desierto de Thar-Zuun y la planicie de Elyndor. Al oeste del puente se alcanza a ver la entrada de Drakmir",
         terrain: "desierto / río / planicie",
         structure: [{ name: "Puente de las dunas", key: "cobblestone_bridge" }]
     },
@@ -250,11 +250,11 @@ export const mapaData = [
             },
             {
                 name: "Tienda de armas El Yunque de Brann",
-                key: "store"
+                key: "weapon_store"
             },
             {
                 name: "Tienda de objetos mágicos El Reflejo de Arcana",
-                key: "store"
+                key: "magic_store"
             },
             {
                 name: "Tienda general El Bazar del Viajero",
@@ -491,6 +491,10 @@ export const mapaData = [
             {
                 name: "Barracas de los Pescadores",
                 key: "fisher_barracks"
+            },
+            {
+                name: "Molino de la Plaza",
+                key: "windmill"
             }
         ]
     },
@@ -498,6 +502,7 @@ export const mapaData = [
         coordinate: "10,7",
         descripcion: "Borde oriental de Nymbria. Comercios con producto marítimo abunda en este macro mercado portual",
         terrain: "planicie / ciudad / comercial",
+        city: "Nymbria",
         structure: [
             {
                 name: "Posada Brisa del Mar",

@@ -101,5 +101,10 @@
 
 
 
-  "quests":"Chronicles"
+  "quests":"Chronicles",
+
+
+
+  "talk":"Talk",
+  "ask_player":"Enter your dialogue..."
 }

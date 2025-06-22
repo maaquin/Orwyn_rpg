@@ -29,7 +29,7 @@ export const Options = () => {
 
         if (!settingstwo) {
             const settingsNew = {
-                textSpeed: 'normal',
+                textSpeed: '50',
                 readingMode: 'inmersive',
                 fontSize: 'medium',
                 musicVolume: 'mid',
@@ -107,9 +107,9 @@ export const Options = () => {
                             <div className="option-row">
                                 <span>{t('text_speed')}</span>
                                 <select value={settings.textSpeed} onChange={(e) => handleChange('textSpeed', e.target.value)}>
-                                    <option value="slow">{t('slow')}</option>
-                                    <option value="normal">{t('normal')}</option>
-                                    <option value="fast">{t('fast')}</option>
+                                    <option value="20">{t('slow')}</option>
+                                    <option value="50">{t('normal')}</option>
+                                    <option value="70">{t('fast')}</option>
                                 </select>
                             </div>
 

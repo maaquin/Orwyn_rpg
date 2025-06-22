@@ -24,6 +24,7 @@ const PlayerDataSchema = new mongoose.Schema({
   hometown: { type: String, default: "" },
   money: { type: Number, default: 0 },
   status: { type: String, default: "" },
+  structure: { type: String, default: "" },
   nature: { type: String, default: "" },
   name: { type: String, default: "" },
   hp: { type: Number, default: 0 },

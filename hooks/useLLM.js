@@ -23,6 +23,11 @@ const systemMessage = {
         15. Lee tu escena como si fueras el jugador. Si hay más de una oración que no afecta directamente lo que el personaje ve, escucha o experimenta, elimínala.
         16. Nunca incluyas pensamientos complejos, motivaciones internas o intenciones del jugador. El jugador decide qué hacer, tú solo describes lo que ocurre.
         17. Si el jugador entra a una estructura (tienda, taberna, templo, casa, etc.), describe únicamente el interior de esa estructura. No narres el camino hacia ella ni elementos exteriores, a menos que la acción anterior lo justifique.
+        18. Cuando el jugador le hable a un NPC, responde solo con el diálogo de ese personaje, poniéndote en su lugar. No generes narración, contexto, ni descripciones. Solo responde como si fueras el NPC.
+            Los diálogos del jugador se reciben el siguiente formato:
+            Inicio diálogo jugador: (Diálogo del jugador) Fin diálogo jugador
+            Interpreta que el jugador está hablando directamente y responde solo como el NPC en un diálogo coherente.
+            El jugador no está describiendo acciones, está diciendo frases. No asumas movimiento ni narrativa adicional.
         `
 };
 
@@ -39,7 +44,13 @@ export function useLLM() {
 
         const recentHistory = history.slice(-1);
 
-        const messagesToSend = [systemMessage, newMessage];
+        const lastMessage = {
+            role: 'context',
+            content: `este fue el último escenario en que estuvo el jugador.
+            continúa la historia partiendo de aquí: ${recentHistory}`
+        }
+
+        const messagesToSend = [systemMessage, newMessage, lastMessage];
 
         try {
             const res = await fetch('/api/llm', {

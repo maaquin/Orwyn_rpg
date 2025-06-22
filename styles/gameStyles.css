@@ -94,7 +94,7 @@
 
 .separator-moves-text {
     background-color: #8a7b7b;
-    height: 5px;
+    height: 3px;
     width: 90%;
 }
 
@@ -116,6 +116,11 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
     padding: 35px;
+    transition: all 0.4s;
+}
+
+.moves-text-rpg-game.ocult {
+    opacity: 0;
 }
 
 .moves-text-rpg-game button {
@@ -126,6 +131,32 @@
 }
 
 .moves-text-rpg-game button:hover {
+    text-decoration: underline;
+}
+
+.player_ask_to_npc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.player_ask_to_npc input {
+    font-size: 1.2rem;
+    font-family: 'Lora', serif;
+    padding: 1px 7px;
+    border: 2px solid #8a7b7b;
+    border-radius: 10px;
+}
+
+.player_ask_to_npc button {
+    background-color: transparent;
+    font-size: 1.2rem;
+    padding: 0;
+    margin-left: 5px;
+}
+
+.player_ask_to_npc button:hover {
     text-decoration: underline;
 }
 

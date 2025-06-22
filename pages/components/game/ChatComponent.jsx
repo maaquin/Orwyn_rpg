@@ -3,13 +3,17 @@
 import { useState, useEffect } from 'react';
 import { useLLM } from '@/hooks/useLLM';
 import { responseMove } from './MoveTrue';
+import { useTranslation } from 'react-i18next';
 
-export const ChatComponent = ({ contexto, dataGame, mapData, moves }) => {
+export const ChatComponent = ({ contexto, dataGame, mapData, moves, cityData, handle }) => {
   const [input, setInput] = useState('');
   const [response, setResponse] = useState('');
   const [buttons, setButtons] = useState([]);
   const [data, setData] = useState('');
   const [settings, setSettings] = useState('');
+  const [npcs, setNpcs] = useState(null);
+  const [visibleTexto, setVisibleTexto] = useState('');
+  const { t } = useTranslation();
 
   const { askLLM, history, loading, error } = useLLM();
 
@@ -21,6 +25,28 @@ export const ChatComponent = ({ contexto, dataGame, mapData, moves }) => {
 
     setSettings(settingsNew)
   }, [])
+
+  useEffect(() => {
+    let i = -1;
+    setVisibleTexto(''); // limpiar cuando cambia el texto
+
+    const intervalo = setInterval(() => {
+      if (1 < response.length) {
+        setVisibleTexto(prev => prev + response.charAt(i));
+        i++;
+      } else {
+        clearInterval(intervalo);
+      }
+    }, settings.textSpeed);
+
+    return () => clearInterval(intervalo);
+  }, [response, settings]);
+
+  useEffect(() => {
+    if (cityData) {
+      setNpcs(cityData.npcs)
+    }
+  }, [cityData])
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -46,11 +72,29 @@ export const ChatComponent = ({ contexto, dataGame, mapData, moves }) => {
   }, [])
 
   useEffect(() => {
-    if (!dataGame && !mapData) return
+    if (!dataGame) return;
 
     setData(dataGame.playerData.parents)
+  }, [dataGame])
 
-    if (dataGame.playerData.status) {
+
+  useEffect(() => {
+    if (!dataGame || !mapData || !npcs) return;
+
+    console.log('holas')
+
+    if (dataGame.playerData.status == 'city_structure') {
+      const result = getNpcNamesByKey(npcs, dataGame.playerData.structure);
+
+      const acciones = moves(dataGame.playerData.status, result);
+      const opciones = [];
+
+      for (const clave in acciones) {
+        const valor = acciones[clave];
+        opciones.push(...(Array.isArray(valor) ? valor : [valor]));
+      }
+      setButtons(opciones);
+    } else if (dataGame.playerData.status) {
       const acciones = moves(dataGame.playerData.status, mapData.structures);
       const opciones = [];
 
@@ -88,9 +132,9 @@ export const ChatComponent = ({ contexto, dataGame, mapData, moves }) => {
   }, [buttons, response]);
 
 
-
   // Mensaje inicial automático
   useEffect(() => {
+
     const yaEnviado = localStorage.getItem("llm_iniciado");
 
     if (contexto && !yaEnviado) {
@@ -116,19 +160,25 @@ export const ChatComponent = ({ contexto, dataGame, mapData, moves }) => {
     }
   }, [contexto]);
 
+  function getNpcNamesByKey(npcs, targetKey) {
+    return Object.values(npcs)
+      .filter(npc => npc.key === targetKey)
+      .map(npc => npc.name);
+  }
+
   const handleAsk = () => {
     if (input.trim() === '') return;
-    askLLM(`${contexto}\nJugador pregunta: ${input}`);
+    askLLM(`${contexto}\n Inicio diálogo jugador: ${input}\n Fin diálogo jugador`);
     setInput('');
   };
 
-  const handleOptionClick = (action) => {
+  const handleOptionClick = async (action) => {
 
-
-
-    responseMove(action.key);
+    await responseMove({ key: action.key, dataGame });
 
     askLLM(`${contexto}\nAcción escogida: ${action.message}`);
+
+    handle(true);
   }
 
   function fontSize() {
@@ -149,14 +199,18 @@ export const ChatComponent = ({ contexto, dataGame, mapData, moves }) => {
   return (
     <div className="text-narrative-container">
       {error && <p className="text-red-500 mt-2">{error}</p>}
-      {response && buttons && (
+      {dataGame && response && buttons && (
         <div className="text-rpg-game" style={{ fontSize: `${fontSize()}rem` }}>
-          <p>{response}</p>
+          <p>{visibleTexto}</p>
           <div className='separator-moves-text' />
-          <div className='moves-text-rpg-game'>
+          <div className={response.length == visibleTexto.length ? 'moves-text-rpg-game' : 'moves-text-rpg-game ocult'}>
             {buttons.map((btn, index) => (
               <div className='option_move'>
-                <img src="images/ornaments/option_move.webp" className='separator-game-header' alt="option image" />
+                <img
+                  src="images/ornaments/option_move.webp"
+                  className='separator-game-header'
+                  alt="option image"
+                />
                 <button
                   key={index}
                   onClick={() => handleOptionClick(btn)}
@@ -166,6 +220,29 @@ export const ChatComponent = ({ contexto, dataGame, mapData, moves }) => {
               </div>
             ))}
           </div>
+          {dataGame.playerData.status === 'npc' && (
+            <div className='player_ask_to_npc'>
+              <input
+                type="text"
+                placeholder={t('ask_player')}
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+              />
+              <div className='option_move'>
+                <img
+                  src="images/ornaments/option_move.webp"
+                  className='separator-game-header'
+                  alt="option image"
+                />
+                <button
+                  disabled={!input.trim()}
+                  onClick={handleAsk}
+                >
+                  {t('talk')}
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -111,6 +111,7 @@ export const GeneratedData = (playerData) => {
     const nombresMadres = ['Lyra', 'Mira', 'Seris', 'Velia', 'Elowen', 'Nyra', 'Sylis', 'Thalira', 'Ysolde', 'Amarien'];
 
     const profesiones = profesionesPorCiudad[ciudad];
+    console.log('profesiones: ',profesiones)
     const shuffled = [...profesiones].sort(() => 0.5 - Math.random());
     const profesionPadre = shuffled[0];
     const profesionMadre = shuffled[1] || shuffled[0];
@@ -134,7 +135,7 @@ export const GeneratedData = (playerData) => {
     })();
 
     const status = (() => {
-        return 'ciudad';
+        return 'city';
     })();
 
     // Stats del personaje

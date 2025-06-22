@@ -1,14 +1,14 @@
 import { Sidebar } from './Sidebar';
 import { Text } from './Text';
 import { useEffect, useState, useRef } from 'react';
-import { 
-  getValdoren, 
-  getDrakmir, 
-  getMyrrwood, 
-  getNymbria, 
-  getSylvareth, 
-  mapaData, 
-  actions 
+import {
+  getValdoren,
+  getDrakmir,
+  getMyrrwood,
+  getNymbria,
+  getSylvareth,
+  mapaData,
+  actions
 } from '../../../utils/data';
 
 const cities = {
@@ -21,24 +21,29 @@ const cities = {
 
 export const Game = () => {
   const [dataGame, setDataGame] = useState(null);
+  const [id, setId] = useState(null);
   const [mapData, setMapData] = useState(null);
   const [cityData, setCityData] = useState(null);
   const [showFadeOnLoad, setShowFadeOnLoad] = useState(true);
   const [settings, setSettings] = useState(null);
+  const [handle, setHandle] = useState(false);
   const videoRef = useRef(null);
+
+  //console.log(dataGame)
 
   useEffect(() => {
     const fetchPlayer = async () => {
       const playerId = localStorage.getItem("playerId");
       if (!playerId) return;
 
+      setId(playerId)
       try {
         const res = await fetch(`/api/player/${playerId}`);
         const data = await res.json();
 
         if (res.ok) {
           setDataGame(data);
-          fetchMapAndCity(data.location);
+          await fetchMapAndCity(data.location);
         } else {
           console.error("Not found", data.message);
         }
@@ -48,7 +53,9 @@ export const Game = () => {
     };
 
     fetchPlayer();
-  }, []);
+
+    setHandle(false);
+  }, [handle]);
 
   useEffect(() => {
     const settings2 = localStorage.getItem('settings');
@@ -89,7 +96,7 @@ export const Game = () => {
     return resultado;
   }
 
-  const fetchMapAndCity = ([x, y]) => {
+  const fetchMapAndCity = async ([x, y]) => {
     const positions = {
       actual: [x, y],
       norte: [x, y - 1],
@@ -141,6 +148,7 @@ export const Game = () => {
           mapData={mapData}
           cityData={cityData}
           moves={getMoves}
+          handle={setHandle}
         />
       </div>
     </div>

@@ -1,5 +1,5 @@
 export const actions = {
-    terreno: {
+    field: {
         north: [
             { message: "caminar al norte", key: "north" },
             { message: "avanzar hacia el norte", key: "north" },
@@ -33,7 +33,28 @@ export const actions = {
             { message: "analizar el entorno", key: "interact" },
             { message: "examinar los alrededores", key: "interact" },
             { message: "mirar a tu alrededor", key: "interact" }
-        ]
+        ],
+
+        enter: (estructuras) => {
+            if (!estructuras || estructuras.length === 0) return [];
+
+            const plantillas = [
+                "entrar a ___",
+                "acceder a ___",
+                "dirigirte a ___",
+                "ir a ___",
+                "ingresar a ___"
+            ];
+
+
+            return estructuras.map(estructura => {
+                const plantillaAleatoria = plantillas[Math.floor(Math.random() * plantillas.length)];
+                return {
+                    message: plantillaAleatoria.replace("___", estructura.name),
+                    key: `${estructura.key}`
+                }
+            });
+        },
     },
     combate: {
         quick: [
@@ -64,7 +85,7 @@ export const actions = {
             { message: "retirarse", key: "run" }
         ]
     },
-    ciudad: {
+    city: {
         enter: (estructuras) => {
             if (!estructuras || estructuras.length === 0) return [];
 
@@ -81,7 +102,7 @@ export const actions = {
                 const plantillaAleatoria = plantillas[Math.floor(Math.random() * plantillas.length)];
                 return {
                     message: plantillaAleatoria.replace("___", estructura.name),
-                    key: `enter_${estructura.key}`
+                    key: `${estructura.key}`
                 }
             });
         },
@@ -99,12 +120,12 @@ export const actions = {
             { message: "caminar hacia las afueras", key: "out" }
         ]
     },
-    estructura: {
+    city_structure: {
         out: [
-            { message: "salir de la estructura", key: "out" },
-            { message: "abandonar el edificio", key: "out" },
-            { message: "dejar la construcción", key: "out" },
-            { message: "retirarse del lugar", key: "out" }
+            { message: "salir de la estructura", key: "out_structure" },
+            { message: "abandonar el edificio", key: "out_structure" },
+            { message: "dejar la construcción", key: "out_structure" },
+            { message: "retirarse del lugar", key: "out_structure" }
         ],
 
         see: [
@@ -114,8 +135,9 @@ export const actions = {
             { message: "detallar lo que te rodea", key: "see" }
         ],
 
-        principal: (npc) => {
-            if (!npc) return [];
+        principal: (npcs) => {
+            console.log('npcs: ',npcs)
+            if (!npcs) return [];
 
             const plantillas = [
                 "hablar con ___",
@@ -124,11 +146,13 @@ export const actions = {
             ];
 
 
-            const plantillaAleatoria = plantillas[Math.floor(Math.random() * plantillas.length)];
-            return {
+            return npcs.map(npc => {
+                const plantillaAleatoria = plantillas[Math.floor(Math.random() * plantillas.length)];
+                return {
                     message: plantillaAleatoria.replace("___", npc),
-                    key: 'talk'
+                    key: 'npc'
                 }
+            });
         },
 
         talk: [
@@ -139,17 +163,17 @@ export const actions = {
     },
     npc: {
         talk: [
-            { message: "preguntar por rumores", key: "talk" },
-            { message: "indagar por chismes", key: "talk" },
-            { message: "averiguar noticias", key: "talk" },
-            { message: "curiosear información", key: "talk" }
+            { message: "preguntar por rumores", key: "ask" },
+            { message: "indagar por chismes", key: "ask" },
+            { message: "averiguar noticias", key: "ask" },
+            { message: "curiosear información", key: "ask" }
         ],
 
         bye: [
             { message: "irse", key: "bye" },
-            { message: "marcharse", key: "bye" },
-            { message: "abandonar la conversación", key: "bye" },
-            { message: "dar media vuelta", key: "bye" }
+            { message: "marcharse del lugar", key: "bye" },
+            { message: "abandonar el edificio", key: "bye" },
+            { message: "salir a la ciudad", key: "bye" }
         ]
     }
 };

@@ -29,15 +29,15 @@ export function getValdoren() {
             ]
         },
         npcs: {
-            npc1: { name: "Thalric de Marwen", race: "Humano", profession: "Tabernero de El Dragón Dorado" },
-            npc2: { name: "Elira Sombraluz", race: "Elfa", profession: "Posadera en La Media Luna" },
-            npc3: { name: "Brann Martillero", race: "Dwarf", profession: "Herrero en El Yunque de Brann" },
-            npc4: { name: "Yareen Lunargema", race: "Warewolf", profession: "Encargada de El Reflejo de Arcana" },
-            npc5: { name: "Hobbin el Práctico", race: "Sprite", profession: "Dueño de El Bazar del Viajero" },
-            npc6: { name: "Sir Cedrick Halbrant", race: "Humano", profession: "Comandante del Cuartel de la Guardia Real" },
-            npc7: { name: "Hermana Lyseth", race: "Humana", profession: "Sacerdotisa del Templo de la Luz Ancestral" },
-            npc8: { name: "Kaelran Miraluz", race: "Elfo", profession: "Orador en la Plaza Central de los Héroes" },
-            npc9: { name: "Rey Aldemar IV", race: "Humano", profession: "Monarca en el Castillo de Valdoren" }
+            npc1: { name: "Thalric de Marwen", race: "Humano", profession: "Tabernero de El Dragón Dorado", key:"tavern" },
+            npc2: { name: "Elira Sombraluz", race: "Elfa", profession: "Posadera en La Media Luna", key:"inn" },
+            npc3: { name: "Brann Martillero", race: "Dwarf", profession: "Herrero en El Yunque de Brann", key:"weapon_store" },
+            npc4: { name: "Yareen Lunargema", race: "Warewolf", profession: "Encargada de El Reflejo de Arcana", key:"magic_store" },
+            npc5: { name: "Hobbin el Práctico", race: "Sprite", profession: "Dueño de El Bazar del Viajero", key:"store" },
+            npc6: { name: "Sir Cedrick Halbrant", race: "Humano", profession: "Comandante del Cuartel de la Guardia Real", key:"barracks" },
+            npc7: { name: "Hermana Lyseth", race: "Humana", profession: "Sacerdotisa del Templo de la Luz Ancestral", key:"temple" },
+            npc8: { name: "Kaelran Miraluz", race: "Elfo", profession: "Orador en la Plaza Central de los Héroes", key:"plaza" },
+            npc9: { name: "Rey Aldemar IV", race: "Humano", profession: "Monarca en el Castillo de Valdoren", key:"castle" }
         },
         features: [
             "Centro político, comercial y cultural",
@@ -76,12 +76,12 @@ export function getDrakmir() {
             ]
         },
         npcs: {
-            npc1: { name: "Erduin Silhaj", race: "Dwarf", profession: "Cantinero en La Arena y el Acero" },
-            npc2: { name: "Karessa Vientoseco", race: "Humana", profession: "Encargada de Ojos del Desierto" },
-            npc3: { name: "Omarz el Silente", race: "Humano", profession: "Posadero en La Sombra del Sol" },
-            npc4: { name: "Goran Rojacobre", race: "Dwarf", profession: "Especiero del Mercado de Especias" },
-            npc5: { name: "Selma de las Dunas", race: "Humana", profession: "Regente del Consejo de las Dunas" },
-            npc6: { name: "Tymbar Marpiedra", race: "Dwarf", profession: "Custodio del Palacio de Arena Rojiza" }
+            npc1: { name: "Erduin Silhaj", race: "Dwarf", profession: "Cantinero en La Arena y el Acero", key:"tavern" },
+            npc2: { name: "Karessa Vientoseco", race: "Humana", profession: "Encargada de Ojos del Desierto", key:"store" },
+            npc3: { name: "Omarz el Silente", race: "Humano", profession: "Posadero en La Sombra del Sol", key:"inn" },
+            npc4: { name: "Goran Rojacobre", race: "Dwarf", profession: "Especiero del Mercado de Especias", key:"market" },
+            npc5: { name: "Selma de las Dunas", race: "Humana", profession: "Regente del Consejo de las Dunas", key:"palace" },
+            npc6: { name: "Tymbar Marpiedra", race: "Dwarf", profession: "Custodio del Palacio de Arena Rojiza", key:"palace" }
         },
         features: [
             "Inspirada en la ciudad Gerudo de Ocarina of Time",
@@ -117,12 +117,12 @@ export function getMyrrwood() {
             ]
         },
         npcs: {
-            npc1: { name: "Eilindra Broteverde", race: "Warewolf", profession: "Herbolaria en El Brote del Bosque" },
-            npc2: { name: "Nalen Arcoluz", race: "Elfo", profession: "Tallador de runas en Hojas del Recuerdo" },
-            npc3: { name: "Toren Zarzal", race: "Warewolf", profession: "Chef de La Sopa de Hongos" },
-            npc4: { name: "Liriandel", race: "Sprite", profession: "Sanadora en el Centro de los Espíritus" },
-            npc5: { name: "Veyda Brisalenta", race: "Sprite", profession: "Guardiana de la Casa Comunal del Bosque" },
-            npc6: { name: "Therandel Musgoluz", race: "Warewolf", profession: "Sanador Anciano Maestro en Myrrwood" }
+            npc1: { name: "Eilindra Broteverde", race: "Warewolf", profession: "Herbolaria en El Brote del Bosque", key:"store" },
+            npc2: { name: "Nalen Arcoluz", race: "Elfo", profession: "Tallador de runas en Hojas del Recuerdo", key:"magic_store" },
+            npc3: { name: "Toren Zarzal", race: "Warewolf", profession: "Chef de La Sopa de Hongos", key:"restaurant" },
+            npc4: { name: "Liriandel", race: "Sprite", profession: "Sanadora en el Centro de los Espíritus", key:"healing_center" },
+            npc5: { name: "Veyda Brisalenta", race: "Sprite", profession: "Guardiana de la Casa Comunal del Bosque", key:"community_center" },
+            npc6: { name: "Therandel Musgoluz", race: "Warewolf", profession: "Sanador Anciano Maestro en Myrrwood", key:"store" }
         },
         features: [
             "Oculta en el denso bosque de Fungarlith",
@@ -165,17 +165,17 @@ export function getNymbria() {
             ]
         },
         npcs: {
-            npc1: { name: "Captain Narei", race: "Seafolk", profession: "Gobernadora y líder portuaria" },
-            npc2: { name: "Mirko Escamaquebrada", race: "Seafolk", profession: "Pescador jefe en las Barracas" },
-            npc3: { name: "Jorra Algaazul", race: "Seafolk", profession: "Cultivadora en el Sector de Cultivos" },
-            npc4: { name: "Varek Mareaoscura", race: "Humano", profession: "Tabernero de El Kraken Azul" },
-            npc5: { name: "Lenna Brisaviva", race: "Humana", profession: "Posadera en Brisa del Mar" },
-            npc6: { name: "Garran Rocafilo", race: "Dwarf", profession: "Armero en Espadas del Acantilado" },
-            npc7: { name: "Tarel Ondaluz", race: "Seafolk", profession: "Guardiana del Santuario de las Mareas" },
-            npc8: { name: "Jonkas el Curioso", race: "Warewolf", profession: "Vendedor ambulante en la Gran Plaza Central" },
-            npc9: { name: "Ebron Molinoalto", race: "Humano", profession: "Molenero del Molino de la Plaza" },
-            npc10: { name: "Maelor del Abismo Tranquilo", race: "Seafolk", profession: "Sabio del Santuario de las Mareas" },
-            npc11: { name: "Aerthyn la Que Respira", race: "Isla Viviente", profession: "Guardián ancestral del conocimiento del mar" }
+            npc1: { name: "Captain Narei", race: "Seafolk", profession: "Gobernadora y líder portuaria", key:"port" },
+            npc2: { name: "Mirko Escamaquebrada", race: "Seafolk", profession: "Pescador jefe en las Barracas", key:"port" },
+            npc3: { name: "Jorra Algaazul", race: "Seafolk", profession: "Cultivadora en el Sector de Cultivos", key:"farmland" },
+            npc4: { name: "Varek Mareaoscura", race: "Humano", profession: "Tabernero de El Kraken Azul", key:"tavern" },
+            npc5: { name: "Lenna Brisaviva", race: "Humana", profession: "Posadera en Brisa del Mar", key:"inn" },
+            npc6: { name: "Garran Rocafilo", race: "Dwarf", profession: "Armero en Espadas del Acantilado", key:"store" },
+            npc7: { name: "Tarel Ondaluz", race: "Seafolk", profession: "Guardiana del Santuario de las Mareas", key:"sanctuary" },
+            npc8: { name: "Jonkas el Curioso", race: "Warewolf", profession: "Vendedor ambulante en la Gran Plaza Central", key:"plaza" },
+            npc9: { name: "Ebron Molinoalto", race: "Humano", profession: "Molenero del Molino de la Plaza", key:"windmill" },
+            npc10: { name: "Maelor del Abismo Tranquilo", race: "Seafolk", profession: "Sabio del Santuario de las Mareas", key:"sanctuary" },
+            // npc11: { name: "Aerthyn la Que Respira", race: "Isla Viviente", profession: "Guardián ancestral del conocimiento del mar", key:"" }
         },
         features: [
             "Importante centro comercial marítimo",
@@ -216,12 +216,12 @@ export function getSylvareth() {
             ]
         },
         npcs: {
-            npc1: { name: "Aelirë Thandoriel", race: "Elfa", profession: "Sacerdotisa del Templo de Éleath" },
-            npc2: { name: "Thirion Lunargenta", race: "Elfo", profession: "Archivista del Archivo de Runas y Hechizos" },
-            npc3: { name: "Reina Selanwe", race: "Elfa", profession: "Monarca del Palacio Real" },
-            npc4: { name: "Sir Lancelot", race: "Humano", profession: "Dueño de la Tienda de Magia y Hechicería" },
-            npc5: { name: "Vanyra Cantoluz", race: "Elfa", profession: "Maestra de la Escuela de Magia Sylvana" },
-            npc6: { name: "Nymis de la Niebla", race: "Sprite", profession: "Místico en la Plaza de los Cantos Antiguos" }
+            npc1: { name: "Aelirë Thandoriel", race: "Elfa", profession: "Sacerdotisa del Templo de Éleath", key:"temple" },
+            npc2: { name: "Thirion Lunargenta", race: "Elfo", profession: "Archivista del Archivo de Runas y Hechizos", key:"archive" },
+            npc3: { name: "Reina Selanwe", race: "Elfa", profession: "Monarca del Palacio Real", key:"palace" },
+            npc4: { name: "Sir Lancelot", race: "Humano", profession: "Dueño de la Tienda de Magia y Hechicería", key:"store" },
+            npc5: { name: "Vanyra Cantoluz", race: "Elfa", profession: "Maestra de la Escuela de Magia Sylvana", key:"magic_school" },
+            npc6: { name: "Nymis de la Niebla", race: "Sprite", profession: "Místico en la Plaza de los Cantos Antiguos", key:"plaza" }
         },
         features: [
             "Inspirada en los elfos del Señor de los Anillos y los Minish de Zelda",
