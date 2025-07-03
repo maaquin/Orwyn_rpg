@@ -5,7 +5,7 @@ import { useLLM } from '@/hooks/useLLM';
 import { responseMove } from './MoveTrue';
 import { useTranslation } from 'react-i18next';
 
-export const ChatComponent = ({ contexto, dataGame, mapData, moves, cityData, handle }) => {
+export const ChatComponent = ({ contexto, dataGame, mapData, moves, cityData, handle, items }) => {
   const [input, setInput] = useState('');
   const [response, setResponse] = useState('');
   const [buttons, setButtons] = useState([]);
@@ -79,14 +79,19 @@ export const ChatComponent = ({ contexto, dataGame, mapData, moves, cityData, ha
 
 
   useEffect(() => {
-    if (!dataGame || !mapData || !npcs) return;
-
-    console.log('holas')
+    if (!dataGame || !mapData || !npcs || !items) return;
 
     if (dataGame.playerData.status == 'city_structure') {
-      const result = getNpcNamesByKey(npcs, dataGame.playerData.structure);
 
-      const acciones = moves(dataGame.playerData.status, result);
+      const npcsDisponibles = getNamesByKey(npcs, dataGame.playerData.structure);
+      const itemsDisponibles = getNamesByKeyAndCity(items, dataGame.playerData.structure, mapData.city);
+
+      const itemsNews = getRandomUniqueItems(itemsDisponibles, 3);
+
+      const acciones = moves('city_structure', {
+        principal: npcsDisponibles,
+        items: itemsNews
+      });
       const opciones = [];
 
       for (const clave in acciones) {
@@ -94,8 +99,27 @@ export const ChatComponent = ({ contexto, dataGame, mapData, moves, cityData, ha
         opciones.push(...(Array.isArray(valor) ? valor : [valor]));
       }
       setButtons(opciones);
+
+    } else if (dataGame.playerData.status == 'npc') {
+
+      const itemsDisponibles = Object.values(dataGame.inventory).map(object => object.name);
+
+      const acciones = moves('npc', {
+        items: itemsDisponibles
+      });
+      const opciones = [];
+
+      for (const clave in acciones) {
+        const valor = acciones[clave];
+        opciones.push(...(Array.isArray(valor) ? valor : [valor]));
+      }
+      setButtons(opciones);
+
     } else if (dataGame.playerData.status) {
-      const acciones = moves(dataGame.playerData.status, mapData.structures);
+
+      const acciones = moves(dataGame.playerData.status, {
+        enter: mapData.structures
+      });
       const opciones = [];
 
       for (const clave in acciones) {
@@ -160,10 +184,30 @@ export const ChatComponent = ({ contexto, dataGame, mapData, moves, cityData, ha
     }
   }, [contexto]);
 
-  function getNpcNamesByKey(npcs, targetKey) {
-    return Object.values(npcs)
-      .filter(npc => npc.key === targetKey)
-      .map(npc => npc.name);
+  function getNamesByKey(objects, targetKey) {
+    return Object.values(objects)
+      .filter(object => {
+        if (Array.isArray(object.key)) {
+          return object.key.includes(targetKey);
+        }
+        return object.key === targetKey;
+      })
+      .map(object => object.name);
+  }
+
+  function getNamesByKeyAndCity(objects, targetKey, targetCity) {
+    return Object.values(objects)
+      .filter(object => {
+        const keyMatch = Array.isArray(object.key) && object.key.includes(targetKey);
+        const cityMatch = Array.isArray(object.city) && object.city.includes(targetCity);
+        return keyMatch && cityMatch;
+      })
+      .map(object => object.name);
+  }
+
+  function getRandomUniqueItems(array, count) {
+    const shuffled = [...array].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, count);
   }
 
   const handleAsk = () => {
@@ -174,7 +218,8 @@ export const ChatComponent = ({ contexto, dataGame, mapData, moves, cityData, ha
 
   const handleOptionClick = async (action) => {
 
-    await responseMove({ key: action.key, dataGame });
+
+    await responseMove({ key: action.key, action: action.action || '', dataGame });
 
     askLLM(`${contexto}\nAcción escogida: ${action.message}`);
 
@@ -186,13 +231,13 @@ export const ChatComponent = ({ contexto, dataGame, mapData, moves, cityData, ha
 
     switch (settings.fontSize.toLowerCase()) {
       case 'small':
-        return 1;
+        return .9;
       case 'medium':
-        return 1.4;
+        return 1.2;
       case 'large':
-        return 1.8;
-      default:
         return 1.4;
+      default:
+        return 1.2;
     }
   }
 

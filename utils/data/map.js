@@ -514,7 +514,7 @@ export const mapaData = [
             },
             {
                 name: "Tienda de armas Espadas del Acantilado",
-                key: "store"
+                key: "weapon_store"
             }
         ]
     },
@@ -579,7 +579,7 @@ export const mapaData = [
             },
             {
                 name: "Tienda de magia y hechicería Sir Lancelot",
-                key: "store"
+                key: "magic_store"
             }
         ]
 

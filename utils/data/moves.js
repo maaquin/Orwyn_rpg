@@ -1,3 +1,10 @@
+import { itemsData } from "./items";
+
+function buscarItemPorNombre(obj, name) {
+  const entrada = Object.entries(obj).find(([clave, valor]) => valor.name === name);
+  return entrada ? { id: entrada[0], data: entrada[1] } : null;
+}
+
 export const actions = {
     field: {
         north: [
@@ -122,21 +129,13 @@ export const actions = {
     },
     city_structure: {
         out: [
-            { message: "salir de la estructura", key: "out_structure" },
-            { message: "abandonar el edificio", key: "out_structure" },
-            { message: "dejar la construcción", key: "out_structure" },
-            { message: "retirarse del lugar", key: "out_structure" }
-        ],
-
-        see: [
-            { message: "observar el entorno", key: "see" },
-            { message: "mirar alrededor", key: "see" },
-            { message: "examinar el lugar", key: "see" },
-            { message: "detallar lo que te rodea", key: "see" }
+            { message: "salir a la ciudad", key: "out_structure" },
+            { message: "regresar a la ciudad", key: "out_structure" },
+            { message: "salir", key: "out_structure" },
+            { message: "dejar el lugar", key: "out_structure" }
         ],
 
         principal: (npcs) => {
-            console.log('npcs: ',npcs)
             if (!npcs) return [];
 
             const plantillas = [
@@ -155,25 +154,52 @@ export const actions = {
             });
         },
 
-        talk: [
-            { message: "hablar con alguien", key: "talk" },
-            { message: "interactuar con alguien", key: "talk" },
-            { message: "conversar con un alguien", key: "talk" }
-        ]
+        items: (items) => {
+            if (!items) return [];
+
+            const plantillas = [
+                "Comprar: ___"
+            ];
+
+
+            return items.map(item => {
+                const plantillaAleatoria = plantillas[Math.floor(Math.random() * plantillas.length)];
+                const itemClave = buscarItemPorNombre(itemsData, item)
+
+                return {
+                    message: `${plantillaAleatoria.replace("___", item)} | ${itemClave.data.description} | ${itemClave.data.price} Doblones`,
+                    key: itemClave.id,
+                    action: 'add'
+                }
+            });
+        },
     },
     npc: {
-        talk: [
-            { message: "preguntar por rumores", key: "ask" },
-            { message: "indagar por chismes", key: "ask" },
-            { message: "averiguar noticias", key: "ask" },
-            { message: "curiosear información", key: "ask" }
-        ],
-
         bye: [
             { message: "irse", key: "bye" },
             { message: "marcharse del lugar", key: "bye" },
             { message: "abandonar el edificio", key: "bye" },
             { message: "salir a la ciudad", key: "bye" }
-        ]
+        ],
+
+        items: (items) => {
+            if (!items) return [];
+
+            const plantillas = [
+                "Vender: ___"
+            ];
+
+
+            return items.map(item => {
+                const plantillaAleatoria = plantillas[Math.floor(Math.random() * plantillas.length)];
+                const itemClave = buscarItemPorNombre(itemsData, item)
+
+                return {
+                    message: `${plantillaAleatoria.replace("___", item)} ${itemClave.data.price} Doblones`,
+                    key: itemClave.id,
+                    action: 'remove'
+                }
+            });
+        },
     }
 };

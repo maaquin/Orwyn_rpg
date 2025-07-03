@@ -111,7 +111,6 @@ export const GeneratedData = (playerData) => {
     const nombresMadres = ['Lyra', 'Mira', 'Seris', 'Velia', 'Elowen', 'Nyra', 'Sylis', 'Thalira', 'Ysolde', 'Amarien'];
 
     const profesiones = profesionesPorCiudad[ciudad];
-    console.log('profesiones: ',profesiones)
     const shuffled = [...profesiones].sort(() => 0.5 - Math.random());
     const profesionPadre = shuffled[0];
     const profesionMadre = shuffled[1] || shuffled[0];
@@ -126,12 +125,11 @@ export const GeneratedData = (playerData) => {
         profession: profesionMadre
     };
 
-    // Economía o dinero inicial y status (probabilidades)
+    // Economía o dinero inicial
     const money = (() => {
         const p = Math.random();
-        if (p < 0.1) return 302;
-        if (p < 0.7) return 56;
-        return 28;
+        if (p < 0.05) return 114;
+        return Math.floor(p * 30 + 15);
     })();
 
     const status = (() => {

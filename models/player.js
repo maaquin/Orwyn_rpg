@@ -35,13 +35,27 @@ const PlayerDataSchema = new mongoose.Schema({
   stats: { type: StatsSchema, default: () => ({}) }
 }, { _id: false });
 
+const Effect = new mongoose.Schema({
+  stat: { type: String, required: true},
+  value: { type: Number, required: true}
+}, { _id: false })
+
 const ItemSchema = new mongoose.Schema({
   id: { type: String, required: true },
   name: { type: String, required: true },
-  type: { type: String, default: "misc" },
+  img: { type: String, required: true },
+  description: { type: String, required: true },
+  price: { type: Number, default: 1 },
   quantity: { type: Number, default: 1 },
-  efect: { type: Number, default: 1 }
+  effect: { type: [Effect], default: [] },
+  type: { type: String, required: true }
 }, { _id: false });
+
+const Equipment = new mongoose.Schema({
+  leftHand: { type: String, default: '' },
+  rightHand: { type: String, default: '' },
+  armor: { type: String, default: '' }
+})
 
 const PlayerSchema = new mongoose.Schema({
   location: {
@@ -59,6 +73,10 @@ const PlayerSchema = new mongoose.Schema({
   },
   playerData: {
     type: PlayerDataSchema,
+    default: () => ({})
+  },
+  Equipment: {
+    type: Equipment,
     default: () => ({})
   }
 });

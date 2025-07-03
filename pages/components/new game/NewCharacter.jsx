@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
 import { GeneratedData } from "./GeneretedData";
 import { player } from "./player";
+import { itemsData } from "@/utils/data";
 
 // Modal de selección (imagen + label)
 const Modal = ({ isOpen, onClose, options, onSelect, grid }) => {
@@ -93,43 +94,58 @@ export const NewCharacter = () => {
     };
 
     function getObjetosIniciales(padreProfesion, madreProfesion) {
-        const objetos = [];
+        const objetos = new Map();
 
         const mapaObjetos = {
-            "Consejero": [{ id: "letter", name: "letter" }],
-            "Guardia": [{ id: "wooden_shield", name: "wooden_shield" }],
-            "Comerciante": [{ id: "map", name: "map" }],
-            "Hechicero": [{ id: "robe", name: "robe" }],
-            "Noble": [{ id: "letter", name: "letter" }],
-            "Tabernero": [{ id: "bottle", name: "bottle" }],
-            "Herrero": [{ id: "sword", name: "sword" }],
-            "Explorador": [{ id: "bow", name: "bow" }],
-            "Sanador": [{ id: "small_potion", name: "small_potion" }],
-            "Recolector": [{ id: "hermit", name: "hermit" }],
-            "Artesano": [{ id: "sword", name: "sword" }],
-            "Narrador": [{ id: "book", name: "book" }],
-            "Cocinero": [{ id: "bottle", name: "bottle" }],
-            "Guardabosques": [{ id: "hermit", name: "hermit" }],
-            "Pescador": [{ id: "rod", name: "rod" }],
-            "Gobernador": [{ id: "letter", name: "letter" }],
-            "Carpintero": [{ id: "sword", name: "sword" }],
-            "Sacerdote": [{ id: "robe", name: "robe" }],
-            "Erudito": [{ id: "book", name: "book" }],
-            "Maestro de magia": [{ id: "staff", name: "staff" }],
-            "Trovador": [{ id: "mask", name: "mask" }],
-            "Custodio del Monolito": [{ id: "wooden_shield", name: "wooden_shield" }]
+            "Consejero": 'item24',
+            "Guardia": 'item40',
+            "Comerciante": 'item26',
+            "Hechicero": 'item31',
+            "Noble": 'item24',
+            "Tabernero": 'item8',
+            "Herrero": 'item40',
+            "Explorador": 'item26',
+            "Sanador": 'item5',
+            "Recolector": 'item32',
+            "Artesano": 'item40',
+            "Narrador": 'item26',
+            "Cocinero": 'item14',
+            "Guardabosques": 'item32',
+            "Pescador": 'item33',
+            "Gobernador": 'item24',
+            "Carpintero": 'item40',
+            "Sacerdote": 'item31',
+            "Erudito": 'item24',
+            "Maestro de magia": 'item5',
+            "Trovador": 'item27',
+            "Custodio del Monolito": 'item40'
         };
 
         for (const profesion of [padreProfesion, madreProfesion]) {
             for (const clave in mapaObjetos) {
                 if (profesion.includes(clave)) {
-                    objetos.push(...mapaObjetos[clave]);
+                    const itemId = mapaObjetos[clave];
+                    const itemData = itemsData[itemId];
+
+                    if (itemData && !objetos.has(itemId)) {
+                        objetos.set(itemId, {
+                            id: itemId,
+                            name: itemData.name,
+                            img: itemData.img,
+                            description: itemData.description,
+                            price: itemData.price,
+                            quantity: 1,
+                            effect: itemData.effect ?? [],
+                            type: itemData.type
+                        });
+                    }
+
                     break;
                 }
             }
         }
 
-        return [...new Set(objetos)].slice(0, 2);
+        return Array.from(objetos.values()).slice(0, 2);
     }
 
     const [showRaceModal, setShowRaceModal] = useState(false);
@@ -199,7 +215,7 @@ export const NewCharacter = () => {
 
             localStorage.removeItem("llm_iniciado");
             await startGame({ defaultData });
-            
+
             navigate.push('/orwyn-game');
         } catch (error) {
             console.error("Error al crear personaje:", error);

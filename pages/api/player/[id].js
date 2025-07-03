@@ -40,8 +40,6 @@ export default async function handler(req, res) {
     try {
       const updates = flattenObject(req.body);
 
-      console.log(updates)
-
       const playerUpdated = await Player.findByIdAndUpdate(
         id,
         { $set: updates },

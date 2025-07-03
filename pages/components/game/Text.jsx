@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ChatComponent } from "./ChatComponent";
 import { generarContexto } from "./GenerateContext";
 
-export const Text = ({ dataGame, mapData, cityData, moves, handle }) => {
+export const Text = ({ dataGame, mapData, cityData, moves, handle, items }) => {
   const [contexto, setContexto] = useState("");
 
   useEffect(() => {
@@ -21,6 +21,7 @@ export const Text = ({ dataGame, mapData, cityData, moves, handle }) => {
         moves={moves}
         cityData={cityData}
         handle={handle}
+        items={items}
       />
     </div>
   );

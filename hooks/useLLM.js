@@ -40,6 +40,8 @@ export function useLLM() {
         setLoading(true);
         setError(null);
 
+        console.log(question)
+
         const newMessage = { role: 'user', content: question };
 
         const recentHistory = history.slice(-1);

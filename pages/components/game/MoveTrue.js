@@ -1,3 +1,5 @@
+import { itemsData } from "@/utils/data";
+
 const specialLocations = new Set([
     "1,4", "2,4", "5,4", "6,4",
     "6,3", "7,3", "7,8", "8,8",
@@ -248,23 +250,64 @@ const interaccion = {
     }
 };
 
+const handlerItem = async ({ item, dataGame, key, action }) => {
+    if (item.portable) {
+
+        const newMoney = action === 'add' ? dataGame.playerData.money - item.price : dataGame.playerData.money + item.price;
+
+        await fetch(`/api/player/${dataGame._id}/inventory`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                action: action,
+                item: {
+                    id: key,
+                    name: item.name,
+                    img: item.img,
+                    description: item.description,
+                    price: item.price,
+                    quantity: 1,
+                    effect: item.effect ?? [],
+                    type: item.type
+                }
+            })
+        });
+
+        await fetch(`/api/player/${dataGame._id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                playerData: {
+                    money: newMoney
+                }
+            })
+        });
+    }
+}
+
 const handlers = {
     ...movimientos,
     ...combate,
     ...ciudad,
     ...estructuras,
-    ...interaccion,
+    ...interaccion
 };
 
-export async function responseMove({ key, dataGame }) {
-    console.log(key)
+export async function responseMove({ key, dataGame, action }) {
     const handler = handlers[key];
+    const item = itemsData[key];
 
     if (handler) {
         try {
             await handler(dataGame);
         } catch (error) {
-            console.error("Ocurrió un error durante la acción:", error);
+            console.error("Error:", error);
+        }
+    } else if (item) {
+        try {
+            await handlerItem({ item, dataGame, key, action });
+        } catch (error) {
+            console.error("Error:", error);
         }
     } else {
         console.log("Acción desconocida.");

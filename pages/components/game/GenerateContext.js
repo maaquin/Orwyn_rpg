@@ -1,3 +1,5 @@
+import { obtenerEventoAleatorio } from "./AleatoryEvents";
+
 export const generarContexto = (dataGame, mapData, cityData) => {
   if (!dataGame) return "";
 
@@ -7,7 +9,6 @@ export const generarContexto = (dataGame, mapData, cityData) => {
   contexto += `Sexo: ${dataGame.playerData.sex}\n`;
   contexto += `Rol: ${dataGame.playerData.class}\n`;
   contexto += `Naturaleza: ${dataGame.playerData.nature}\n`;
-  contexto += `Estatus: ${dataGame.playerData.status}\n`;
   contexto += `Ciudad de origen: ${dataGame.playerData.hometown}\n`;
   contexto += `Economía (dinero): $${dataGame.playerData.money}\n`;
 
@@ -16,6 +17,25 @@ export const generarContexto = (dataGame, mapData, cityData) => {
     for (const stat in dataGame.playerData.stats) {
       contexto += `  ${stat}: ${dataGame.playerData.stats[stat]}\n`;
     }
+  }
+
+  switch (dataGame.playerData.status) {
+    case 'city':
+      contexto += `Te encuentras dentro de una ciudad.\n`;
+      contexto += `Nombre: ${cityData.name}\nTipo: ${cityData.type}\n`;
+      contexto += `Habitantes predominantes: ${cityData.population.majority.join(", ")}\n`;
+      contexto += `Habitantes presentes: ${cityData.population.minorities.join(", ")}\n`;
+      contexto += `Características: ${cityData.features.join(", ")}\n`;
+      break;
+    case 'city_structure':
+      contexto += `Estás dentro de la estructura: ${dataGame.playerData.structure}.\n`;
+      break;
+    case 'npc':
+      contexto += `Estás conversando con un NPC.\n`;
+      break;
+    case 'flied':
+      contexto += `Te encuentras explorando los terrenos abiertos.\n`;
+      break;
   }
 
   contexto += `Inventario: ${dataGame.inventory.join(", ")}\n`;
@@ -32,27 +52,21 @@ export const generarContexto = (dataGame, mapData, cityData) => {
     for (const [pos, tile] of Object.entries(mapData.map)) {
       contexto += `  ${pos.charAt(0).toUpperCase() + pos.slice(1)} (Coordenada ${tile.coordinate}): ${tile.descripcion}\n tipo de terreno de la casilla: ${tile.terrain}\n`;
     }
-    if (mapData.city) {
-      contexto += `  Ciudad cercana o actual: ${mapData.city}\n`;
-    }
   }
 
-  if (cityData) {
-    contexto += `\nDetalles de la ciudad actual:\n`;
-    contexto += `Nombre: ${cityData.name}\nTipo: ${cityData.type}\n`;
-    contexto += `Habitantes predominantes: ${cityData.population.majority.join(", ")}\n`;
-    contexto += `Habitantes presentes: ${cityData.population.minorities.join(", ")}\n`;
-    contexto += `Características: ${cityData.features.join(", ")}\n`;
-    contexto += `NPCs principales:\n`;
-    for (const key in cityData.npcs) {
-      const npc = cityData.npcs[key];
-      contexto += `  ${npc.name} (${npc.race}) - ${npc.profession}\n`;
-    }
+  if (mapData.structures) {
+    contexto += `  Estructuras presentes: ${mapData.structures}`
   }
 
-    if (mapData.structures) {
-      contexto += `  Estructuras presentes: ${mapData.structures}`
-    }
+
+
+  const triggerRandomEvent = dataGame.playerData.status === 'field' && Math.random() < 0.25;
+
+  if (triggerRandomEvent) {
+    const evento = obtenerEventoAleatorio();
+    contexto += `\nEvento aleatorio: ${evento.nombre}\n`;
+    contexto += `Descripcón del evento: ${evento.descripcion}`
+  }
 
   return contexto;
 };

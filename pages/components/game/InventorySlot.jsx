@@ -20,7 +20,7 @@ export const InventorySlot = ({ item }) => {
         >
             {item && item.name !== 'empty' && (
                 <img
-                    src={`images/items/${item.name}.webp`}
+                    src={`images/items/${item.img}.webp`}
                     alt={item}
                     style={{ width: '48px', height: '48px', pointerEvents: 'none' }}
                 />

@@ -1,6 +1,6 @@
 .game-container {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: row;
     box-sizing: border-box;
@@ -12,8 +12,8 @@
     display: flex;
     position: relative;
     flex-direction: column;
-    height: 100%;
-    min-height: 750px;
+    max-height: 100%;
+    min-height: 250px;
     width: 20%;
     min-width: 300px;
     padding: 20px;
@@ -46,7 +46,6 @@
     padding: 10px;
     box-sizing: border-box;
     position: relative;
-    min-width: 280px;
 }
 
 .map-container-box.expanded {
@@ -55,7 +54,7 @@
 
 .map-container {
     position: relative;
-    width: 100%;
+    width: 75%;
     aspect-ratio: 1;
     overflow: hidden;
     border-radius: 38px;
@@ -86,6 +85,7 @@
     word-break: break-word;
     font-size: 20px;
     border-radius: 20px;
+    overflow-y: auto;
 }
 
 .separator-game-header {
@@ -180,7 +180,6 @@
 .inventory-container {
     position: absolute;
     bottom: 20px;
-    height: calc(60% - 20px);
     background: rgba(252, 251, 250, 0.279);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -210,7 +209,7 @@
 .name-health-bar-player {
     display: flex;
     flex-direction: column;
-    width: calc(50% - 8px);
+    width: calc(60% - 8px);
     text-align: center;
     transition: all 0.3s;
 }
@@ -233,6 +232,7 @@
 
 .name-health-bar-player.expanded .health-bar {
     min-width: 100px;
+    height: 8px;
 }
 
 .hp-fill {
@@ -247,7 +247,7 @@
 }
 
 .name-health-bar-player.expanded .name-player-title {
-    font-size: 2rem;
+    font-size: 1.5rem;
     line-height: 1;
 }
 
@@ -279,8 +279,8 @@
 }
 
 .class-race-nature img {
-    height: 3.5rem;
-    min-width: 3.5rem;
+    height: 2.5rem;
+    min-width: 2.5rem;
 }
 
 
@@ -302,7 +302,7 @@
 }
 
 .player-image {
-    width: calc(50% - 8px);
+    width: calc(38% - 8px);
     position: relative;
     aspect-ratio: 1;
 }
@@ -373,7 +373,7 @@
 .items-title-span {
     font-weight: 600;
     padding: 10px 0 5px 15px;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     line-height: 1;
     color: #fff;
 }
@@ -387,7 +387,6 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    transition: all .3s;
     max-height: 70px;
     padding: 0 10px;
 }
@@ -445,7 +444,7 @@
     align-items: center;
     justify-content: space-between;
     font-weight: 600;
-    font-size: 1.7rem;
+    font-size: 1.3rem;
     line-height: 1;
     color: #fff;
 }
@@ -455,11 +454,11 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    font-size: 1.7rem;
+    font-size: 1.3rem;
 }
 
 .data-money-player img {
-    scale: 80%;
+    scale: 60%;
 }
 
 

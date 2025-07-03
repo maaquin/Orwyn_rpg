@@ -8,7 +8,8 @@ import {
   getNymbria,
   getSylvareth,
   mapaData,
-  actions
+  actions,
+  itemsData
 } from '../../../utils/data';
 
 const cities = {
@@ -27,6 +28,7 @@ export const Game = () => {
   const [showFadeOnLoad, setShowFadeOnLoad] = useState(true);
   const [settings, setSettings] = useState(null);
   const [handle, setHandle] = useState(false);
+  const [items, setItems] = useState(null);
   const videoRef = useRef(null);
 
   //console.log(dataGame)
@@ -60,6 +62,8 @@ export const Game = () => {
   useEffect(() => {
     const settings2 = localStorage.getItem('settings');
     setSettings(JSON.parse(settings2))
+
+    setItems(itemsData);
   }, []);
 
   useEffect(() => {
@@ -73,7 +77,7 @@ export const Game = () => {
     }
   }, [settings])
 
-  function getMoves(categoria, atribute) {
+  function getMoves(categoria, atributos = {}) {
 
     const accionesCategoria = actions[categoria];
 
@@ -85,7 +89,8 @@ export const Game = () => {
 
     for (const [clave, entrada] of Object.entries(accionesCategoria)) {
       if (typeof entrada === "function") {
-        const frases = entrada(atribute);
+        const parametro = atributos[clave];
+        const frases = entrada(parametro);
         resultado[clave] = frases;
       } else if (Array.isArray(entrada)) {
         resultado[clave] = entrada[Math.floor(Math.random() * entrada.length)];
@@ -149,6 +154,7 @@ export const Game = () => {
           cityData={cityData}
           moves={getMoves}
           handle={setHandle}
+          items={items}
         />
       </div>
     </div>

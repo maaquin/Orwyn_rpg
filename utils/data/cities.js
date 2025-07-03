@@ -170,7 +170,7 @@ export function getNymbria() {
             npc3: { name: "Jorra Algaazul", race: "Seafolk", profession: "Cultivadora en el Sector de Cultivos", key:"farmland" },
             npc4: { name: "Varek Mareaoscura", race: "Humano", profession: "Tabernero de El Kraken Azul", key:"tavern" },
             npc5: { name: "Lenna Brisaviva", race: "Humana", profession: "Posadera en Brisa del Mar", key:"inn" },
-            npc6: { name: "Garran Rocafilo", race: "Dwarf", profession: "Armero en Espadas del Acantilado", key:"store" },
+            npc6: { name: "Garran Rocafilo", race: "Dwarf", profession: "Armero en Espadas del Acantilado", key:"weapon_store" },
             npc7: { name: "Tarel Ondaluz", race: "Seafolk", profession: "Guardiana del Santuario de las Mareas", key:"sanctuary" },
             npc8: { name: "Jonkas el Curioso", race: "Warewolf", profession: "Vendedor ambulante en la Gran Plaza Central", key:"plaza" },
             npc9: { name: "Ebron Molinoalto", race: "Humano", profession: "Molenero del Molino de la Plaza", key:"windmill" },
@@ -219,7 +219,7 @@ export function getSylvareth() {
             npc1: { name: "Aelirë Thandoriel", race: "Elfa", profession: "Sacerdotisa del Templo de Éleath", key:"temple" },
             npc2: { name: "Thirion Lunargenta", race: "Elfo", profession: "Archivista del Archivo de Runas y Hechizos", key:"archive" },
             npc3: { name: "Reina Selanwe", race: "Elfa", profession: "Monarca del Palacio Real", key:"palace" },
-            npc4: { name: "Sir Lancelot", race: "Humano", profession: "Dueño de la Tienda de Magia y Hechicería", key:"store" },
+            npc4: { name: "Sir Lancelot", race: "Humano", profession: "Dueño de la Tienda de Magia y Hechicería", key:"magic_store" },
             npc5: { name: "Vanyra Cantoluz", race: "Elfa", profession: "Maestra de la Escuela de Magia Sylvana", key:"magic_school" },
             npc6: { name: "Nymis de la Niebla", race: "Sprite", profession: "Místico en la Plaza de los Cantos Antiguos", key:"plaza" }
         },
