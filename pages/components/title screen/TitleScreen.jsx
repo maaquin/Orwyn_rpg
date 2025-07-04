@@ -11,11 +11,11 @@ export const TitleScreen = () => {
     const videoRef = useRef(null);
 
     useEffect(() => {
-        const data = localStorage.getItem("partida");
+        const data = localStorage.getItem("playerId");
         const settings = localStorage.getItem('settings');
 
         if (data) {
-            setData(JSON.parse(data));
+            setData(data);
         }
 
         if (!settings) {

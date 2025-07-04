@@ -132,7 +132,7 @@ export const Game = () => {
     } else {
       setCityData(null);
     }
-  };
+  };  
 
   return (
     <div className='game-container'>

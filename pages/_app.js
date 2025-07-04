@@ -26,6 +26,7 @@ export default function App({ Component, pageProps }) {
       <I18nextProvider i18n={i18n}>
         <div className="content-container">
           <Component {...pageProps} />
+          <div id="menu-portal-root"></div>
         </div>
       </I18nextProvider>
     </>

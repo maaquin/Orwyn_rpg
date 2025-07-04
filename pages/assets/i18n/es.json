@@ -102,7 +102,7 @@
 
 
 
-  "items":"Ítems",
+  "items":"Inventario",
   "money":"Doblones",
 
 
@@ -112,5 +112,12 @@
 
 
   "talk":"Hablar",
-  "ask_player":"Ingresa tu diálogo..."
+  "ask_player":"Ingresa tu diálogo...",
+
+
+
+
+  "use":"Usar",
+  "equip":"Equipar",
+  "inspect":"Examinar"
 }

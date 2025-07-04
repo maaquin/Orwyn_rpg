@@ -1,3 +1,28 @@
+import { monsters } from "@/utils/data/monsters";
+import { itemsData } from "@/utils/data";
+
+function obtenerItemsAleatorios(cantidad = 1) {
+  const posiblesItems = [
+    itemsData.item5,  // small potion
+    itemsData.item8,  // water
+    itemsData.item14, // bread
+    itemsData.item26  // map
+  ];
+
+  const itemsElegidos = [];
+
+  const indicesElegidos = new Set();
+  while (itemsElegidos.length < cantidad && indicesElegidos.size < posiblesItems.length) {
+    const index = Math.floor(Math.random() * posiblesItems.length);
+    if (!indicesElegidos.has(index)) {
+      indicesElegidos.add(index);
+      itemsElegidos.push(posiblesItems[index]);
+    }
+  }
+
+  return itemsElegidos;
+}
+
 export function obtenerEventoAleatorio() {
   const eventos = [
     {
@@ -14,11 +39,39 @@ export function obtenerEventoAleatorio() {
     },
     {
       nombre: "Cadáver con ítems",
-      descripcion: "Encontrás un cadáver tirado entre los arbustos, con algunos objetos aún útiles cerca suyo. ¿Qué habrá pasado? ¿Estará el peligro cerca todavía?"
+      getEvento() {
+        const recompensa = obtenerItemsAleatorios(Math.random() < 0.5 ? 1 : 2);
+        return {
+          nombre: this.nombre,
+          descripcion: "Encontrás un cadáver tirado entre los arbustos, con algunos objetos aún útiles cerca suyo. ¿Qué habrá pasado? ¿Estará el peligro cerca todavía?",
+          recompensa
+        };
+      }
     },
     {
       nombre: "Ruina abandonada",
-      descripcion: "Descubrís una pequeña ruina o edificio abandonado cubierto de vegetación. Podrías explorarlo... aunque quizás no estés solo ahí dentro."
+      getEvento() {
+        const recompensa = obtenerItemsAleatorios(Math.random() < 0.5 ? 1 : 2);
+        return {
+          nombre: this.nombre,
+          descripcion: "Descubrís una pequeña ruina o edificio abandonado cubierto de vegetación. Podrías explorarlo... aunque quizás no estés solo ahí dentro.",
+          recompensa
+        };
+      }
+    },
+    {
+      nombre: "¡Aparece un monstruo!",
+      getEvento() {
+        const monsterKeys = Object.keys(monsters);
+        const randomIndex = Math.floor(Math.random() * monsterKeys.length);
+        const key = monsterKeys[randomIndex];
+        const monstruo = monsters[key];
+        return {
+          nombre: this.nombre,
+          descripcion: `¡Un ${monstruo.name} aparece! ${monstruo.description}`,
+          monstruo
+        };
+      }
     }
   ];
 

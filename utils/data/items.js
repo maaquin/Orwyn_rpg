@@ -363,7 +363,7 @@ export const itemsData = {
     price: 25,
     city: ["Myrrwood", "Sylvareth", "Valdoren", "Drakmir", "Nymbria"],
     key: ["store"],
-    type: "gear"
+    type: "equip"
   },
   item32: {
     name: "Trailset",
@@ -375,7 +375,7 @@ export const itemsData = {
     price: 25,
     city: ["Myrrwood", "Sylvareth", "Valdoren", "Drakmir", "Nymbria"],
     key: ["store"],
-    type: "gear"
+    type: "equip"
   },
   item33: {
     name: "Fishing rod",

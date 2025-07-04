@@ -2,13 +2,13 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from "react";
 import { DataPlayer } from './DataPlayer';
 
-export const Sidebar = ({ data}) => {
+export const Sidebar = ({ data }) => {
     const [dataGame, setData] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
-            setData(data);
+        setData(data);
     }, [data]);
 
     if (!dataGame || !dataGame.location) return null;
@@ -21,7 +21,7 @@ export const Sidebar = ({ data}) => {
         if (val === 10) return 3;
         return 2;
     };
-    
+
 
     const toggleExpanded = () => {
         setIsExpanded(prev => !prev);
@@ -34,16 +34,30 @@ export const Sidebar = ({ data}) => {
         router.push('/map')
     }
 
+    const handleNavigateToHome = () => {
+        router.push('/')
+    }
+
+    const handleNavigateToSettings = () => {
+        router.push('/options')
+    }
+
     return (
         <div className='side-bar'>
-            <div className={`map-container-box ${isExpanded ? 'expanded' : ''}`}>
-                <div className='map-container' onClick={handleNavigateToMap}>
-                    <img src='images/map_1.webp' alt="mapa" style={{
-                        left: `${leftPercent}%`,
-                        top: `${topPercent}%`
-                    }} />
+            <div className={`options-menu-container ${isExpanded ? 'expanded' : ''}`}>
+                <div className='options-buttons'>
+                    <img src="images/icons/compass.webp" alt="compass" />
+                    <img onClick={handleNavigateToSettings} src="images/icons/options.webp" alt="options" />
+                    <img onClick={handleNavigateToHome} src="images/icons/home.webp" alt="return" />
                 </div>
-                <img src="images/backgrounds/map-container.webp" className='map-container-image' alt="map-container" />
+                <div className='map-container-box'>
+                    <div className='map-container' onClick={handleNavigateToMap}>
+                        <img src='images/map_1.webp' alt="mapa" style={{
+                            left: `${leftPercent}%`,
+                            top: `${topPercent}%`
+                        }} />
+                    </div>
+                </div>
             </div>
             <div className={`inventory-container ${isExpanded ? 'expanded' : ''}`}>
                 <DataPlayer

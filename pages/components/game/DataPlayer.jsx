@@ -6,6 +6,9 @@ export const DataPlayer = ({ dataGame, toggleExpanded, isExpanded }) => {
     const { t } = useTranslation();
     const [player, setPlayer] = useState(null);
     const [inventory, setInventory] = useState(new Array(12).fill(null));
+    const [left, setLeft] = useState('');
+    const [right, setRight] = useState('');
+    const [chest, setChest] = useState('');
 
     useEffect(() => {
         if (dataGame) {
@@ -58,6 +61,44 @@ export const DataPlayer = ({ dataGame, toggleExpanded, isExpanded }) => {
                                     </div>
                                 </div>
                             </div>
+                            <div className={`equiped-items-container ${isExpanded ? 'expanded' : ''}`}>
+                                <div className="chest-container">
+                                    <div className="chest">
+                                        <div className="chest-border">
+                                            <img src="images/icons/chest.webp" alt="chest" />
+                                            {chest && (
+                                                <img src={`images/items/${chest.img}.webp`} alt="chest2" />
+                                            )}
+                                        </div>
+                                        Armored
+                                    </div>
+                                    <div className="info-button">
+                                        <img src="images/icons/info.webp" alt="info" />
+                                        info
+                                    </div>
+                                </div>
+                                <div className="hands-container">
+                                    <div className="left-hand">
+                                        <div className="left-hand-border">
+                                            <img src="images/icons/left.webp" alt="left hand" />
+                                            {left && (
+                                                <img src={`images/items/${left.img}.webp`} alt="chest2" />
+                                            )}
+                                        </div>
+                                        Left hand
+                                    </div>
+                                    <div className="right-hand">
+                                        <div className="right-hand-border">
+                                            <img src="images/icons/right.webp" alt="right hand" />
+                                            {right && (
+                                                <img src={`images/items/${right.img}.webp`} alt="chest2" />
+                                            )}
+                                        </div>
+                                        Right hand
+                                    </div>
+                                </div>
+                            </div>
+                            {/*
                             <div className={`class-race-nature ${isExpanded ? 'expanded' : ''}`}>
                                 <div className="class-race-nature-div">
                                     {t('racee')}
@@ -98,15 +139,29 @@ export const DataPlayer = ({ dataGame, toggleExpanded, isExpanded }) => {
                                     : {player.stats.accuracy}
                                 </div>
                             </div>
+                            */}
                         </div>
                     </div>
                     <div className={`inventory-block ${isExpanded ? 'expanded' : ''}`}>
-                        <span className='items-title-span'>{t('items')}</span>
+                        <div className="inventory-arrow">
+                            <span className='items-title-span'>{t('items')}</span>
+                            <img
+                                src="images/ornaments/arrow_inventory.webp"
+                                className={`arrow-expand-inventory ${isExpanded ? 'rotated' : ''}`}
+                                onClick={toggleExpanded}
+                                style={{ cursor: 'pointer', padding: '0 10px' }}
+                                alt="toggle inventory"
+                            />
+                        </div>
+
                         <Inventory
                             inventory={inventory}
                             player={player}
-                            toggleExpanded={toggleExpanded}
                             isExpanded={isExpanded}
+                            left={setLeft}
+                            l={left}
+                            right={setRight}
+                            chest={setChest}
                         />
                     </div>
                 </>

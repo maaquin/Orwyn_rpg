@@ -17,7 +17,7 @@ import { InventorySlot } from './InventorySlot';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 
-export const Inventory = ({ inventory, toggleExpanded, isExpanded, player }) => {
+export const Inventory = ({ inventory, isExpanded, player, left, l, right, chest }) => {
     const { t } = useTranslation();
     const [items, setItems] = useState([]);
 
@@ -54,12 +54,21 @@ export const Inventory = ({ inventory, toggleExpanded, isExpanded, player }) => 
     }
 
     const sensors = useSensors(
-        useSensor(PointerSensor),
-        useSensor(TouchSensor),
+        useSensor(PointerSensor, {
+            activationConstraint: {
+                distance: 5, // o 8px
+            },
+        }),
+        useSensor(TouchSensor, {
+            activationConstraint: {
+                delay: 250,
+                tolerance: 5,
+            },
+        }),
         useSensor(KeyboardSensor, {
             coordinateGetter: sortableKeyboardCoordinates,
         })
-    )
+    );
 
     return (
         <div className={`inventory-object ${isExpanded ? 'expanded' : 'collapsed'}`}>
@@ -71,18 +80,15 @@ export const Inventory = ({ inventory, toggleExpanded, isExpanded, player }) => 
                                 <InventorySlot
                                     key={item.id}
                                     item={item}
+                                    left={left}
+                                    l={l}
+                                    right={right}
+                                    chest={chest}
                                 />
                             ))}
                         </SortableContext>
                     </div>
                 </DndContext>
-                <img
-                    src="images/ornaments/arrow_inventory.webp"
-                    className={`arrow-expand-inventory ${isExpanded ? 'rotated' : ''}`}
-                    onClick={toggleExpanded}
-                    style={{ cursor: 'pointer', marginTop: '15px', padding: '0 10px' }}
-                    alt="toggle inventory"
-                />
             </div>
 
             <div className='data-money-player'>

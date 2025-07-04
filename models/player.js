@@ -55,7 +55,7 @@ const Equipment = new mongoose.Schema({
   leftHand: { type: String, default: '' },
   rightHand: { type: String, default: '' },
   armor: { type: String, default: '' }
-})
+}, { _id: false })
 
 const PlayerSchema = new mongoose.Schema({
   location: {

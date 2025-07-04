@@ -96,7 +96,7 @@
 
 
 
-  "items":"Items",
+  "items":"Inventory",
   "money":"Doubloons",
 
 
@@ -106,5 +106,12 @@
 
 
   "talk":"Talk",
-  "ask_player":"Enter your dialogue..."
+  "ask_player":"Enter your dialogue...",
+
+
+
+
+  "use":"Use",
+  "equip":"Equip",
+  "inspect":"Inspect"
 }
