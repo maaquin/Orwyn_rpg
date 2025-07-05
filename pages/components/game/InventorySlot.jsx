@@ -4,10 +4,19 @@ import { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { useTranslation } from 'react-i18next';
 
-export const InventorySlot = ({ item, left, l, right, chest }) => {
+export const InventorySlot = ({ item, equipment, e }) => {
     const { t } = useTranslation();
     const menuRef = useRef();
     const slotRef = useRef();
+
+    const getEquippedSlot = (item) => {
+        for (const [slot, equippedItem] of Object.entries(e)) {
+            if (equippedItem?.id === item.id) return slot;
+        }
+        return null;
+    };
+
+    const equippedSlot = getEquippedSlot(item);
 
     const [contextMenu, setContextMenu] = useState({
         visible: false,
@@ -119,16 +128,12 @@ export const InventorySlot = ({ item, left, l, right, chest }) => {
 
     };
 
-    const equipItem = () => {
-        if (l) {
-            right(item)
-        } else {
-            left(item)
-        }
+    const equipItem = (slot, item) => {
+        equipment(prev => ({ ...prev, [slot]: item }));
     };
 
-    const equipArmor = () => {
-        chest(item);
+    const unequipItem = (slot) => {
+        equipment(prev => ({ ...prev, [slot]: null }));
     };
 
     return (
@@ -141,6 +146,7 @@ export const InventorySlot = ({ item, left, l, right, chest }) => {
             className='inventory-slot'
             onClick={(e) => handleClick(e, item)}
             style={style}
+            title={`${item.name}: ${item.description}`}
         >
             {item && item.name !== 'empty' && (
                 <img
@@ -161,19 +167,20 @@ export const InventorySlot = ({ item, left, l, right, chest }) => {
                         zIndex: 9999
                     }}
                 >
-                    {item.type === 'gear' ? (
-                        <div className="menu-item" onClick={() => equipItem(contextMenu.item)}>{t('equip')}</div>
-                    ) : item.type === 'consumables' ? (
-                        <div className="menu-item" onClick={() => useItem(contextMenu.item)}>{t('use')}</div>
+                    {equippedSlot ? (
+                        <div className="menu-item" onClick={() => unequipItem(equippedSlot)}>{t('desequip')}</div>
+                    ) : item.type === 'gear' ? (
+                        <>
+                            <div className="menu-item" onClick={() => equipItem('left', item)}>{t('equip left')}</div>
+                            <div className="menu-item" onClick={() => equipItem('right', item)}>{t('equip right')}</div>
+                        </>
                     ) : item.type === 'equip' ? (
-                        <div className="menu-item" onClick={() => equipArmor(contextMenu.item)}>{t('equip')}</div>
-                    ) : item.type === 'fishing' ? (
-                        <div className="menu-item" onClick={() => useItem(contextMenu.item)}>{t('use')}</div>
+                        <div className="menu-item" onClick={() => equipItem('chest', item)}>{t('equip')}</div>
+                    ) : item.type === 'consumables' || item.type === 'fishing' ? (
+                        <div className="menu-item" onClick={() => useItem(item)}>{t('use')}</div>
                     ) : item.type === 'key' ? (
-                        <div className="menu-item" onClick={() => useItem(contextMenu.item)}>{t('inspect')}</div>
-                    ) : (
-                        null
-                    )}
+                        <div className="menu-item" onClick={() => useItem(item)}>{t('inspect')}</div>
+                    ) : null}
                 </div>,
                 document.getElementById('menu-portal-root')
             )}

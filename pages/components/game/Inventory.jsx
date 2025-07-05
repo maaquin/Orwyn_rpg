@@ -17,7 +17,7 @@ import { InventorySlot } from './InventorySlot';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 
-export const Inventory = ({ inventory, isExpanded, player, left, l, right, chest }) => {
+export const Inventory = ({ inventory, isExpanded, player, equipment, e }) => {
     const { t } = useTranslation();
     const [items, setItems] = useState([]);
 
@@ -80,10 +80,8 @@ export const Inventory = ({ inventory, isExpanded, player, left, l, right, chest
                                 <InventorySlot
                                     key={item.id}
                                     item={item}
-                                    left={left}
-                                    l={l}
-                                    right={right}
-                                    chest={chest}
+                                    equipment={equipment}
+                                    e={e}
                                 />
                             ))}
                         </SortableContext>

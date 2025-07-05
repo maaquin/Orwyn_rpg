@@ -44,22 +44,22 @@ export const Sidebar = ({ data }) => {
 
     return (
         <div className='side-bar'>
-            <div className={`options-menu-container ${isExpanded ? 'expanded' : ''}`}>
-                <div className='options-buttons'>
-                    <img src="images/icons/compass.webp" alt="compass" />
-                    <img onClick={handleNavigateToSettings} src="images/icons/options.webp" alt="options" />
-                    <img onClick={handleNavigateToHome} src="images/icons/home.webp" alt="return" />
-                </div>
-                <div className='map-container-box'>
-                    <div className='map-container' onClick={handleNavigateToMap}>
-                        <img src='images/map_1.webp' alt="mapa" style={{
-                            left: `${leftPercent}%`,
-                            top: `${topPercent}%`
-                        }} />
+            <div className={`inventory-container ${isExpanded ? 'expanded' : ''}`}>
+                <div className={`options-menu-container ${isExpanded ? 'expanded' : ''}`}>
+                    <div className='options-buttons'>
+                        <img src="images/icons/compass.webp" alt="compass" />
+                        <img onClick={handleNavigateToSettings} src="images/icons/options.webp" alt="options" />
+                        <img onClick={handleNavigateToHome} src="images/icons/home.webp" alt="return" />
+                    </div>
+                    <div className='map-container-box'>
+                        <div className='map-container' onClick={handleNavigateToMap}>
+                            <img src='images/map_1.webp' alt="mapa" style={{
+                                left: `${leftPercent}%`,
+                                top: `${topPercent}%`
+                            }} />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className={`inventory-container ${isExpanded ? 'expanded' : ''}`}>
                 <DataPlayer
                     dataGame={dataGame}
                     toggleExpanded={toggleExpanded}

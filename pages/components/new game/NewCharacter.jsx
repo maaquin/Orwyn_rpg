@@ -45,6 +45,7 @@ export const NewCharacter = () => {
     const videoRef = useRef(null);
     const [settings, setSettings] = useState(null);
     const [showFadeOnLoad, setShowFadeOnLoad] = useState(true);
+    const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
         const settings2 = localStorage.getItem('settings');
@@ -192,6 +193,12 @@ export const NewCharacter = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (!playerData.name || !playerData.sex || !playerData.playerClass || !playerData.race) {
+            setErrorMessage("⚠️ Campos incompletos");
+            setTimeout(() => setErrorMessage(""), 3000);
+            return;
+        }
+
         try {
             const defaultData = player;
 
@@ -224,6 +231,12 @@ export const NewCharacter = () => {
 
     return (
         <div className="new-container">
+
+            {errorMessage && (
+                <div className="toast-notification">
+                    {errorMessage}
+                </div>
+            )}
 
             {settings && (
                 <video autoPlay loop muted className="background-video" ref={videoRef} src={`/videos/${settings.theme}.mp4`}></video>

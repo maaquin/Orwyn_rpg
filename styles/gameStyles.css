@@ -39,12 +39,7 @@
     flex-direction: row;
     box-sizing: border-box;
     justify-content: space-between;
-    border-radius: 20px;
-
-    
-    background: rgba(252, 251, 250, 0.279);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    height: 30%;
 }
 
 .options-buttons img {
@@ -52,6 +47,10 @@
     aspect-ratio: 1;
     border-radius: 10px;
     transition: all .3s;
+    box-sizing: border-box;
+    padding: 3px;
+    background-color: #b8a59c;
+    ;
 }
 
 .options-buttons img:hover {
@@ -208,18 +207,13 @@
 
 
 .inventory-container {
-    position: absolute;
-    bottom: 20px;
     background: rgba(252, 251, 250, 0.279);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 20px;
     transition: all .5s;
-    min-width: 280px;
-}
-
-.inventory-container.expanded {
-    height: calc(100% - 40px);
+    height: 100%;
+    overflow-y: auto;
 }
 
 .info-player {
@@ -281,6 +275,26 @@
     line-height: 1;
 }
 
+.player-stats-info {
+    display: flex;
+    flex-direction: row;
+    font-size: 1.2rem;
+    justify-content: end;
+    align-items: center;
+    gap: 5px;
+}
+
+.player-stats-info img {
+    max-height: 1.2rem;
+    max-width: 1.2rem;
+    border-radius: 10px;
+}
+
+.player-stats-info:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .health-player {
     display: flex;
     flex-direction: row;
@@ -311,23 +325,41 @@
 .class-race-nature img {
     height: 2.5rem;
     min-width: 2.5rem;
+    max-width: 2.5rem;
+}
+
+.class-race-nature-span {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.class-race-nature-span span {
+    font-size: .8rem;
 }
 
 
 
 .inventory {
-    height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
     font-size: 1.25rem;
     position: relative;
+    height: 70%;
+    flex-grow: 1;
+}
+
+.inventory.expanded {
+    height: 100%;
 }
 
 .player-block {
     display: flex;
     flex-direction: row;
-    gap: 5px;
     padding: 5px;
 }
 
@@ -377,6 +409,17 @@
     display: none;
 }
 
+.stat-icon-name-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-icon-name-container span {
+    font-size: .7rem;
+    line-height: 1;
+}
+
 .stat-icon-name {
     border-radius: 15px;
     padding: 0 2px;
@@ -395,37 +438,41 @@
 .inventory-block {
     display: flex;
     flex-direction: column;
-    height: 100%;
     background-color: #493d34bb;
     border-radius: 0 0 20px 20px;
+    margin-top: auto;
+}
+
+.inventory-block.expanded {
+    height: 100%;
 }
 
 .items-title-span {
     font-weight: 600;
-    padding: 10px 0 5px 15px;
+    padding: 10px 0 0 15px;
     font-size: 1.5rem;
     line-height: 1;
     color: #fff;
 }
 
 .inventory-block img {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
 }
 
 .inventory-object {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    max-height: 0px;
+    max-height: 70px;
     padding: 0 10px;
 }
 
 .inventory-arrow {
     display: flex;
-    align-items: center;
+    align-items: end;
     justify-content: space-between;
-    padding: 10px 20px;
+    padding: 0px 20px;
 }
 
 .inventory-object.expanded {
@@ -462,7 +509,6 @@
 .inventory-slot {
     width: 90%;
     aspect-ratio: 1;
-    border: 1px solid gray;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -517,8 +563,8 @@
 .equiped-items-container {
     display: flex;
     flex-direction: column;
-    padding: 15px 10px;
-    gap: 10px;
+    gap: 5px;
+    margin-top: 10px;
 }
 
 .equiped-items-container img {
@@ -530,24 +576,43 @@
     display: none;
 }
 
-.chest-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
+.chest-container,
 .hands-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 20px;
+}
+
+.left-hand,
+.right-hand,
+.chest,
+.info-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 6rem;
+    font-size: 1.1rem;
 }
 
 .chest-border,
 .left-hand-border,
 .right-hand-border {
-    border: #302924 solid 2px;
+    background-color: #b8a59c;
+    border: 2px solid #1c1c1c;
+    border-radius: 6px;
     display: flex;
+    width: 3.5rem;
+    height: 3.5rem;
+    overflow: hidden;
 }
+
+
+
+
+
+
 
 .inventory-context-menu {
     border: #1c1c1c 1px solid;
