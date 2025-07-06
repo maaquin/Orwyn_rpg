@@ -1,4 +1,4 @@
-import { Options } from "./components/options/Options";
+import { Options } from "../components/options/Options";
 
 export default function Home() {
   return (

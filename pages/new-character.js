@@ -1,4 +1,4 @@
-import { NewCharacter } from "./components/new game/NewCharacter";
+import { NewCharacter } from "../components/new game/NewCharacter";
 
 export default function Home() {
   return (

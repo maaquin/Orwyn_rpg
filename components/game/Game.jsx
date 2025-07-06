@@ -10,7 +10,7 @@ import {
   mapaData,
   actions,
   itemsData
-} from '../../../utils/data';
+} from '../../utils/data';
 
 const cities = {
   valdoren: getValdoren,
