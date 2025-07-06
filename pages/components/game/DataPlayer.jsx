@@ -13,8 +13,6 @@ export const DataPlayer = ({ dataGame, toggleExpanded, isExpanded }) => {
         chest: null
     });
 
-    console.log(equipment)
-
     useEffect(() => {
         async function handleEquipment() {
             try {
@@ -22,7 +20,7 @@ export const DataPlayer = ({ dataGame, toggleExpanded, isExpanded }) => {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        Equipment: {
+                        equipment: {
                             leftHand: equipment.left?.id,
                             rightHand: equipment.right?.id,
                             armor: equipment.chest?.id
@@ -46,6 +44,19 @@ export const DataPlayer = ({ dataGame, toggleExpanded, isExpanded }) => {
             });
 
             setInventory(filledInventory);
+
+
+            let left = dataGame.equipment.leftHand;
+            let right = dataGame.equipment.rightHand;
+            let chest = dataGame.equipment.armor;
+
+            let l = filledInventory.find(item => item.id === left);
+            let r = filledInventory.find(item => item.id === right);
+            let c = filledInventory.find(item => item.id === chest);
+
+            setEquipment(prev => ({ ...prev, ['left']: l }));
+            setEquipment(prev => ({ ...prev, ['right']: r }));
+            setEquipment(prev => ({ ...prev, ['chest']: c }));
         }
     }, [dataGame]);
 

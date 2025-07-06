@@ -181,7 +181,6 @@ export const NewCharacter = () => {
 
             if (res.ok) {
                 localStorage.setItem('playerId', data.playerId);
-                console.log("Jugador creado con ID:", data.playerId);
             } else {
                 console.error("Fallo al crear jugador:", data.message);
             }
@@ -193,7 +192,7 @@ export const NewCharacter = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!playerData.name || !playerData.sex || !playerData.playerClass || !playerData.race) {
+        if (!playerData.name || !playerData.sex || !playerData.class || !playerData.race) {
             setErrorMessage("⚠️ Campos incompletos");
             setTimeout(() => setErrorMessage(""), 3000);
             return;

@@ -1,48 +1,91 @@
 import { itemsData } from "./items";
 
 function buscarItemPorNombre(obj, name) {
-  const entrada = Object.entries(obj).find(([clave, valor]) => valor.name === name);
-  return entrada ? { id: entrada[0], data: entrada[1] } : null;
+    const entrada = Object.entries(obj).find(([clave, valor]) => valor.name === name);
+    return entrada ? { id: entrada[0], data: entrada[1] } : null;
 }
 
 export const actions = {
     field: {
         north: [
-            { message: "caminar al norte", key: "north" },
-            { message: "avanzar hacia el norte", key: "north" },
-            { message: "explorar hacia el norte", key: "north" },
-            { message: "andar en dirección norte", key: "north" }
+            { message: "caminar al norte", key: "north", narrative: true },
+            { message: "avanzar hacia el norte", key: "north", narrative: true },
+            { message: "explorar hacia el norte", key: "north", narrative: true },
+            { message: "andar en dirección norte", key: "north", narrative: true }
         ],
 
         south: [
-            { message: "caminar al sur", key: "south" },
-            { message: "avanzar hacia el sur", key: "south" },
-            { message: "explorar hacia el sur", key: "south" },
-            { message: "andar en dirección sur", key: "south" }
+            { message: "caminar al sur", key: "south", narrative: true },
+            { message: "avanzar hacia el sur", key: "south", narrative: true },
+            { message: "explorar hacia el sur", key: "south", narrative: true },
+            { message: "andar en dirección sur", key: "south", narrative: true }
         ],
 
         east: [
-            { message: "caminar al este", key: "east" },
-            { message: "avanzar hacia el este", key: "east" },
-            { message: "explorar hacia el este", key: "east" },
-            { message: "andar en dirección este", key: "east" }
+            { message: "caminar al este", key: "east", narrative: true },
+            { message: "avanzar hacia el este", key: "east", narrative: true },
+            { message: "explorar hacia el este", key: "east", narrative: true },
+            { message: "andar en dirección este", key: "east", narrative: true }
         ],
 
         west: [
-            { message: "caminar al oeste", key: "west" },
-            { message: "avanzar hacia el oeste", key: "west" },
-            { message: "explorar hacia el oeste", key: "west" },
-            { message: "andar en dirección oeste", key: "west" }
+            { message: "caminar al oeste", key: "west", narrative: true },
+            { message: "avanzar hacia el oeste", key: "west", narrative: true },
+            { message: "explorar hacia el oeste", key: "west", narrative: true },
+            { message: "andar en dirección oeste", key: "west", narrative: true }
         ],
 
-        interact: [
-            { message: "interactuar con el entorno", key: "interact" },
-            { message: "analizar el entorno", key: "interact" },
-            { message: "examinar los alrededores", key: "interact" },
-            { message: "mirar a tu alrededor", key: "interact" }
-        ],
+        event: (event) => {
 
-        enter: (estructuras) => {
+            if (!event) return [];
+
+            const optionsByKey = {
+                trader: [
+                    "Acercarte al comerciante",
+                    "Hablarle al vendedor",
+                    "Preguntar algo al vendedor",
+                ],
+                caravan: [
+                    "Saludar a la caravana",
+                    "Preguntar rutas a la caravana",
+                    "Acercarte a la caravana",
+                ],
+                bonfire: [
+                    "Sentarte con el aventurero",
+                    "Hablarle al aventurero",
+                    "Acercarte al aventurero",
+                ],
+                corpse: [
+                    "Revisar el cadáver",
+                    "Tomar objetos del cadáver",
+                    "Buscar en el cadáver",
+                ],
+                ruin: [
+                    "Entrar a explorar la ruina",
+                    "Acercarte a la ruina",
+                    "Inspeccionar la ruina",
+                ],
+                monster: [
+                    "Atacar",
+                    "Emboscar",
+                    "Combatir",
+                ]
+            };
+
+            if (!event?.key || !optionsByKey[event.key]) return [];
+
+            const messages = optionsByKey[event.key];
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+
+            return {
+                message: randomMessage,
+                key: event.key,
+                narrative: true
+            };
+
+        },
+
+        enterField: (estructuras) => {
             if (!estructuras || estructuras.length === 0) return [];
 
             const plantillas = [
@@ -58,38 +101,23 @@ export const actions = {
                 const plantillaAleatoria = plantillas[Math.floor(Math.random() * plantillas.length)];
                 return {
                     message: plantillaAleatoria.replace("___", estructura.name),
-                    key: `${estructura.key}`
+                    key: `${estructura.key}`,
+                    narrative: true
                 }
             });
         },
     },
     combate: {
-        quick: [
-            { message: "ataque rápido", key: "quick" },
-            { message: "golpe veloz", key: "quick" },
-            { message: "ataque relámpago", key: "quick" },
-            { message: "asestar un golpe ligero", key: "quick" }
-        ],
-
-        strong: [
-            { message: "ataque cargado", key: "strong" },
-            { message: "golpe poderoso", key: "strong" },
-            { message: "ataque fuerte", key: "strong" },
-            { message: "descargar energía en un golpe", key: "strong" }
+        atack: [
+            { message: "atacar", key: "strong", narrative: false }
         ],
 
         defense: [
-            { message: "defenderse", key: "defense" },
-            { message: "bloquear", key: "defense" },
-            { message: "prepararse para recibir daño", key: "defense" },
-            { message: "cubrirse", key: "defense" }
+            { message: "defender", key: "defense", narrative: false }
         ],
 
         run: [
-            { message: "huir", key: "run" },
-            { message: "escapar", key: "run" },
-            { message: "salir corriendo", key: "run" },
-            { message: "retirarse", key: "run" }
+            { message: "escapar", key: "run", narrative: true }
         ]
     },
     city: {
@@ -109,30 +137,31 @@ export const actions = {
                 const plantillaAleatoria = plantillas[Math.floor(Math.random() * plantillas.length)];
                 return {
                     message: plantillaAleatoria.replace("___", estructura.name),
-                    key: `${estructura.key}`
+                    key: `${estructura.key}`,
+                    narrative: true
                 }
             });
         },
 
         walk: [
-            { message: "caminar al otro sector de la ciudad", key: "walk" },
-            { message: "cambiar de zona de la ciudad", key: "walk" },
-            { message: "pasar al sector opuesto de la ciudad", key: "walk" }
+            { message: "caminar al otro sector de la ciudad", key: "walk", narrative: true },
+            { message: "cambiar de zona de la ciudad", key: "walk", narrative: true },
+            { message: "pasar al sector opuesto de la ciudad", key: "walk", narrative: true }
         ],
 
         out: [
-            { message: "salir de la ciudad", key: "out" },
-            { message: "abandonar la ciudad", key: "out" },
-            { message: "irse de la ciudad", key: "out" },
-            { message: "caminar hacia las afueras", key: "out" }
+            { message: "salir de la ciudad", key: "out", narrative: true },
+            { message: "abandonar la ciudad", key: "out", narrative: true },
+            { message: "irse de la ciudad", key: "out", narrative: true },
+            { message: "caminar hacia las afueras", key: "out", narrative: true }
         ]
     },
     city_structure: {
         out: [
-            { message: "salir a la ciudad", key: "out_structure" },
-            { message: "regresar a la ciudad", key: "out_structure" },
-            { message: "salir", key: "out_structure" },
-            { message: "dejar el lugar", key: "out_structure" }
+            { message: "salir a la ciudad", key: "out_structure", narrative: true },
+            { message: "regresar a la ciudad", key: "out_structure", narrative: true },
+            { message: "salir", key: "out_structure", narrative: true },
+            { message: "dejar el lugar", key: "out_structure", narrative: true }
         ],
 
         principal: (npcs) => {
@@ -149,7 +178,8 @@ export const actions = {
                 const plantillaAleatoria = plantillas[Math.floor(Math.random() * plantillas.length)];
                 return {
                     message: plantillaAleatoria.replace("___", npc),
-                    key: 'npc'
+                    key: 'npc',
+                    narrative: true
                 }
             });
         },
@@ -165,21 +195,70 @@ export const actions = {
             return items.map(item => {
                 const plantillaAleatoria = plantillas[Math.floor(Math.random() * plantillas.length)];
                 const itemClave = buscarItemPorNombre(itemsData, item)
+                let narrative;
+
+                if (itemClave.data.portable) {
+                    narrative = false;
+                } else {
+                    narrative = true;
+                }
 
                 return {
                     message: `${plantillaAleatoria.replace("___", item)} | ${itemClave.data.description} | ${itemClave.data.price} Doblones`,
                     key: itemClave.id,
-                    action: 'add'
+                    action: 'add',
+                    narrative
                 }
             });
         },
     },
+    npc_event: {
+        items: (items) => {
+            if (!items) return [];
+
+            const plantillas = [
+                "Comprar: ___"
+            ];
+
+
+            return items.map(item => {
+                const plantillaAleatoria = plantillas[Math.floor(Math.random() * plantillas.length)];
+                const itemClave = buscarItemPorNombre(itemsData, item)
+                let narrative;
+
+                if (itemClave.data.portable) {
+                    narrative = false;
+                } else {
+                    narrative = true;
+                }
+
+                return {
+                    message: `${plantillaAleatoria.replace("___", item)} | ${itemClave.data.description} | ${itemClave.data.price} Doblones`,
+                    key: itemClave.id,
+                    action: 'add',
+                    narrative
+                }
+            });
+        },
+        goodbye: [
+            { message: "seguir con tu camino", key: "goodbye", narrative: true },
+            { message: "continuar caminando", key: "goodbye", narrative: true },
+            { message: "despedirte del comerciante", key: "goodbye", narrative: true },
+        ],
+    },
+    bonfire: {
+        gooodbye: [
+            { message: "seguir con tu camino", key: "goodbye", narrative: true },
+            { message: "continuar caminando", key: "goodbye", narrative: true },
+            { message: "despedirte del aventurero", key: "goodbye", narrative: true },
+        ],
+    },
     npc: {
         bye: [
-            { message: "irse", key: "bye" },
-            { message: "marcharse del lugar", key: "bye" },
-            { message: "abandonar el edificio", key: "bye" },
-            { message: "salir a la ciudad", key: "bye" }
+            { message: "irse", key: "bye", narrative: true },
+            { message: "marcharse del lugar", key: "bye", narrative: true },
+            { message: "abandonar el edificio", key: "bye", narrative: true },
+            { message: "salir a la ciudad", key: "bye", narrative: true }
         ],
 
         items: (items) => {
@@ -197,7 +276,8 @@ export const actions = {
                 return {
                     message: `${plantillaAleatoria.replace("___", item)} ${itemClave.data.price} Doblones`,
                     key: itemClave.id,
-                    action: 'remove'
+                    action: 'remove',
+                    narrative: false
                 }
             });
         },

@@ -120,8 +120,6 @@ export const InventorySlot = ({ item, equipment, e }) => {
             y,
             item,
         });
-
-        console.log(item)
     };
 
     const useItem = () => {

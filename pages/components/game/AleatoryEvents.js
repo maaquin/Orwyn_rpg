@@ -27,15 +27,18 @@ export function obtenerEventoAleatorio() {
   const eventos = [
     {
       nombre: "Comerciante ambulante",
-      descripcion: "Te cruzás con un comerciante ambulante que empuja su carreta llena de objetos exóticos. Te ofrece una muestra gratuita... aunque parece sospechoso."
+      descripcion: "Te cruzás con un comerciante ambulante que empuja su carreta llena de objetos exóticos. Te ofrece una muestra gratuita... aunque parece sospechoso.",
+      key: "trader"
     },
     {
       nombre: "Caravana de personas",
-      descripcion: "Una caravana de personas cansadas pasa a tu lado. Algunos te saludan, otros parecen nerviosos. Se dirigen a un pueblo lejano huyendo de algo..."
+      descripcion: "Una caravana de personas cansadas pasa a tu lado. Algunos te saludan, otros parecen nerviosos. Se dirigen a un pueblo lejano huyendo de algo...",
+      key: "caravan"
     },
     {
       nombre: "Fogata con aventurero",
-      descripcion: "En el camino, ves una fogata encendida junto a un aventurero. Te invita a sentarte y compartir historias. Algo en su mirada es inquietante."
+      descripcion: "En el camino, ves una fogata encendida junto a un aventurero. Te invita a sentarte y compartir historias. Algo en su mirada es inquietante.",
+      key: "bonfire"
     },
     {
       nombre: "Cadáver con ítems",
@@ -44,7 +47,8 @@ export function obtenerEventoAleatorio() {
         return {
           nombre: this.nombre,
           descripcion: "Encontrás un cadáver tirado entre los arbustos, con algunos objetos aún útiles cerca suyo. ¿Qué habrá pasado? ¿Estará el peligro cerca todavía?",
-          recompensa
+          recompensa,
+          key: "corpse"
         };
       }
     },
@@ -55,7 +59,8 @@ export function obtenerEventoAleatorio() {
         return {
           nombre: this.nombre,
           descripcion: "Descubrís una pequeña ruina o edificio abandonado cubierto de vegetación. Podrías explorarlo... aunque quizás no estés solo ahí dentro.",
-          recompensa
+          recompensa,
+          key: "ruin"
         };
       }
     },
@@ -65,11 +70,12 @@ export function obtenerEventoAleatorio() {
         const monsterKeys = Object.keys(monsters);
         const randomIndex = Math.floor(Math.random() * monsterKeys.length);
         const key = monsterKeys[randomIndex];
-        const monstruo = monsters[key];
+        const monster = monsters[key];
         return {
           nombre: this.nombre,
-          descripcion: `¡Un ${monstruo.name} aparece! ${monstruo.description}`,
-          monstruo
+          descripcion: `¡Un ${monster.name} aparece! ${monster.description}`,
+          monster,
+          key: "monster"
         };
       }
     }

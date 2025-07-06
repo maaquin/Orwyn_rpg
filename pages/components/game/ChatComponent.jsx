@@ -3,16 +3,18 @@
 import { useState, useEffect } from 'react';
 import { useLLM } from '@/hooks/useLLM';
 import { responseMove } from './MoveTrue';
+import { generarContexto } from "./GenerateContext";
 import { useTranslation } from 'react-i18next';
 
-export const ChatComponent = ({ contexto, dataGame, mapData, moves, cityData, handle, items }) => {
+export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, items }) => {
   const [input, setInput] = useState('');
   const [response, setResponse] = useState('');
-  const [buttons, setButtons] = useState([]);
   const [data, setData] = useState('');
   const [settings, setSettings] = useState('');
+  const [buttons, setButtons] = useState([]);
   const [npcs, setNpcs] = useState(null);
   const [visibleTexto, setVisibleTexto] = useState('');
+  const [event, setEvent] = useState("");
   const { t } = useTranslation();
 
   const { askLLM, history, loading, error } = useLLM();
@@ -28,18 +30,23 @@ export const ChatComponent = ({ contexto, dataGame, mapData, moves, cityData, ha
 
   useEffect(() => {
     let i = -1;
-    setVisibleTexto(''); // limpiar cuando cambia el texto
+    let cancelled = false;
+    setVisibleTexto('');
 
-    const intervalo = setInterval(() => {
-      if (1 < response.length) {
-        setVisibleTexto(prev => prev + response.charAt(i));
-        i++;
-      } else {
-        clearInterval(intervalo);
-      }
-    }, settings.textSpeed);
+    function escribirLetra() {
+      if (cancelled || i >= response.length) return;
 
-    return () => clearInterval(intervalo);
+      setVisibleTexto(prev => prev + response.charAt(i));
+      i++;
+
+      setTimeout(escribirLetra, settings.textSpeed);
+    }
+
+    escribirLetra();
+    return () => {
+      cancelled = true;
+    };
+
   }, [response, settings]);
 
   useEffect(() => {
@@ -78,57 +85,80 @@ export const ChatComponent = ({ contexto, dataGame, mapData, moves, cityData, ha
   }, [dataGame])
 
 
+
   useEffect(() => {
-    if (!dataGame || !mapData || !npcs || !items) return;
+    if (!dataGame || !mapData || !items) return;
 
-    if (dataGame.playerData.status == 'city_structure') {
+    const { status, structure, inventory } = dataGame.playerData;
 
-      const npcsDisponibles = getNamesByKey(npcs, dataGame.playerData.structure);
-      const itemsDisponibles = getNamesByKeyAndCity(items, dataGame.playerData.structure, mapData.city);
-
-      const itemsNews = getRandomUniqueItems(itemsDisponibles, 3);
-
-      const acciones = moves('city_structure', {
-        principal: npcsDisponibles,
-        items: itemsNews
-      });
+    const getOpciones = (acciones) => {
       const opciones = [];
-
       for (const clave in acciones) {
         const valor = acciones[clave];
         opciones.push(...(Array.isArray(valor) ? valor : [valor]));
       }
-      setButtons(opciones);
+      return opciones;
+    };
 
-    } else if (dataGame.playerData.status == 'npc') {
+    let acciones = null;
 
-      const itemsDisponibles = Object.values(dataGame.inventory).map(object => object.name);
+    switch (status) {
+      case 'city_structure': {
+        const npcsDisponibles = getNamesByKey(npcs, structure);
+        const itemsDisponibles = getNamesByKeyAndCity(items, structure, mapData.city);
+        const itemsNews = getRandomUniqueItems(itemsDisponibles, 3);
 
-      const acciones = moves('npc', {
-        items: itemsDisponibles
-      });
-      const opciones = [];
-
-      for (const clave in acciones) {
-        const valor = acciones[clave];
-        opciones.push(...(Array.isArray(valor) ? valor : [valor]));
+        acciones = moves('city_structure', {
+          principal: npcsDisponibles,
+          items: itemsNews,
+        });
+        break;
       }
-      setButtons(opciones);
 
-    } else if (dataGame.playerData.status) {
-
-      const acciones = moves(dataGame.playerData.status, {
-        enter: mapData.structures
-      });
-      const opciones = [];
-
-      for (const clave in acciones) {
-        const valor = acciones[clave];
-        opciones.push(...(Array.isArray(valor) ? valor : [valor]));
+      case 'npc_event': {
+        const itemsDisponibles = getNamesByKey(items, 'trader',);
+        const itemsNews = getRandomUniqueItems(itemsDisponibles, 3);
+        
+        acciones = moves('npc_event', {
+          items: itemsNews,
+        });
+        break;
       }
+
+      case 'npc': {
+        const itemsDisponibles = Object.values(inventory).map(obj => obj.name);
+        acciones = moves('npc', {
+          items: itemsDisponibles,
+        });
+        break;
+      }
+
+      case 'field': {
+        if (event) {
+          acciones = moves('field', {
+            event,
+            enterField: mapData.structures
+          });
+        }
+        break;
+      }
+
+      default: {
+        if (status) {
+          acciones = moves(status, {
+            enter: mapData.structures,
+          });
+        }
+      }
+    }
+
+    if (acciones) {
+      const opciones = getOpciones(acciones);
       setButtons(opciones);
     }
-  }, [dataGame, mapData, loading])
+
+  }, [dataGame, mapData, loading, event]);
+
 
   useEffect(() => {
     if (history && lastMessage && lastMessage.role === 'assistant') {
@@ -139,6 +169,7 @@ export const ChatComponent = ({ contexto, dataGame, mapData, moves, cityData, ha
       }
     }
   }, [history]);
+
 
   useEffect(() => {
 
@@ -161,8 +192,11 @@ export const ChatComponent = ({ contexto, dataGame, mapData, moves, cityData, ha
 
     const yaEnviado = localStorage.getItem("llm_iniciado");
 
-    if (contexto && !yaEnviado) {
-      askLLM(`${contexto}\n
+    const contextoTemp = generarContexto(dataGame, mapData, cityData);
+    setEvent(contextoTemp.event);
+
+    if (!yaEnviado) {
+      askLLM(`${contextoTemp.contexto}\n
         Esta es la introducción del juego. Debes presentar el mundo y al personaje jugador por primera y única vez. Es la única instancia donde puedes usar datos biográficos o de origen.
         ESTRUCTURA QUE DEBES SEGUIR:
         1. Comienza con una **descripción ambiental** del lugar donde empieza la historia. Describe con claridad el entorno (visual, sonoro, cultural, etc.). Usa un estilo descriptivo y evocador, pero sobrio. No adornes en exceso.
@@ -182,7 +216,7 @@ export const ChatComponent = ({ contexto, dataGame, mapData, moves, cityData, ha
         `);
       localStorage.setItem("llm_iniciado", "true");
     }
-  }, [contexto]);
+  }, []);
 
   function getNamesByKey(objects, targetKey) {
     return Object.values(objects)
@@ -212,16 +246,26 @@ export const ChatComponent = ({ contexto, dataGame, mapData, moves, cityData, ha
 
   const handleAsk = () => {
     if (input.trim() === '') return;
-    askLLM(`${contexto}\n Inicio diálogo jugador: ${input}\n Fin diálogo jugador`);
+
+    const contextoTemp = generarContexto(dataGame, mapData, cityData);
+    setEvent(contextoTemp.event);
+
+    askLLM(`${contextoTemp.contexto}\n Inicio diálogo jugador: ${input}\n Fin diálogo jugador`);
     setInput('');
   };
 
+
+
+
   const handleOptionClick = async (action) => {
-
-
     await responseMove({ key: action.key, action: action.action || '', dataGame });
 
-    askLLM(`${contexto}\nAcción escogida: ${action.message}`);
+    const contextoTemp = generarContexto(dataGame, mapData, cityData);
+    setEvent(contextoTemp.event);
+
+    if (action.narrative) {
+      askLLM(`${contextoTemp.contexto}\nAcción escogida: ${action.message}`);
+    }
 
     handle(true);
   }
@@ -265,7 +309,7 @@ export const ChatComponent = ({ contexto, dataGame, mapData, moves, cityData, ha
               </div>
             ))}
           </div>
-          {dataGame.playerData.status === 'npc' && (
+          {(dataGame.playerData.status === 'npc' || dataGame.playerData.status === 'bonfire') && (
             <div className='player_ask_to_npc'>
               <input
                 type="text"

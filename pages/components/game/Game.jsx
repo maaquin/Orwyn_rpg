@@ -31,7 +31,7 @@ export const Game = () => {
   const [items, setItems] = useState(null);
   const videoRef = useRef(null);
 
-  //console.log(dataGame)
+  console.log(dataGame)
 
   useEffect(() => {
     const fetchPlayer = async () => {

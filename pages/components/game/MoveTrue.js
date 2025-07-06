@@ -219,18 +219,6 @@ const estructuras = {
                 }
             })
         });
-    },
-
-    npc: async (dataGame) => {
-        await fetch(`/api/player/${dataGame._id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                playerData: {
-                    status: "npc"
-                }
-            })
-        });
     }
 };
 
@@ -243,7 +231,69 @@ const interaccion = {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 playerData: {
-                    status: "city"
+                    status: "city",
+                    structure: ''
+                }
+            })
+        });
+    },
+
+    npc: async (dataGame) => {
+        await fetch(`/api/player/${dataGame._id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                playerData: {
+                    status: "npc"
+                }
+            })
+        });
+    },
+
+
+    goodbye: async (dataGame) => {
+        await fetch(`/api/player/${dataGame._id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                playerData: {
+                    status: "field"
+                }
+            })
+        });
+    },
+
+    trader: async (dataGame) => {
+        await fetch(`/api/player/${dataGame._id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                playerData: {
+                    status: "npc_event"
+                }
+            })
+        });
+    },
+
+    bonfire: async (dataGame) => {
+        await fetch(`/api/player/${dataGame._id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                playerData: {
+                    status: "bonfire"
+                }
+            })
+        });
+    },
+
+    caravan: async (dataGame) => {
+        await fetch(`/api/player/${dataGame._id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                playerData: {
+                    status: "npc"
                 }
             })
         });

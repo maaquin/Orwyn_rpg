@@ -8,7 +8,7 @@ export const itemsData = {
     effect: [{ stat: "attack", value: 5 }, { stat: "magic_attack", value: 5 }],
     price: 17,
     city: ["Myrrwood", "Sylvareth", "Valdoren"],
-    key: ["magic_store"],
+    key: ["magic_store", "trader"],
     type: "consumables"
   },
   item2: {
@@ -44,7 +44,7 @@ export const itemsData = {
     effect: [{ stat: "crit_chance", value: 20 }],
     price: 22,
     city: ["Myrrwood", "Sylvareth", "Valdoren"],
-    key: ["magic_store"],
+    key: ["magic_store", "trader"],
     type: "consumables"
   },
   item5: {
@@ -56,7 +56,7 @@ export const itemsData = {
     effect: [{ stat: "hp", value: 10 }],
     price: 8,
     city: ["Myrrwood", "Sylvareth", "Valdoren"],
-    key: ["magic_store"],
+    key: ["magic_store", "trader", "store"],
     type: "consumables"
   },
   item6: {
@@ -92,7 +92,7 @@ export const itemsData = {
     effect: [{ stat: "hp", value: 5 }],
     price: 5,
     city: ["Myrrwood", "Sylvareth", "Valdoren", "Drakmir", "Nymbria"],
-    key: ["plaza", "tavern", "restaurant", "store"],
+    key: ["plaza", "trader", "tavern", "restaurant", "store"],
     type: "consumables"
   },
   item9: {
@@ -103,7 +103,7 @@ export const itemsData = {
     portable: true,
     effect: [{ stat: "hp", value: 5 }, { stat: "magic_attack", value: 5 }],
     price: 8,
-    city: ["Myrrwood", "Sylvareth", "Drakmir"],
+    city: ["Myrrwood", "trader", "Sylvareth", "Drakmir"],
     key: ["plaza", "market", "restaurant"],
     type: "consumables"
   },
@@ -164,7 +164,7 @@ export const itemsData = {
     effect: [{ stat: "hp", value: 10 }],
     price: 6,
     city: ["Myrrwood", "Sylvareth", "Valdoren", "Drakmir", "Nymbria"],
-    key: ["plaza", "tavern", "restaurant", "store"],
+    key: ["plaza", "trader", "tavern", "restaurant", "store"],
     type: "consumables"
   },
   item15: {
@@ -212,7 +212,7 @@ export const itemsData = {
     effect: [{ stat: "hp", value: 10 }],
     price: 6,
     city: ["Nymbria"],
-    key: ["tavern", "port"],
+    key: ["tavern", "trader", "port"],
     type: "consumables"
   },
   item19: {
@@ -223,7 +223,7 @@ export const itemsData = {
     portable: true,
     effect: [{ stat: "hp", value: 10 }],
     price: 6,
-    city: ["Sylvareth"],
+    city: ["Sylvareth", "trader"],
     key: ["plaza"],
     type: "consumables"
   },
@@ -247,7 +247,7 @@ export const itemsData = {
     portable: true,
     effect: [{ stat: "hp", value: 10 }],
     price: 6,
-    city: ["Myrrwood"],
+    city: ["Myrrwood", "trader"],
     key: ["store", "restaurant"],
     type: "consumables"
   },
@@ -303,7 +303,7 @@ export const itemsData = {
     portable: true,
     effect: [],
     price: 2,
-    city: ["Myrrwood", "Sylvareth", "Valdoren", "Drakmir", "Nymbria"],
+    city: ["Myrrwood", "trader", "Sylvareth", "Valdoren", "Drakmir", "Nymbria"],
     key: ["plaza", "store", "market"],
     type: "key"
   },
@@ -337,7 +337,7 @@ export const itemsData = {
     portable: true,
     effect: [{ stat: "hp", value: 10 }],
     price: 6,
-    city: ["Myrrwood"],
+    city: ["Myrrwood", "trader"],
     key: ["store", "restaurant"],
     type: "consumables"
   },
@@ -409,7 +409,7 @@ export const itemsData = {
     portable: true,
     effect: [{ stat: "hp", value: 10 }],
     price: 6,
-    city: ["Nymbria"],
+    city: ["Nymbria", "trader"],
     key: ["tavern", "port"],
     type: "consumables"
   },

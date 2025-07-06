@@ -74,7 +74,15 @@ export const Options = () => {
     }, [settings])
 
     const handleBack = () => {
-        router.push('/');
+        const origin = localStorage.getItem('settings-origin')
+
+        if (origin) {
+            localStorage.removeItem('settings-origin')
+            router.push('/orwyn-game');
+        } else {
+            router.push('/');
+        }
+
     };
 
     return (
@@ -107,9 +115,9 @@ export const Options = () => {
                             <div className="option-row">
                                 <span>{t('text_speed')}</span>
                                 <select value={settings.textSpeed} onChange={(e) => handleChange('textSpeed', e.target.value)}>
-                                    <option value="20">{t('slow')}</option>
-                                    <option value="50">{t('normal')}</option>
-                                    <option value="70">{t('fast')}</option>
+                                    <option value="80">{t('slow')}</option>
+                                    <option value="35">{t('normal')}</option>
+                                    <option value="15">{t('fast')}</option>
                                 </select>
                             </div>
 

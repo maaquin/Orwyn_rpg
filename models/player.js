@@ -75,7 +75,7 @@ const PlayerSchema = new mongoose.Schema({
     type: PlayerDataSchema,
     default: () => ({})
   },
-  Equipment: {
+  equipment: {
     type: Equipment,
     default: () => ({})
   }

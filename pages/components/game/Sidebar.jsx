@@ -39,6 +39,7 @@ export const Sidebar = ({ data }) => {
     }
 
     const handleNavigateToSettings = () => {
+        localStorage.setItem('settings-origin', true)
         router.push('/options')
     }
 
@@ -53,7 +54,7 @@ export const Sidebar = ({ data }) => {
                     </div>
                     <div className='map-container-box'>
                         <div className='map-container' onClick={handleNavigateToMap}>
-                            <img src='images/map_1.webp' alt="mapa" style={{
+                            <img src='images/map_2.webp' alt="mapa" style={{
                                 left: `${leftPercent}%`,
                                 top: `${topPercent}%`
                             }} />
