@@ -172,7 +172,7 @@ export const NewCharacter = () => {
     const startGame = async ({ defaultData }) => {
         console.log('star game: ', defaultData);
         try {
-            const res = await fetch('/api/player/create', {
+            const res = await fetch('https://orwyn-rpg.vercel.app/api/player/create', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(defaultData),
