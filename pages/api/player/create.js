@@ -3,6 +3,7 @@ import Player from '../../../models/player';
 
 export default async function handler(req, res) {
     await dbConnect();
+    console.log("Método recibido:", req.method);
 
     if (req.method === 'POST') {
         try {
