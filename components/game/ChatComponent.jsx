@@ -13,6 +13,7 @@ export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, item
   const [settings, setSettings] = useState('');
   const [buttons, setButtons] = useState([]);
   const [npcs, setNpcs] = useState(null);
+  const [npcsYa, setYa] = useState(false);
   const [visibleTexto, setVisibleTexto] = useState('');
   const [event, setEvent] = useState("");
   const { t } = useTranslation();
@@ -52,6 +53,7 @@ export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, item
   useEffect(() => {
     if (cityData) {
       setNpcs(cityData.npcs)
+      setYa(true)
     }
   }, [cityData])
 
@@ -84,12 +86,13 @@ export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, item
     setData(dataGame.playerData.parents)
   }, [dataGame])
 
-
+console.log(dataGame)
 
   useEffect(() => {
-    if (!dataGame || !mapData || !items) return;
+    if (!dataGame || !mapData || !items || !npcsYa) return;
 
-    const { status, structure, inventory } = dataGame.playerData;
+    const { status, structure } = dataGame.playerData;
+    const { inventory } = dataGame;
 
     const getOpciones = (acciones) => {
       const opciones = [];

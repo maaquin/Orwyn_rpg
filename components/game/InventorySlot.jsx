@@ -134,6 +134,8 @@ export const InventorySlot = ({ item, equipment, e }) => {
         equipment(prev => ({ ...prev, [slot]: null }));
     };
 
+    console.log(item)
+
     return (
         <div
             ref={(node) => {
@@ -147,11 +149,16 @@ export const InventorySlot = ({ item, equipment, e }) => {
             title={`${item.name}: ${item.description}`}
         >
             {item && item.name !== 'empty' && (
-                <img
-                    src={`images/items/${item.img}.webp`}
-                    alt={item}
-                    style={{ width: '48px', height: '48px', pointerEvents: 'none' }}
-                />
+                <>
+                    <img
+                        src={`images/items/${item.img}.webp`}
+                        alt={item}
+                        style={{ width: '48px', height: '48px', pointerEvents: 'none' }}
+                    />
+                    {item.quantity > 1 && (
+                        <span className='quantity-item'>{item.quantity}</span>
+                    )}
+                </>
             )}
 
             {contextMenu.visible && ReactDOM.createPortal(

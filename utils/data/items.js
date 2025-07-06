@@ -120,7 +120,7 @@ export const itemsData = {
     type: "consumables"
   },
   item11: {
-    name: "Bear",
+    name: "Beer",
     img: "beer",
     description: "+20 hp",
     stackable: false,

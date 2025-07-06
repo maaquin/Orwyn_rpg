@@ -8,6 +8,23 @@
     color: #131212;
 }
 
+.game {
+    height: 100%;
+    width: 80%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+
+
+
+
+/* -> Side bar:*/
 .side-bar {
     display: flex;
     position: relative;
@@ -19,18 +36,6 @@
     padding: 20px 0 20px 20px;
     box-sizing: border-box;
     gap: 15px;
-}
-
-.game {
-    height: 100%;
-    width: 80%;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    box-sizing: border-box;
 }
 
 .options-menu-container {
@@ -69,6 +74,12 @@
     display: none;
 }
 
+
+
+
+
+
+/* -> Map:*/
 .map-container-box {
     box-sizing: border-box;
     position: relative;
@@ -97,7 +108,7 @@
 
 
 
-
+/* -> Text container:*/
 .text-container {
     background: rgba(252, 251, 250, 0.797);
     backdrop-filter: blur(10px);
@@ -205,7 +216,7 @@
 
 
 
-
+/* -> Inventory:*/
 .inventory-container {
     background: rgba(252, 251, 250, 0.279);
     backdrop-filter: blur(10px);
@@ -216,6 +227,154 @@
     overflow-y: auto;
 }
 
+.inventory {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.25rem;
+    position: relative;
+    height: 70%;
+    flex-grow: 1;
+}
+
+.inventory.expanded {
+    height: 100%;
+}
+
+.inventory-block {
+    display: flex;
+    flex-direction: column;
+    background-color: #493d34bb;
+    border-radius: 0 0 20px 20px;
+    margin-top: auto;
+}
+
+.inventory-block.expanded {
+    height: 100%;
+}
+
+.items-title-span {
+    font-weight: 600;
+    padding: 10px 0 0 15px;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: #fff;
+}
+
+.inventory-block img {
+    width: 30px;
+    height: 30px;
+}
+
+.inventory-object {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    max-height: 70px;
+    padding: 0 10px;
+}
+
+.inventory-object.expanded {
+    max-height: 100%;
+    height: 100%;
+}
+
+.items-inventory-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.items-inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    box-sizing: border-box;
+    padding: 10px;
+    gap: 10px;
+    place-items: center;
+    width: 100%;
+}
+
+
+
+/* -> Inventory arrow:*/
+.inventory-arrow {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    padding: 0px 20px;
+}
+
+.arrow-expand-inventory {
+    scale: 90%;
+    transform: rotate(180deg);
+    transition: all .3s;
+}
+
+.arrow-expand-inventory.rotated {
+    transform: rotate(0deg);
+}
+
+
+
+/* -> Inventory slot:*/
+
+.inventory-slot {
+    width: 90%;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1c1c1c;
+    border: 2px solid #807868;
+    border-radius: 6px;
+    position: relative;
+    cursor: grab;
+}
+
+.quantity-item {
+    color: #fee;
+    line-height: 1;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 0;
+    right: 0;
+    margin-bottom: -5px;
+    margin-right: -7px;
+    font-size: 1.1rem;
+    height: 1rem;
+    width: 1rem;
+    border: solid 1px #b8a59c;
+    border-radius: 3px;
+    background-color: #302924;
+}
+
+.inventory-context-menu {
+    border: #1c1c1c 1px solid;
+    z-index: 999999900;
+    min-width: 50px;
+    font-size: 1.2rem;
+    line-height: 1.1;
+    background-color: #fee;
+}
+
+.menu-item {
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+
+
+
+
+/* -> Info player:*/
 .info-player {
     box-sizing: border-box;
     padding: 5px;
@@ -341,22 +500,6 @@
     font-size: .8rem;
 }
 
-
-
-.inventory {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    font-size: 1.25rem;
-    position: relative;
-    height: 70%;
-    flex-grow: 1;
-}
-
-.inventory.expanded {
-    height: 100%;
-}
-
 .player-block {
     display: flex;
     flex-direction: row;
@@ -430,97 +573,6 @@
     width: 1.3rem;
 }
 
-
-
-
-
-
-.inventory-block {
-    display: flex;
-    flex-direction: column;
-    background-color: #493d34bb;
-    border-radius: 0 0 20px 20px;
-    margin-top: auto;
-}
-
-.inventory-block.expanded {
-    height: 100%;
-}
-
-.items-title-span {
-    font-weight: 600;
-    padding: 10px 0 0 15px;
-    font-size: 1.5rem;
-    line-height: 1;
-    color: #fff;
-}
-
-.inventory-block img {
-    width: 30px;
-    height: 30px;
-}
-
-.inventory-object {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    max-height: 70px;
-    padding: 0 10px;
-}
-
-.inventory-arrow {
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    padding: 0px 20px;
-}
-
-.inventory-object.expanded {
-    max-height: 100%;
-    height: 100%;
-}
-
-.items-inventory-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.arrow-expand-inventory {
-    scale: 90%;
-    transform: rotate(180deg);
-    transition: all .3s;
-}
-
-.arrow-expand-inventory.rotated {
-    transform: rotate(0deg);
-}
-
-.items-inventory-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    box-sizing: border-box;
-    padding: 10px;
-    gap: 10px;
-    place-items: center;
-    width: 100%;
-}
-
-.inventory-slot {
-    width: 90%;
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #1c1c1c;
-    border: 2px solid #807868;
-    border-radius: 6px;
-    position: relative;
-    cursor: grab;
-}
-
-
-
 .data-money-player {
     display: flex;
     flex-direction: row;
@@ -544,9 +596,6 @@
     scale: 60%;
 }
 
-
-
-
 .misions-container {
     background-color: #807868;
 
@@ -556,7 +605,6 @@
     height: 100%;
     border-radius: 20px;
 }
-
 
 
 
@@ -606,29 +654,4 @@
     width: 3.5rem;
     height: 3.5rem;
     overflow: hidden;
-}
-
-
-
-
-
-
-
-.inventory-context-menu {
-    border: #1c1c1c 1px solid;
-    z-index: 999999900;
-    min-width: 50px;
-    font-size: 1.2rem;
-    line-height: 1.1;
-    background-color: #fee;
-}
-
-.menu-item {
-    padding: 0 10px;
-    cursor: pointer;
-}
-
-.menu-item:hover {
-    background-color: #333;
-    color: #fff;
 }

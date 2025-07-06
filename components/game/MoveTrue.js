@@ -301,10 +301,30 @@ const interaccion = {
 };
 
 const handlerItem = async ({ item, dataGame, key, action }) => {
-    if (item.portable) {
+    if (!item.portable) return;
 
-        const newMoney = action === 'add' ? dataGame.playerData.money - item.price : dataGame.playerData.money + item.price;
+    const currentInventory = dataGame.inventory || [];
+    const existingItem = currentInventory.find(invItem => invItem.id === key);
 
+    const newMoney = action === 'add'
+        ? dataGame.playerData.money - item.price
+        : dataGame.playerData.money + item.price;
+
+    // Si el ítem ya existe en el inventario, actualizamos su cantidad
+    if (existingItem) {
+        await fetch(`/api/player/${dataGame._id}/inventory`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                action: 'update-quantity',
+                item: {
+                    id: key
+                },
+                quantityChange: action === 'add' ? 1 : -1
+            })
+        });
+    } else {
+        // Si el ítem no está, lo agregamos nuevo
         await fetch(`/api/player/${dataGame._id}/inventory`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -322,18 +342,19 @@ const handlerItem = async ({ item, dataGame, key, action }) => {
                 }
             })
         });
-
-        await fetch(`/api/player/${dataGame._id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                playerData: {
-                    money: newMoney
-                }
-            })
-        });
     }
-}
+
+    // Actualizar el dinero del jugador
+    await fetch(`/api/player/${dataGame._id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            playerData: {
+                money: newMoney
+            }
+        })
+    });
+};
 
 const handlers = {
     ...movimientos,
