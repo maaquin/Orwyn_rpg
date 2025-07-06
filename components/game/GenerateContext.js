@@ -76,7 +76,7 @@ export const generarContexto = (dataGame, mapData, cityData) => {
       estructuresStr += `${zona}: ${lugares}\n`;
     }
 
-    return structuresJoin;
+    return estructuresStr;
   }
 
   switch (dataGame.playerData.status) {

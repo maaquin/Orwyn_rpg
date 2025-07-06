@@ -195,7 +195,9 @@ export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, item
     const contextoTemp = generarContexto(dataGame, mapData, cityData);
     setEvent(contextoTemp.event);
 
-    if (!yaEnviado) {
+    if (!yaEnviado && data) {
+      console.log('hola que tal')
+
       askLLM(`${contextoTemp.contexto}\n
         Esta es la introducción del juego. Debes presentar el mundo y al personaje jugador por primera y única vez. Es la única instancia donde puedes usar datos biográficos o de origen.
         ESTRUCTURA QUE DEBES SEGUIR:
@@ -216,7 +218,7 @@ export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, item
         `);
       localStorage.setItem("llm_iniciado", "true");
     }
-  }, []);
+  }, [data]);
 
   function getNamesByKey(objects, targetKey) {
     return Object.values(objects)
