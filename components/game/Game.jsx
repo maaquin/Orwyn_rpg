@@ -33,6 +33,8 @@ export const Game = () => {
 
   console.log(dataGame)
 
+  console.log('hola que tal 3')
+
   useEffect(() => {
     const fetchPlayer = async () => {
       const playerId = localStorage.getItem("playerId");
