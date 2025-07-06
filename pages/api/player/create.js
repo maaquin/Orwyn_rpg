@@ -39,6 +39,6 @@ export default async function handler(req, res) {
         return res.status(201).json({ playerId: newPlayer._id });
     } catch (e) {
         console.error('❌ Create error:', e);
-        return res.status(500).json({ message: 'Create error', detail: e.message });
+        return res.status(500).json({ message: 'Create errorr', detail: e.message });
     }
 }
