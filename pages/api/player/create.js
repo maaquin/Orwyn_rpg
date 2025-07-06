@@ -2,7 +2,7 @@ import dbConnect from '../../../lib/mongoose';
 import Player from '../../../models/player';
 
 export default async function handler(req, res) {
-    console.log('create')
+    console.log('init create')
     await dbConnect();
     console.log("Método recibido:", req.method);
 
