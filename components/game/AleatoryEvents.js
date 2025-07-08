@@ -2,12 +2,15 @@ import { monsters } from "@/utils/data/monsters";
 import { itemsData } from "@/utils/data";
 
 function obtenerItemsAleatorios(cantidad = 1) {
-  const posiblesItems = [
-    itemsData.item5,  // small potion
-    itemsData.item8,  // water
-    itemsData.item14, // bread
-    itemsData.item26  // map
-  ];
+
+  const itemKeys = ['item5', 'item8', 'item14', 'item26'];
+
+  const posiblesItems = itemKeys.map(key => {
+    return {
+      ...itemsData[key],
+      id: key
+    };
+  });
 
   const itemsElegidos = [];
 
@@ -21,6 +24,13 @@ function obtenerItemsAleatorios(cantidad = 1) {
   }
 
   return itemsElegidos;
+}
+
+function getReward() {
+  const action = obtenerItemsAleatorios(Math.random() < 0.5 ? 1 : 2);
+  return {
+    action
+  };
 }
 
 export function obtenerEventoAleatorio() {
@@ -41,28 +51,16 @@ export function obtenerEventoAleatorio() {
       key: "bonfire"
     },
     {
-      nombre: "Cadáver con ítems",
-      getEvento() {
-        const recompensa = obtenerItemsAleatorios(Math.random() < 0.5 ? 1 : 2);
-        return {
-          nombre: this.nombre,
-          descripcion: "Encontrás un cadáver tirado entre los arbustos, con algunos objetos aún útiles cerca suyo. ¿Qué habrá pasado? ¿Estará el peligro cerca todavía?",
-          recompensa,
-          key: "corpse"
-        };
-      }
+      nombre: "Campamento abandonado",
+      descripcion: "El jugador se ha encontrado un campamento abandonado, con algunos objetos aún útiles cerca suyo. parece que la fogata ha sido apagada hace no mucho",
+      key: "corpse",
+      action: getReward()
     },
     {
       nombre: "Ruina abandonada",
-      getEvento() {
-        const recompensa = obtenerItemsAleatorios(Math.random() < 0.5 ? 1 : 2);
-        return {
-          nombre: this.nombre,
-          descripcion: "Descubrís una pequeña ruina o edificio abandonado cubierto de vegetación. Podrías explorarlo... aunque quizás no estés solo ahí dentro.",
-          recompensa,
-          key: "ruin"
-        };
-      }
+      descripcion: "Descubrís una pequeña ruina o edificio abandonado cubierto de vegetación. Podrías explorarlo... aunque quizás no estés solo ahí dentro.",
+      action: getReward(),
+      key: "ruin"
     },
     {
       nombre: "¡Aparece un monstruo!",

@@ -134,8 +134,6 @@ export const InventorySlot = ({ item, equipment, e }) => {
         equipment(prev => ({ ...prev, [slot]: null }));
     };
 
-    console.log(item)
-
     return (
         <div
             ref={(node) => {

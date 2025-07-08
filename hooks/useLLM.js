@@ -6,10 +6,9 @@ export function useLLM() {
     const [error, setError] = useState(null);
 
     const askLLM = async (question) => {
+        console.log('askLLM')
         setLoading(true);
         setError(null);
-
-        console.log(question)
 
         const newMessage = { role: 'user', content: question };
 

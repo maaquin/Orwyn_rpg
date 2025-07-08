@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLLM } from '@/hooks/useLLM';
 import { responseMove } from './MoveTrue';
 import { generarContexto } from "./GenerateContext";
@@ -13,10 +13,11 @@ export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, item
   const [settings, setSettings] = useState('');
   const [buttons, setButtons] = useState([]);
   const [npcs, setNpcs] = useState(null);
-  const [npcsYa, setYa] = useState(false);
   const [visibleTexto, setVisibleTexto] = useState('');
   const [event, setEvent] = useState("");
   const { t } = useTranslation();
+
+  const [hola, setHola] = useState(false);
 
   const { askLLM, history, loading, error } = useLLM();
 
@@ -53,7 +54,6 @@ export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, item
   useEffect(() => {
     if (cityData) {
       setNpcs(cityData.npcs)
-      setYa(true)
     }
   }, [cityData])
 
@@ -86,10 +86,8 @@ export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, item
     setData(dataGame.playerData.parents)
   }, [dataGame])
 
-console.log(dataGame)
-
   useEffect(() => {
-    if (!dataGame || !mapData || !items || !npcsYa) return;
+    if (!dataGame || !mapData || !items) return;
 
     const { status, structure } = dataGame.playerData;
     const { inventory } = dataGame;
@@ -107,8 +105,11 @@ console.log(dataGame)
 
     switch (status) {
       case 'city_structure': {
+        if (!npcs) return;
+
         const npcsDisponibles = getNamesByKey(npcs, structure);
-        const itemsDisponibles = getNamesByKeyAndCity(items, structure, mapData.city);
+        const itemsUnicos = filterNonStackableDuplicates(items, inventory)
+        const itemsDisponibles = getNamesByKeyAndCity(itemsUnicos, structure, mapData.city);
         const itemsNews = getRandomUniqueItems(itemsDisponibles, 3);
 
         acciones = moves('city_structure', {
@@ -119,9 +120,10 @@ console.log(dataGame)
       }
 
       case 'npc_event': {
-        const itemsDisponibles = getNamesByKey(items, 'trader',);
+        const itemsUnicos = filterNonStackableDuplicates(items, inventory)
+        const itemsDisponibles = getNamesByKey(itemsUnicos, 'trader',);
         const itemsNews = getRandomUniqueItems(itemsDisponibles, 3);
-        
+
         acciones = moves('npc_event', {
           items: itemsNews,
         });
@@ -136,10 +138,22 @@ console.log(dataGame)
         break;
       }
 
+      case 'caravan': {
+        const itemsDisponibles = Object.values(inventory).map(obj => obj.name);
+        acciones = moves('npc', {
+          items: itemsDisponibles,
+        });
+        break;
+      }
+
       case 'field': {
         if (event) {
           acciones = moves('field', {
             event,
+            enterField: mapData.structures
+          });
+        } else {
+          acciones = moves('field', {
             enterField: mapData.structures
           });
         }
@@ -160,7 +174,9 @@ console.log(dataGame)
       setButtons(opciones);
     }
 
-  }, [dataGame, mapData, loading, event]);
+    setHola(false)
+
+  }, [mapData, loading, event, hola]);
 
 
   useEffect(() => {
@@ -175,14 +191,13 @@ console.log(dataGame)
 
 
   useEffect(() => {
-
     if (!dataGame) return;
 
     fetch(`/api/narrative/${dataGame._id}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        currentText: response || '',
+        currentText: response || 'response',
         options: buttons
       })
     }).catch(console.error);
@@ -199,7 +214,6 @@ console.log(dataGame)
     setEvent(contextoTemp.event);
 
     if (!yaEnviado && data) {
-      console.log('hola que tal')
 
       askLLM(`${contextoTemp.contexto}\n
         Esta es la introducción del juego. Debes presentar el mundo y al personaje jugador por primera y única vez. Es la única instancia donde puedes usar datos biográficos o de origen.
@@ -244,6 +258,21 @@ console.log(dataGame)
       .map(object => object.name);
   }
 
+  function filterNonStackableDuplicates(items, inventory) {
+    const result = {};
+
+    for (const [id, itemData] of Object.entries(items)) {
+      const isInInventory = inventory.some(invItem => invItem.id === id);
+      const isStackable = itemData.stackable ?? true;
+
+      if (!isInInventory || isStackable) {
+        result[id] = itemData;
+      }
+    }
+
+    return result;
+  }
+
   function getRandomUniqueItems(array, count) {
     const shuffled = [...array].sort(() => Math.random() - 0.5);
     return shuffled.slice(0, count);
@@ -259,11 +288,36 @@ console.log(dataGame)
     setInput('');
   };
 
-
-
-
   const handleOptionClick = async (action) => {
-    await responseMove({ key: action.key, action: action.action || '', dataGame });
+
+    const result = await responseMove({ key: action.key, action: action.action || '', dataGame });
+
+    if (result === 'inventory_full') {
+      const contextoTemp = generarContexto(dataGame, mapData, cityData, 'inventory_full');
+      setEvent(contextoTemp.event);
+      askLLM(contextoTemp.contexto);
+      return;
+
+    } else if (result === 'no_money') {
+      const contextoTemp = generarContexto(dataGame, mapData, cityData, 'no_money');
+      setEvent(contextoTemp.event);
+      askLLM(contextoTemp.contexto);
+      return;
+
+    } else if (action.key === 'ruin' || action.key === 'corpse') {
+      const res = Array.isArray(action.action) && action.action.length > 0
+        ? action.action.map(i => i.name).join(", ")
+        : null;
+      const contextoTemp = generarContexto(dataGame, mapData, cityData, 'rewards', res);
+      setEvent(contextoTemp.event);
+
+      setHola(true)
+      handle(true);
+
+      askLLM(contextoTemp.contexto);
+      return;
+    }
+
 
     const contextoTemp = generarContexto(dataGame, mapData, cityData);
     setEvent(contextoTemp.event);
@@ -295,7 +349,9 @@ console.log(dataGame)
       {error && <p className="text-red-500 mt-2">{error}</p>}
       {dataGame && response && buttons && (
         <div className="text-rpg-game" style={{ fontSize: `${fontSize()}rem` }}>
-          <p>{visibleTexto}</p>
+          <div className='p-container'>
+            <p>{visibleTexto}</p>
+          </div>
           <div className='separator-moves-text' />
           <div className={response.length == visibleTexto.length ? 'moves-text-rpg-game' : 'moves-text-rpg-game ocult'}>
             {buttons.map((btn, index) => (

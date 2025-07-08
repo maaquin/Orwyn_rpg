@@ -31,8 +31,6 @@ export const Game = () => {
   const [items, setItems] = useState(null);
   const videoRef = useRef(null);
 
-  console.log(dataGame)
-
   useEffect(() => {
     const fetchPlayer = async () => {
       const playerId = localStorage.getItem("playerId");

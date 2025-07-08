@@ -60,7 +60,7 @@ export const mapaData = [
         coordinate: "2,2",
         descripcion: "Entrada a la mina abandonada de Miokonos. Antiguo complejo minero enano. Abandonado sin explicación. Aquí también nace el río Gonia",
         terrain: "montaña",
-        structure: [{ name: "Mina abandonada de Miokonos", key: "abandoned_mine" }]
+        structure: [{ name: "la mina abandonada de Miokonos", key: "abandoned_mine" }]
     },
     {
         coordinate: "3,2",
@@ -136,15 +136,15 @@ export const mapaData = [
         terrain: "bosque de hongos y setas / ciudad / comuna",
         structure: [
             {
-                name: "Restaurante La Sopa de Hongos",
+                name: "el restaurante La Sopa de Hongos",
                 key: "restaurant"
             },
             {
-                name: "Tienda de hierbas El Brote del Bosque",
+                name: "la tienda El Brote del Bosque",
                 key: "store"
             },
             {
-                name: "Tienda de objetos rúnicos Hojas del Recuerdo",
+                name: "la tienda rúnica Hojas del Recuerdo",
                 key: "magic_store"
             }
         ]
@@ -156,11 +156,11 @@ export const mapaData = [
         terrain: "bosque de hongos y setas / ciudad / comuna",
         structure: [
             {
-                name: "Centro de Sanación de los Espíritus",
+                name: "el centro de sanación",
                 key: "healing_center"
             },
             {
-                name: "Casa Comunal del Bosque",
+                name: "la casa comunal",
                 key: "community_center"
             }
         ]
@@ -179,7 +179,7 @@ export const mapaData = [
         coordinate: "10,3",
         descripcion: "Abismo ardiente dentro del Monte Ardak. Custodiado por salamandras ígneas que protegen un antiguo corazón de fuego.",
         terrain: "planicie rocosa / volcán",
-        structure: [{ name: "Abismo Ardak", key: "temple_fire" }]
+        structure: [{ name: "el Abismo Ardak", key: "temple_fire" }]
     },
 
 
@@ -190,19 +190,19 @@ export const mapaData = [
         terrain: "desierto / ciudad / comercial",
         structure: [
             {
-                name: "Taberna La Arena y el Acero",
+                name: "la taberna la arena y el acero",
                 key: "tavern"
             },
             {
-                name: "Tienda general Ojos del Desierto",
+                name: "la tienda general ojos del desierto",
                 key: "store"
             },
             {
-                name: "Posada La Sombra del Sol",
+                name: "la posada la sombra del sol",
                 key: "inn"
             },
             {
-                name: "Mercado de Especias",
+                name: "el mercado de especias",
                 key: "market"
             }
         ]
@@ -214,20 +214,20 @@ export const mapaData = [
         terrain: "desierto / ciudad / capitolio",
         structure: [
             {
-                name: "Palacio de Arena Rojiza",
+                name: "el palacio de arena rojiza",
                 key: "palace"
             },
             {
-                name: "Consejo de las Dunas",
+                name: "el consejo de las dunas",
                 key: "palace"
             }
         ]
     },
     {
         coordinate: "3,4",
-        descripcion: "Puente de Drakmir. Puente de piedra milenario que cruza el río Erial entre el desierto de Thar-Zuun y la planicie de Elyndor. Al oeste del puente se alcanza a ver la entrada de Drakmir",
+        descripcion: "Puente de las dunas. Puente de piedra milenario que cruza el río Erial entre el desierto de Thar-Zuun y la planicie de Elyndor. Al oeste del puente se alcanza a ver la entrada de Drakmir",
         terrain: "desierto / río / planicie",
-        structure: [{ name: "Puente de las dunas", key: "cobblestone_bridge" }]
+        structure: [{ name: "el puente de las dunas", key: "cobblestone_bridge" }]
     },
     {
         coordinate: "4,4",
@@ -241,23 +241,23 @@ export const mapaData = [
         terrain: "planicie / río / ciudad / ciudadela",
         structure: [
             {
-                name: "Taberna El Dragón Dorado",
+                name: "la taberna el dragón dorado",
                 key: "tavern"
             },
             {
-                name: "Posada La Media Luna",
+                name: "la posada la media luna",
                 key: "inn"
             },
             {
-                name: "Tienda de armas El Yunque de Brann",
+                name: "la tienda de armas el yunque de Brann",
                 key: "weapon_store"
             },
             {
-                name: "Tienda de objetos mágicos El Reflejo de Arcana",
+                name: "la tienda mágica el reflejo de arcana",
                 key: "magic_store"
             },
             {
-                name: "Tienda general El Bazar del Viajero",
+                name: "la tienda el bazar del viajero",
                 key: "store"
             }
         ]
@@ -269,19 +269,19 @@ export const mapaData = [
         terrain: "planicie / ciudad / castillo",
         structure: [
             {
-                name: "Castillo de Valdoren",
+                name: "el castillo de Valdoren",
                 key: "castle"
             },
             {
-                name: "Templo de la Luz Ancestral",
+                name: "el templo de la luz ancestral",
                 key: "temple"
             },
             {
-                name: "Plaza Central de los Héroes",
+                name: "la plaza central de los héroes",
                 key: "plaza"
             },
             {
-                name: "Cuartel de la Guardia Real",
+                name: "el cuartel de la guardia real",
                 key: "barracks"
             }
         ]
@@ -336,9 +336,9 @@ export const mapaData = [
     },
     {
         coordinate: "6,5",
-        descripcion: "Puente de Valdoren. Puente de madera que conecta el corazón del reino con Valdoren, cruzando el inicio del Lago Virell.",
+        descripcion: "Puente del alba. Puente de madera que conecta el corazón del reino con Valdoren, cruzando el inicio del Lago Virell.",
         terrain: "planicie / lago",
-        structure: [{ name: "Puente del alba", key: "wooden_bridge" }]
+        structure: [{ name: "el puente del alba", key: "wooden_bridge" }]
     },
     {
         coordinate: "7,5",
@@ -396,7 +396,7 @@ export const mapaData = [
         coordinate: "7,6",
         descripcion: "Isla Viviente de Nareen. Solo aparece en luna llena. En el centro del Lago Virell. Se mueve lentamente y su superficie está cubierta de árboles.",
         terrain: "lago",
-        structure: [{ name: "Isla Viviente de Nareen", key: "island" }]
+        structure: [{ name: "la isla viviente de Nareen", key: "island" }]
     },
     {
         coordinate: "8,6",
@@ -410,11 +410,11 @@ export const mapaData = [
         terrain: "planicie / ciudad / comercial",
         structure: [
             {
-                name: "Santuario de las Mareas",
+                name: "el santuario de las mareas",
                 key: "sanctuary"
             },
             {
-                name: "Gran Plaza Central",
+                name: "la gran plaza central",
                 key: "plaza"
             }
         ]
@@ -451,7 +451,7 @@ export const mapaData = [
         coordinate: "5,7",
         descripcion: "Entrada al santuario de Jade Raen. Oculto entre raíces gigantes en Altheria. Monumento antiguo con inscripciones élficas olvidadas.",
         terrain: "bosque",
-        structure: [{ name: "Santuario de Jade Rean", key: "temple_wooden" }]
+        structure: [{ name: "el Santuario de Jade Rean", key: "temple_wooden" }]
     },
     {
         coordinate: "6,7",
@@ -459,7 +459,7 @@ export const mapaData = [
         terrain: "bosque / pico de montaña",
         structure: [
             {
-                name: "Monolito de Sylvareth",
+                name: "el monolito de Sylvareth",
                 key: "monolith"
             }
         ]
@@ -481,19 +481,19 @@ export const mapaData = [
         terrain: "planicie / lago / ciudad / portuario",
         structure: [
             {
-                name: "Puerto de Nymbria",
+                name: "el puerto de Nymbria",
                 key: "port"
             },
             {
-                name: "Sector de Cultivos",
+                name: "el sector de cultivos",
                 key: "farmland"
             },
             {
-                name: "Barracas de los Pescadores",
+                name: "las barracas de los pescadores",
                 key: "fisher_barracks"
             },
             {
-                name: "Molino de la Plaza",
+                name: "el molino de la plaza",
                 key: "windmill"
             }
         ]
@@ -505,15 +505,15 @@ export const mapaData = [
         city: "Nymbria",
         structure: [
             {
-                name: "Posada Brisa del Mar",
+                name: "la posada brisa del mar",
                 key: "inn"
             },
             {
-                name: "Taberna El Kraken Azul",
+                name: "la taberna el kraken azul",
                 key: "tavern"
             },
             {
-                name: "Tienda de armas Espadas del Acantilado",
+                name: "la tienda de armas el acantilado",
                 key: "weapon_store"
             }
         ]
@@ -557,12 +557,12 @@ export const mapaData = [
         terrain: "bosque / ciudad / ciudadela",
         structure: [
             {
-                name: "Escuela de Magia Sylvana",
+                name: "la escuela de magia Sylvana",
                 key: "magic_school"
             },
             {
-                name: "Casas residenciales élficas",
-                key: "residential_area"
+                name: "las casas residenciales élficas",
+                key: "restaurant"
             }
         ]
 
@@ -574,11 +574,11 @@ export const mapaData = [
         terrain: "bosque / ciudad / ciudadela",
         structure: [
             {
-                name: "Plaza de los Cantos Antiguos",
+                name: "la plaza de los cantos antiguos",
                 key: "plaza"
             },
             {
-                name: "Tienda de magia y hechicería Sir Lancelot",
+                name: "la tienda de magia y hechicería Sir Lancelot",
                 key: "magic_store"
             }
         ]
@@ -586,9 +586,9 @@ export const mapaData = [
     },
     {
         coordinate: "9,8",
-        descripcion: "Puente de Valdoren. Puente de madera que conecta el corazón del reino con Valdoren, cruzando el inicio del Lago Virell. Al oeste el bosque élfico de Altheria y su poblado Sylvareth. Al este la ciudad anfibia de Nymbria.",
+        descripcion: "Puente del viejo sauce. Puente de madera que conecta el corazón del reino con Valdoren, cruzando el inicio del Lago Virell. Al oeste el bosque élfico de Altheria y su poblado Sylvareth. Al este la ciudad anfibia de Nymbria.",
         terrain: "bosque / río / planicie",
-        structure: [{ name: "Puente del viejo sauce", key: "wooden_bridge" }]
+        structure: [{ name: "el puente del viejo sauce", key: "wooden_bridge" }]
     },
     {
         coordinate: "10,8",
@@ -606,7 +606,7 @@ export const mapaData = [
         coordinate: "2,9",
         descripcion: "Ruinas de Zepharos. Columnas fantasmales visibles al alba. Solo visibles al alba, entre las dunas de Thar-Zuun.",
         terrain: "desierto",
-        structure: [{ name: "Ruinas de Zepharos", key: "temple_desert" }]
+        structure: [{ name: "las Ruinas de Zepharos", key: "temple_desert" }]
     },
     {
         coordinate: "3,9",
@@ -640,15 +640,15 @@ export const mapaData = [
         terrain: "bosque / ciudad / acrópolis",
         structure: [
             {
-                name: "Palacio Real",
+                name: "el palacio real",
                 key: "palace"
             },
             {
-                name: "Templo Lunar de Éleath",
+                name: "el templo lunar de Éleath",
                 key: "temple"
             },
             {
-                name: "Archivo de Runas y Hechizos",
+                name: "el archivo de runas y hechizos",
                 key: "archive"
             }
         ]

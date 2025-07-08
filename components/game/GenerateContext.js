@@ -1,8 +1,8 @@
 import { obtenerEventoAleatorio } from "./AleatoryEvents";
 
-export const generarContexto = (dataGame, mapData, cityData) => {
+export const generarContexto = (dataGame, mapData, cityData, state, reward) => {
   if (!dataGame) return "";
-  
+
   let contexto = `Información e instrucciones:\n`;
 
   if (dataGame.playerData.status === 'npc' || dataGame.playerData.status === 'bonfire') {
@@ -51,7 +51,7 @@ export const generarContexto = (dataGame, mapData, cityData) => {
             `
   }
 
-  
+
   contexto += `Información del jugador:\n`;
   contexto += `Nombre: ${dataGame.playerData.name}\n`;
   contexto += `Raza: ${dataGame.playerData.race}\n`;
@@ -123,7 +123,8 @@ export const generarContexto = (dataGame, mapData, cityData) => {
     contexto += `  Estructuras presentes: ${mapData.structures}`
   } else if (!mapData.structures && dataGame.playerData.status === 'field') {
 
-    const triggerRandomEvent = dataGame.playerData.status === 'field';
+    const triggerRandomEvent =
+      dataGame.playerData.status === 'field' && Math.random() < 0.25;
     if (triggerRandomEvent) {
       evento = obtenerEventoAleatorio();
       contexto += 'HAZ ÉNFASIS DEL SIGUIENTE EVENTO EN LA NARRATIVA'
@@ -131,6 +132,49 @@ export const generarContexto = (dataGame, mapData, cityData) => {
       contexto += `Descripcón del evento: ${evento.descripcion}`
     }
   }
+
+
+
+  const baseStyle = `
+    Manten el estilo del juego: medieval, algo misterioso. 
+    Evitá exagerar elementos mágicos a menos que estén ya presentes. 
+    No describas acción física del jugador, solo la escena o la reacción del NPC o jugador.
+  `;
+
+  switch (state) {
+    case 'inventory_full':
+      contexto += `
+        El jugador intentó comprar un objeto, pero su inventario está lleno y no tiene más espacio físico.
+        Genera una breve descripción narrativa de cómo reacciona el comerciante o el entorno ante esta situación.
+        ${baseStyle}
+    `;
+      break;
+
+    case 'no_money':
+      contexto += `
+        El jugador intentó comprar un objeto, pero no tiene los doblones suficientes.
+        Genera una breve descripción narrativa de cómo reacciona el comerciante o el entorno ante esta situación.
+        ${baseStyle}
+    `;
+      break;
+
+    case 'rewards':
+      if (reward) {
+        contexto += `
+          El jugador, luego de buscar, tuvo suerte y encontró los siguientes objetos: ${reward}.
+          Genera una breve descripción narrativa de cómo reacciona el jugador.
+          ${baseStyle}
+      `;
+      } else {
+        contexto += `
+          El jugador, luego de buscar, no tuvo suerte y no encontró ningún objeto.
+          Genera una breve descripción narrativa de cómo reacciona el jugador.
+          ${baseStyle}
+      `;
+      }
+      break;
+  }
+
 
   return {
     contexto: contexto,

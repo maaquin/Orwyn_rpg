@@ -56,9 +56,9 @@ export const actions = {
                     "Acercarte al aventurero",
                 ],
                 corpse: [
-                    "Revisar el cadáver",
-                    "Tomar objetos del cadáver",
-                    "Buscar en el cadáver",
+                    "Examinar el campamento",
+                    "Revisar objetos del campamento",
+                    "Buscar ítems en el campamento",
                 ],
                 ruin: [
                     "Entrar a explorar la ruina",
@@ -80,6 +80,7 @@ export const actions = {
             return {
                 message: randomMessage,
                 key: event.key,
+                action: event.action.action || null,
                 narrative: true
             };
 
@@ -253,6 +254,34 @@ export const actions = {
             { message: "despedirte del aventurero", key: "goodbye", narrative: true },
         ],
     },
+    caravan: {
+        gooodbye: [
+            { message: "seguir con tu camino", key: "goodbye", narrative: true },
+            { message: "continuar caminando", key: "goodbye", narrative: true },
+            { message: "despedirte del aventurero", key: "goodbye", narrative: true },
+        ],
+
+        items: (items) => {
+            if (!items) return [];
+
+            const plantillas = [
+                "Vender: ___"
+            ];
+
+
+            return items.map(item => {
+                const plantillaAleatoria = plantillas[Math.floor(Math.random() * plantillas.length)];
+                const itemClave = buscarItemPorNombre(itemsData, item)
+
+                return {
+                    message: `${plantillaAleatoria.replace("___", item)} | ${itemClave.data.price} Doblones`,
+                    key: itemClave.id,
+                    action: 'remove',
+                    narrative: false
+                }
+            });
+        },
+    },
     npc: {
         bye: [
             { message: "irse", key: "bye", narrative: true },
@@ -274,7 +303,7 @@ export const actions = {
                 const itemClave = buscarItemPorNombre(itemsData, item)
 
                 return {
-                    message: `${plantillaAleatoria.replace("___", item)} ${itemClave.data.price} Doblones`,
+                    message: `${plantillaAleatoria.replace("___", item)} | ${itemClave.data.price} Doblones`,
                     key: itemClave.id,
                     action: 'remove',
                     narrative: false

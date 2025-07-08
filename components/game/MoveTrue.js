@@ -89,7 +89,7 @@ const ciudad = {
                 nuevaUbicacion = [9, 6];
                 break;
             default:
-                console.log("No podés desplazarte desde esta ubicación.");
+                console.error("No podés desplazarte desde esta ubicación.");
                 return;
         }
 
@@ -142,7 +142,7 @@ const ciudad = {
                 nuevaUbicacion = [10, 8];
                 break;
             default:
-                console.log("No podés salir desde esta ubicación.");
+                console.error("No podés salir desde esta ubicación.");
                 return;
         }
 
@@ -293,11 +293,53 @@ const interaccion = {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 playerData: {
-                    status: "npc"
+                    status: "caravan"
                 }
             })
         });
     }
+};
+
+
+const updateInventory = async ({ dataGame, item, key, action, quantityChange = 1 }) => {
+    const body = {
+        action: item ? action : 'update-quantity',
+        item: item
+            ? {
+                id: key,
+                name: item.name,
+                img: item.img,
+                description: item.description,
+                price: item.price,
+                quantity: 1,
+                effect: item.effect ?? [],
+                type: item.type
+            }
+            : { id: key },
+        ...(quantityChange && !item && { quantityChange })
+    };
+
+    await fetch(`/api/player/${dataGame._id}/inventory`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+    });
+};
+
+
+const updatePlayerMoney = async (playerId, newMoney) => {
+    await fetch(`/api/player/${playerId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            playerData: { money: newMoney }
+        })
+    });
+};
+
+
+const canAddToInventory = (currentInventory, item, existingItem) => {
+    return !(currentInventory.length >= 12 && (!item.stackable || !existingItem));
 };
 
 const handlerItem = async ({ item, dataGame, key, action }) => {
@@ -306,54 +348,74 @@ const handlerItem = async ({ item, dataGame, key, action }) => {
     const currentInventory = dataGame.inventory || [];
     const existingItem = currentInventory.find(invItem => invItem.id === key);
 
-    const newMoney = action === 'add'
-        ? dataGame.playerData.money - item.price
-        : dataGame.playerData.money + item.price;
-
-    // Si el ítem ya existe en el inventario, actualizamos su cantidad
-    if (existingItem) {
-        await fetch(`/api/player/${dataGame._id}/inventory`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                action: 'update-quantity',
-                item: {
-                    id: key
-                },
-                quantityChange: action === 'add' ? 1 : -1
-            })
-        });
-    } else {
-        // Si el ítem no está, lo agregamos nuevo
-        await fetch(`/api/player/${dataGame._id}/inventory`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                action: action,
-                item: {
-                    id: key,
-                    name: item.name,
-                    img: item.img,
-                    description: item.description,
-                    price: item.price,
-                    quantity: 1,
-                    effect: item.effect ?? [],
-                    type: item.type
-                }
-            })
-        });
+    if (!canAddToInventory(currentInventory, item, existingItem) && action === 'add') {
+        return 'inventory_full';
     }
 
-    // Actualizar el dinero del jugador
-    await fetch(`/api/player/${dataGame._id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            playerData: {
-                money: newMoney
-            }
-        })
+    if (dataGame.playerData.money < item.price && action === 'add') {
+        return 'no_money';
+    }
+
+    const newMoney =
+        action === 'add'
+            ? dataGame.playerData.money - item.price
+            : dataGame.playerData.money + item.price;
+
+    await updateInventory({
+        dataGame,
+        item: existingItem ? null : item,
+        key,
+        action,
+        quantityChange: action === 'add' ? 1 : -1
     });
+
+    await updatePlayerMoney(dataGame._id, newMoney);
+};
+
+const handlerEvent = {
+    corpse: async ({ dataGame, action }) => {
+        if (!action) return;
+
+        const currentInventory = dataGame.inventory || [];
+        const existingItem = currentInventory.find(invItem => invItem.id === action.id);
+
+        if (!canAddToInventory(currentInventory, action, existingItem)) {
+            return 'inventory_full';
+        }
+
+        await Promise.all(action.map(reward => {
+            return updateInventory({
+                dataGame,
+                item: existingItem ? null : reward,
+                key: reward.id,
+                action: existingItem ? 'update-quantity' : 'add',
+                quantityChange: 1
+            });
+        }));
+
+    },
+
+    ruin: async ({ dataGame, action }) => {
+        if (!action) return;
+
+        const currentInventory = dataGame.inventory || [];
+        const existingItem = currentInventory.find(invItem => invItem.id === action.id);
+
+        if (!canAddToInventory(currentInventory, action, existingItem)) {
+            return 'inventory_full';
+        }
+
+        await Promise.all(action.map(reward => {
+            return updateInventory({
+                dataGame,
+                item: existingItem ? null : reward,
+                key: reward.id,
+                action: existingItem ? 'update-quantity' : 'add',
+                quantityChange: 1
+            });
+        }));
+
+    }
 };
 
 const handlers = {
@@ -365,8 +427,10 @@ const handlers = {
 };
 
 export async function responseMove({ key, dataGame, action }) {
+
     const handler = handlers[key];
     const item = itemsData[key];
+    const event = handlerEvent[key];
 
     if (handler) {
         try {
@@ -376,11 +440,21 @@ export async function responseMove({ key, dataGame, action }) {
         }
     } else if (item) {
         try {
-            await handlerItem({ item, dataGame, key, action });
+            const result = await handlerItem({ item, dataGame, key, action });
+
+            if (result) return result;
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    } else if (event) {
+        try {
+            const result = await event({ item, dataGame, key, action });
+
+            if (result) return result;
         } catch (error) {
             console.error("Error:", error);
         }
     } else {
-        console.log("Acción desconocida.");
+        console.error("Acción desconocida.");
     }
 }
