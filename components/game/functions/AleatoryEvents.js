@@ -33,8 +33,22 @@ function getReward() {
   };
 }
 
+function getMonster() {
+  const monsterKeys = Object.keys(monsters);
+  const randomIndex = Math.floor(Math.random() * monsterKeys.length);
+  const key = monsterKeys[randomIndex];
+  const monster = monsters[key];
+  return {
+    descripcion: `¡Un ${monster.name} aparece! ${monster.description}`,
+    monster
+  };
+}
+
+const monster = getMonster();
+
 export function obtenerEventoAleatorio() {
   const eventos = [
+    /*
     {
       nombre: "Comerciante ambulante",
       descripcion: "Te cruzás con un comerciante ambulante que empuja su carreta llena de objetos exóticos. Te ofrece una muestra gratuita... aunque parece sospechoso.",
@@ -62,20 +76,12 @@ export function obtenerEventoAleatorio() {
       action: getReward(),
       key: "ruin"
     },
+  */
     {
       nombre: "¡Aparece un monstruo!",
-      getEvento() {
-        const monsterKeys = Object.keys(monsters);
-        const randomIndex = Math.floor(Math.random() * monsterKeys.length);
-        const key = monsterKeys[randomIndex];
-        const monster = monsters[key];
-        return {
-          nombre: this.nombre,
-          descripcion: `¡Un ${monster.name} aparece! ${monster.description}`,
-          monster,
-          key: "monster"
-        };
-      }
+      descripcion: monster.descripcion,
+      monster: monster.monster,
+      key: 'monster'
     }
   ];
 

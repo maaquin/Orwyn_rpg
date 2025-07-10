@@ -297,8 +297,42 @@ const interaccion = {
                 }
             })
         });
+    },
+
+    monster: async (dataGame) => {
+        await fetch(`/api/player/${dataGame._id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                playerData: {
+                    status: "combat"
+                }
+            })
+        });
     }
 };
+
+const combat = {
+    run: async (dataGame) => {
+        await fetch(`/api/player/${dataGame._id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                playerData: {
+                    status: "field"
+                }
+            })
+        });
+    },
+
+    attack: () => {return 'attack';},
+
+    magic_attack: () => {return 'magic';},
+
+    defense: () => {return 'defense';},
+
+    consumable: () => {return 'consumable';}
+}
 
 
 const updateInventory = async ({ dataGame, item, key, action, quantityChange = 1 }) => {
@@ -423,7 +457,8 @@ const handlers = {
     ...combate,
     ...ciudad,
     ...estructuras,
-    ...interaccion
+    ...interaccion,
+    ...combat
 };
 
 export async function responseMove({ key, dataGame, action }) {
@@ -434,7 +469,9 @@ export async function responseMove({ key, dataGame, action }) {
 
     if (handler) {
         try {
-            await handler(dataGame);
+            const result = await handler(dataGame);
+
+            if (result) return result;
         } catch (error) {
             console.error("Error:", error);
         }

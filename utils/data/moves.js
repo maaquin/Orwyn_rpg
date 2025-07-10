@@ -68,7 +68,6 @@ export const actions = {
                 monster: [
                     "Atacar",
                     "Emboscar",
-                    "Combatir",
                 ]
             };
 
@@ -80,8 +79,8 @@ export const actions = {
             return {
                 message: randomMessage,
                 key: event.key,
-                action: event.action.action || null,
-                narrative: true
+                action: event.action?.action || null,
+                narrative: event.key === 'monster' ? false : true
             };
 
         },
@@ -108,17 +107,25 @@ export const actions = {
             });
         },
     },
-    combate: {
-        atack: [
-            { message: "atacar", key: "strong", narrative: false }
+    combat: {
+        attack: [
+            { message: "ataque físico", key: "attack", narrative: false }
+        ],
+
+        magic_attack: [
+            { message: "ataque mágico", key: "magic_attack", narrative: false }
         ],
 
         defense: [
             { message: "defender", key: "defense", narrative: false }
         ],
 
+        consumable: [
+            { message: "usar consumible", key: "consumable", narrative: false }
+        ],
+
         run: [
-            { message: "escapar", key: "run", narrative: true }
+            { message: "escapar", key: "run", narrative: false }
         ]
     },
     city: {

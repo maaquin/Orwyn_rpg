@@ -64,18 +64,6 @@ export const DataPlayer = ({ dataGame, toggleExpanded, isExpanded }) => {
         return null
     }
 
-    const infoRace = () => {
-        return `${t('racee')}: ${t(player.race)}`;
-    };
-
-    const infoClass = () => {
-        return `${t('classs')}: ${t(player.class)}`;
-    };
-
-    const infoNature = () => {
-        return `${t('nature')}: ${t(player.nature)}`;
-    };
-
     const handleInfo = () => {
         if (info) {
             setInfo(false);

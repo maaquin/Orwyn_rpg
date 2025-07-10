@@ -124,7 +124,7 @@ export const generarContexto = (dataGame, mapData, cityData, state, reward) => {
   } else if (!mapData.structures && dataGame.playerData.status === 'field') {
 
     const triggerRandomEvent =
-      dataGame.playerData.status === 'field' && Math.random() < 0.25;
+      dataGame.playerData.status === 'field' // && Math.random() < 0.25;
     if (triggerRandomEvent) {
       evento = obtenerEventoAleatorio();
       contexto += 'HAZ ÉNFASIS DEL SIGUIENTE EVENTO EN LA NARRATIVA'

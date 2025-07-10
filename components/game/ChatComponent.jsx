@@ -1,63 +1,44 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useLLM } from '@/hooks/useLLM';
-import { responseMove } from './MoveTrue';
-import { generarContexto } from "./GenerateContext";
-import { useTranslation } from 'react-i18next';
+import { generarContexto } from "./functions/GenerateContext";
+import { Ask } from './buttons/Ask';
+import { Moves } from './buttons/Moves';
+import { Combat } from './buttons/Combat';
+import { Handles } from './functions/Handles';
 
 export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, items }) => {
-  const [input, setInput] = useState('');
-  const [response, setResponse] = useState('');
-  const [data, setData] = useState('');
-  const [settings, setSettings] = useState('');
-  const [buttons, setButtons] = useState([]);
+  const [input, setInput] = useState(null);
+  const [response, setResponse] = useState(null);
+  const [data, setData] = useState(null);
+  const [settings, setSettings] = useState(null);
   const [npcs, setNpcs] = useState(null);
   const [visibleTexto, setVisibleTexto] = useState('');
-  const [event, setEvent] = useState("");
-  const { t } = useTranslation();
-
-  const [hola, setHola] = useState(false);
+  const [buttons, setButtons] = useState([]);
+  const [event, setEvent] = useState(null);
+  const [monster, setMonster] = useState(null);
+  const [action, setAction] = useState(null);
+  const [animKey, setAnimKey] = useState(0);
+  const [hola, setHandle] = useState(false);
 
   const { askLLM, history, loading, error } = useLLM();
+  const {
+    getNamesByKey, getNamesByKeyAndCity, getRandomUniqueItems,
+    filterNonStackableDuplicates, fontSize } =
+    Handles({
+      setEvent, askLLM, dataGame, mapData, cityData,
+      setHandle, handle, input, setInput, settings
+    });
 
   const lastMessage = history[history.length - 1];
 
   useEffect(() => {
+    // Obtener settings y fetch inicial
     const settingsNow = localStorage.getItem('settings');
-    const settingsNew = JSON.parse(settingsNow)
+    const settingsNew = JSON.parse(settingsNow);
+    setSettings(settingsNew);
 
-    setSettings(settingsNew)
-  }, [])
-
-  useEffect(() => {
-    let i = -1;
-    let cancelled = false;
-    setVisibleTexto('');
-
-    function escribirLetra() {
-      if (cancelled || i >= response.length) return;
-
-      setVisibleTexto(prev => prev + response.charAt(i));
-      i++;
-
-      setTimeout(escribirLetra, settings.textSpeed);
-    }
-
-    escribirLetra();
-    return () => {
-      cancelled = true;
-    };
-
-  }, [response, settings]);
-
-  useEffect(() => {
-    if (cityData) {
-      setNpcs(cityData.npcs)
-    }
-  }, [cityData])
-
-  useEffect(() => {
     const fetchSession = async () => {
       const playerId = localStorage.getItem("playerId");
       if (!playerId) return;
@@ -78,15 +59,40 @@ export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, item
     };
 
     fetchSession();
-  }, [])
+  }, []); // Solo al montar
 
   useEffect(() => {
-    if (!dataGame) return;
-
-    setData(dataGame.playerData.parents)
-  }, [dataGame])
+    // Cambiar monstruo si hay evento
+    if (event) {
+      setMonster(event.monster);
+    }
+  }, [event]);
 
   useEffect(() => {
+    // Texto tipo máquina de escribir
+    if (dataGame?.playerData?.status === 'combat' || !response) return;
+
+    let i = -1;
+    let cancelled = false;
+    setVisibleTexto('');
+
+    function escribirLetra() {
+      if (cancelled || i >= response.length) return;
+
+      setVisibleTexto(prev => prev + response.charAt(i));
+      i++;
+
+      setTimeout(escribirLetra, settings.textSpeed);
+    }
+
+    escribirLetra();
+    return () => {
+      cancelled = true;
+    };
+  }, [response, settings]);
+
+  useEffect(() => {
+    // Actualiza botones según el estado del juego
     if (!dataGame || !mapData || !items) return;
 
     const { status, structure } = dataGame.playerData;
@@ -106,9 +112,8 @@ export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, item
     switch (status) {
       case 'city_structure': {
         if (!npcs) return;
-
         const npcsDisponibles = getNamesByKey(npcs, structure);
-        const itemsUnicos = filterNonStackableDuplicates(items, inventory)
+        const itemsUnicos = filterNonStackableDuplicates(items, inventory);
         const itemsDisponibles = getNamesByKeyAndCity(itemsUnicos, structure, mapData.city);
         const itemsNews = getRandomUniqueItems(itemsDisponibles, 3);
 
@@ -120,29 +125,18 @@ export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, item
       }
 
       case 'npc_event': {
-        const itemsUnicos = filterNonStackableDuplicates(items, inventory)
-        const itemsDisponibles = getNamesByKey(itemsUnicos, 'trader',);
+        const itemsUnicos = filterNonStackableDuplicates(items, inventory);
+        const itemsDisponibles = getNamesByKey(itemsUnicos, 'trader');
         const itemsNews = getRandomUniqueItems(itemsDisponibles, 3);
 
-        acciones = moves('npc_event', {
-          items: itemsNews,
-        });
+        acciones = moves('npc_event', { items: itemsNews });
         break;
       }
 
-      case 'npc': {
-        const itemsDisponibles = Object.values(inventory).map(obj => obj.name);
-        acciones = moves('npc', {
-          items: itemsDisponibles,
-        });
-        break;
-      }
-
+      case 'npc':
       case 'caravan': {
         const itemsDisponibles = Object.values(inventory).map(obj => obj.name);
-        acciones = moves('npc', {
-          items: itemsDisponibles,
-        });
+        acciones = moves('npc', { items: itemsDisponibles });
         break;
       }
 
@@ -174,12 +168,11 @@ export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, item
       setButtons(opciones);
     }
 
-    setHola(false)
-
-  }, [mapData, loading, event, hola]);
-
+    setHandle(false);
+  }, [dataGame, mapData, event, npcs, hola, loading]); // quité `hola` y `loading` si no se usan realmente
 
   useEffect(() => {
+    // Si cambia history y hay respuesta del asistente
     if (history && lastMessage && lastMessage.role === 'assistant') {
       try {
         setResponse(lastMessage.content);
@@ -189,8 +182,8 @@ export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, item
     }
   }, [history]);
 
-
   useEffect(() => {
+    // Actualizar narrativa con response y botones
     if (!dataGame) return;
 
     fetch(`/api/narrative/${dataGame._id}`, {
@@ -201,8 +194,18 @@ export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, item
         options: buttons
       })
     }).catch(console.error);
+  }, [buttons, response, dataGame]);
 
-  }, [buttons, response]);
+  useEffect(() => {
+    // Si hay cityData o dataGame
+    if (cityData) {
+      setNpcs(cityData.npcs);
+    }
+
+    if (dataGame) {
+      setData(dataGame.playerData.parents);
+    }
+  }, [cityData, dataGame]);
 
 
   // Mensaje inicial automático
@@ -237,162 +240,46 @@ export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, item
     }
   }, [data]);
 
-  function getNamesByKey(objects, targetKey) {
-    return Object.values(objects)
-      .filter(object => {
-        if (Array.isArray(object.key)) {
-          return object.key.includes(targetKey);
-        }
-        return object.key === targetKey;
-      })
-      .map(object => object.name);
-  }
-
-  function getNamesByKeyAndCity(objects, targetKey, targetCity) {
-    return Object.values(objects)
-      .filter(object => {
-        const keyMatch = Array.isArray(object.key) && object.key.includes(targetKey);
-        const cityMatch = Array.isArray(object.city) && object.city.includes(targetCity);
-        return keyMatch && cityMatch;
-      })
-      .map(object => object.name);
-  }
-
-  function filterNonStackableDuplicates(items, inventory) {
-    const result = {};
-
-    for (const [id, itemData] of Object.entries(items)) {
-      const isInInventory = inventory.some(invItem => invItem.id === id);
-      const isStackable = itemData.stackable ?? true;
-
-      if (!isInInventory || isStackable) {
-        result[id] = itemData;
-      }
-    }
-
-    return result;
-  }
-
-  function getRandomUniqueItems(array, count) {
-    const shuffled = [...array].sort(() => Math.random() - 0.5);
-    return shuffled.slice(0, count);
-  }
-
-  const handleAsk = () => {
-    if (input.trim() === '') return;
-
-    const contextoTemp = generarContexto(dataGame, mapData, cityData);
-    setEvent(contextoTemp.event);
-
-    askLLM(`${contextoTemp.contexto}\n Inicio diálogo jugador: ${input}\n Fin diálogo jugador`);
-    setInput('');
-  };
-
-  const handleOptionClick = async (action) => {
-
-    const result = await responseMove({ key: action.key, action: action.action || '', dataGame });
-
-    if (result === 'inventory_full') {
-      const contextoTemp = generarContexto(dataGame, mapData, cityData, 'inventory_full');
-      setEvent(contextoTemp.event);
-      askLLM(contextoTemp.contexto);
-      return;
-
-    } else if (result === 'no_money') {
-      const contextoTemp = generarContexto(dataGame, mapData, cityData, 'no_money');
-      setEvent(contextoTemp.event);
-      askLLM(contextoTemp.contexto);
-      return;
-
-    } else if (action.key === 'ruin' || action.key === 'corpse') {
-      const res = Array.isArray(action.action) && action.action.length > 0
-        ? action.action.map(i => i.name).join(", ")
-        : null;
-      const contextoTemp = generarContexto(dataGame, mapData, cityData, 'rewards', res);
-      setEvent(contextoTemp.event);
-
-      setHola(true)
-      handle(true);
-
-      askLLM(contextoTemp.contexto);
-      return;
-    }
-
-
-    const contextoTemp = generarContexto(dataGame, mapData, cityData);
-    setEvent(contextoTemp.event);
-
-    if (action.narrative) {
-      askLLM(`${contextoTemp.contexto}\nAcción escogida: ${action.message}`);
-    }
-
-    handle(true);
-  }
-
-  function fontSize() {
-    if (!settings || !settings.fontSize) return 1;
-
-    switch (settings.fontSize.toLowerCase()) {
-      case 'small':
-        return .9;
-      case 'medium':
-        return 1.2;
-      case 'large':
-        return 1.4;
-      default:
-        return 1.2;
-    }
-  }
-
   return (
     <div className="text-narrative-container">
       {error && <p className="text-red-500 mt-2">{error}</p>}
       {dataGame && response && buttons && (
         <div className="text-rpg-game" style={{ fontSize: `${fontSize()}rem` }}>
           <div className='p-container'>
-            <p>{visibleTexto}</p>
+            {dataGame.playerData.status !== 'combat' ? (
+              <p>{visibleTexto}</p>
+            ) : (
+              <Combat
+                mapData={mapData}
+                dataGame={dataGame}
+                monster={monster}
+                action={action}
+                animKey={animKey}
+              />
+            )}
           </div>
           <div className='separator-moves-text' />
-          <div className={response.length == visibleTexto.length ? 'moves-text-rpg-game' : 'moves-text-rpg-game ocult'}>
-            {buttons.map((btn, index) => (
-              <div className='option_move'>
-                <img
-                  src="images/ornaments/option_move.webp"
-                  className='separator-game-header'
-                  alt="option image"
-                />
-                <button
-                  key={index}
-                  onClick={() => handleOptionClick(btn)}
-                >
-                  {btn.message}
-                </button>
-              </div>
-            ))}
-          </div>
-          {(dataGame.playerData.status === 'npc' || dataGame.playerData.status === 'bonfire') && (
-            <div className='player_ask_to_npc'>
-              <input
-                type="text"
-                placeholder={t('ask_player')}
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-              />
-              <div className='option_move'>
-                <img
-                  src="images/ornaments/option_move.webp"
-                  className='separator-game-header'
-                  alt="option image"
-                />
-                <button
-                  disabled={!input.trim()}
-                  onClick={handleAsk}
-                >
-                  {t('talk')}
-                </button>
-              </div>
-            </div>
-          )}
+          <Moves
+            response={response}
+            visibleTexto={visibleTexto}
+            buttons={buttons}
+            dataGame={dataGame}
+            mapData={mapData}
+            cityData={cityData}
+            setEvent={setEvent}
+            askLLM={askLLM}
+            setHandle={setHandle}
+            handle={handle}
+            setAction={setAction}
+            setAnimKey={setAnimKey}
+          />
+          <Ask
+            dataGame={dataGame}
+            input={input}
+            setInput={setInput}
+            mapData={mapData}
+            cityData={cityData}
+          />
         </div>
       )}
     </div>
