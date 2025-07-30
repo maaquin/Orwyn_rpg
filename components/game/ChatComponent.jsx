@@ -9,7 +9,7 @@ import { Combat } from './buttons/Combat';
 import { Handles } from './functions/Handles';
 
 export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, items }) => {
-  const [input, setInput] = useState(null);
+  const [input, setInput] = useState('');
   const [response, setResponse] = useState(null);
   const [data, setData] = useState(null);
   const [settings, setSettings] = useState(null);
@@ -18,8 +18,6 @@ export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, item
   const [buttons, setButtons] = useState([]);
   const [event, setEvent] = useState(null);
   const [monster, setMonster] = useState(null);
-  const [action, setAction] = useState(null);
-  const [animKey, setAnimKey] = useState(0);
   const [hola, setHandle] = useState(false);
 
   const { askLLM, history, loading, error } = useLLM();
@@ -245,41 +243,44 @@ export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, item
       {error && <p className="text-red-500 mt-2">{error}</p>}
       {dataGame && response && buttons && (
         <div className="text-rpg-game" style={{ fontSize: `${fontSize()}rem` }}>
-          <div className='p-container'>
-            {dataGame.playerData.status !== 'combat' ? (
-              <p>{visibleTexto}</p>
-            ) : (
-              <Combat
-                mapData={mapData}
-                dataGame={dataGame}
-                monster={monster}
-                action={action}
-                animKey={animKey}
-              />
-            )}
-          </div>
-          <div className='separator-moves-text' />
-          <Moves
-            response={response}
-            visibleTexto={visibleTexto}
-            buttons={buttons}
-            dataGame={dataGame}
-            mapData={mapData}
-            cityData={cityData}
-            setEvent={setEvent}
-            askLLM={askLLM}
-            setHandle={setHandle}
-            handle={handle}
-            setAction={setAction}
-            setAnimKey={setAnimKey}
-          />
-          <Ask
-            dataGame={dataGame}
-            input={input}
-            setInput={setInput}
-            mapData={mapData}
-            cityData={cityData}
-          />
+
+          {dataGame.playerData.status !== 'combat' ? (
+            <>
+              <div className='p-container'>
+                <p>{visibleTexto}</p>
+              </div>
+              <div className='separator-moves-text'/>
+              <div>
+                <Moves
+                  buttons={buttons}
+                  dataGame={dataGame}
+                  mapData={mapData}
+                  cityData={cityData}
+                  setEvent={setEvent}
+                  askLLM={askLLM}
+                  setHandle={setHandle}
+                  handle={handle}
+                  disabled={response.length != visibleTexto.length}
+                />
+                <Ask
+                  dataGame={dataGame}
+                  input={input}
+                  setInput={setInput}
+                  mapData={mapData}
+                  cityData={cityData}
+                />
+              </div>
+            </>
+          ) : (
+            <Combat
+              mapData={mapData}
+              dataGame={dataGame}
+              mons={monster}
+              buttons={buttons}
+              setEvent={setEvent}
+              handle={handle}
+            />
+          )}
         </div>
       )}
     </div>

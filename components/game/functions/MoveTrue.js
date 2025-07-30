@@ -314,6 +314,7 @@ const interaccion = {
 
 const combat = {
     run: async (dataGame) => {
+        localStorage.removeItem('monster');
         await fetch(`/api/player/${dataGame._id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -325,11 +326,9 @@ const combat = {
         });
     },
 
-    attack: () => {return 'attack';},
+    left: () => {return 'left';},
 
-    magic_attack: () => {return 'magic';},
-
-    defense: () => {return 'defense';},
+    right: () => {return 'right';},
 
     consumable: () => {return 'consumable';}
 }

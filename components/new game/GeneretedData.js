@@ -84,19 +84,19 @@ export const GeneratedData = (playerData) => {
     }
 
     const statsByRace = {
-        human: { attack: 10, magic_attack: 10, defense: 10, magic_defense: 10, speed: 10, accuracy: 10, health: 100 },
-        elf: { attack: 8, magic_attack: 14, defense: 8, magic_defense: 12, speed: 12, accuracy: 14, health: 90 },
-        seafolk: { attack: 9, magic_attack: 13, defense: 9, magic_defense: 11, speed: 11, accuracy: 12, health: 95 },
-        warewolf: { attack: 11, magic_attack: 6, defense: 8, magic_defense: 6, speed: 14, accuracy: 9, health: 90 },
-        dwarf: { attack: 13, magic_attack: 6, defense: 14, magic_defense: 8, speed: 7, accuracy: 7, health: 120 },
-        sprite: { attack: 7, magic_attack: 14, defense: 6, magic_defense: 12, speed: 13, accuracy: 10, health: 80 },
+        human: { attack: 10, magic_attack: 10, defense: 5, magic_defense: 5, speed: 10, accuracy: 10, health: 100 },
+        elf: { attack: 8, magic_attack: 14, defense: 4, magic_defense: 6, speed: 12, accuracy: 14, health: 90 },
+        seafolk: { attack: 9, magic_attack: 13, defense: 4, magic_defense: 5, speed: 11, accuracy: 12, health: 95 },
+        warewolf: { attack: 11, magic_attack: 6, defense: 4, magic_defense: 3, speed: 14, accuracy: 9, health: 90 },
+        dwarf: { attack: 13, magic_attack: 6, defense: 7, magic_defense: 4, speed: 7, accuracy: 7, health: 120 },
+        sprite: { attack: 7, magic_attack: 14, defense: 3, magic_defense: 6, speed: 13, accuracy: 10, health: 80 },
     };
 
     const statsByClass = {
-        hermit: { attack: 10, magic_attack: 10, defense: 10, magic_defense: 10, speed: 10, accuracy: 10, health: 100 },
-        wizard: { attack: 6, magic_attack: 15, defense: 6, magic_defense: 14, speed: 9, accuracy: 12, health: 85 },
-        hunter: { attack: 14, magic_attack: 9, defense: 7, magic_defense: 6, speed: 14, accuracy: 14, health: 90 },
-        squire: { attack: 9, magic_attack: 6, defense: 15, magic_defense: 14, speed: 6, accuracy: 7, health: 115 },
+        hermit: { attack: 10, magic_attack: 10, defense: 5, magic_defense: 5, speed: 10, accuracy: 10, health: 100 },
+        wizard: { attack: 6, magic_attack: 15, defense: 3, magic_defense: 7, speed: 9, accuracy: 12, health: 85 },
+        hunter: { attack: 14, magic_attack: 9, defense: 3, magic_defense: 3, speed: 14, accuracy: 14, health: 90 },
+        squire: { attack: 9, magic_attack: 6, defense: 7, magic_defense: 7, speed: 6, accuracy: 7, health: 115 },
     };
 
     // Mapas de ciudades según raza

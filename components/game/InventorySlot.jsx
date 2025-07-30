@@ -123,7 +123,7 @@ export const InventorySlot = ({ item, equipment, e }) => {
     };
 
     const useItem = () => {
-
+        console.log('sopas')
     };
 
     const equipItem = (slot, item) => {

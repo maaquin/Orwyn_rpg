@@ -71,18 +71,13 @@ export const Handles = ({ setEvent, askLLM, dataGame, mapData, cityData, setHola
             askLLM(contextoTemp.contexto);
             return;
 
-        } else if (result === 'attack') {
-            setAction('attack');
+        } else if (result === 'left') {
+            setAction('left');
             setAnimKey(prev => prev + 1); 
             return;
 
-        } else if (result === 'magic') {
-            setAction('magic');
-            setAnimKey(prev => prev + 1); 
-            return;
-
-        } else if (result === 'defense') {
-            setAction('defense');
+        } else if (result === 'right') {
+            setAction('right');
             setAnimKey(prev => prev + 1); 
             return;
 

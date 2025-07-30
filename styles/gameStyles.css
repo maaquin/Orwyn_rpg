@@ -149,12 +149,12 @@
 
 .p-container {
     display: flex;
-    height: 55%;
+    height: 65%;
     width: 100%;
     overflow-y: auto;
     box-sizing: border-box;
     padding: 10px;
-    align-items: center;
+    justify-content: center;
 }
 
 .p-container p {
@@ -178,8 +178,9 @@
     transition: all 0.4s;
 }
 
-.moves-text-rpg-game.ocult {
-    opacity: 0;
+.disabled {
+    opacity: 60%;
+    pointer-events: none;
 }
 
 .moves-text-rpg-game button {
@@ -680,10 +681,57 @@
 
 
 /* -> Combat:*/
+.combat-layout {
+    height: 100%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.combat-info {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.enemy-combat-info,
+.player-combat-info {
+    width: 35%;
+}
+
+.enemy-combat-info {
+    text-align: end;
+}
+
+.health-bar-combat,
+.health-bar-combat-enemy {
+    display: flex;
+    min-width: 50px;
+    width: 100%;
+    height: 1.2rem;
+    color: #fee;
+    border: #302924 solid 1.5px;
+}
+
+.health-bar-combat-enemy {
+    justify-content: end;
+}
+
+.hp-fill-combat {
+    height: 100%;
+    background-color: #e63946;
+    transition: width 0.3s ease;
+}
+
+.hp-fill-combat p {
+    padding: 0 10px;
+}
+
 .combat-container {
     position: relative;
     overflow: hidden;
-    height: 100%;
+    height: 80%;
     width: 100%;
 }
 
@@ -698,99 +746,238 @@
 }
 
 .sprite {
-  position: absolute;
-  bottom: 10%;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  height: 60%;
+    position: absolute;
+    bottom: 10%;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    height: 60%;
 }
 
 .player-combat {
-  left: 15%;
-  z-index: 1;
+    left: 15%;
+    z-index: 1;
 }
 
 .item-combat {
-  left: 15%;
-  z-index: 2;
-  scale: 40%;
-  transform: rotate(90deg);
+    left: 15%;
+    z-index: 2;
+    scale: 40%;
+    transform: rotate(90deg);
 }
 
 .enemy-combat {
-  right: 15%;
-  z-index: 1;
+    right: 15%;
+    z-index: 1;
 }
 
 @keyframes physical-attack {
-  0%   { transform: translateX(0); }
-  40%  { transform: translateX(200%); }
-  60%  { transform: translateX(200%); }
-  100% { transform: translateX(0); }
+    0% {
+        transform: translateX(0);
+    }
+
+    40% {
+        transform: translateX(200%);
+    }
+
+    60% {
+        transform: translateX(200%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
 }
 
 .attack-animation {
-  animation: physical-attack 0.5s ease-in-out;
+    animation: physical-attack 0.5s ease-in-out;
 }
 
 @keyframes physical-attack-item {
-  0%   { transform: translateX(0) rotate(90deg); }
-  40%  { transform: translateX(400%) rotate(135deg); }
-  60%  { transform: translateX(400%) rotate(135deg); }
-  100% { transform: translateX(0) rotate(90deg); }
+    0% {
+        transform: translateX(0) rotate(90deg);
+    }
+
+    40% {
+        transform: translateX(400%) rotate(135deg);
+    }
+
+    60% {
+        transform: translateX(400%) rotate(135deg);
+    }
+
+    100% {
+        transform: translateX(0) rotate(90deg);
+    }
 }
 
 .attack-animation-item {
-  animation: physical-attack-item 0.5s ease-in-out;
+    animation: physical-attack-item 0.5s ease-in-out;
 }
 
 @keyframes hit-shake {
-  0%   { transform: translateX(0); }
-  25%  { transform: translateX(-3px); }
-  50%  { transform: translateX(3px); }
-  75%  { transform: translateX(-3px); }
-  100% { transform: translateX(0); }
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-3px);
+    }
+
+    50% {
+        transform: translateX(3px);
+    }
+
+    75% {
+        transform: translateX(-3px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
 }
 
 .enemy-hit {
-  animation: hit-shake 0.3s ease-in-out;
+    animation: hit-shake 0.3s ease-in-out;
 }
 
 @keyframes magic-charge {
-  0%   { transform: translateY(0) scale(1); opacity: 1; }
-  50%  { transform: translateY(-10px) scale(1.2); opacity: 1; }
-  100% { transform: translateY(0) scale(1); opacity: 1; }
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateY(-10px) scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
 }
 
 .magic-float {
-  animation: magic-charge 0.6s ease-in-out;
+    animation: magic-charge 0.6s ease-in-out;
 }
 
 @keyframes glow-impact {
-  0%   { box-shadow: 0 0 0 rgba(255, 255, 255, 0); }
-  50%  { box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); }
-  100% { box-shadow: 0 0 0 rgba(255, 255, 255, 0); }
+    0% {
+        box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+    }
+
+    50% {
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    }
+
+    100% {
+        box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+    }
 }
 
 .enemy-glow-hit {
-  animation: glow-impact 0.4s ease-in-out;
+    animation: glow-impact 0.4s ease-in-out;
 }
 
 @keyframes defend-pulse {
-  0%   { transform: scale(1); opacity: 1; }
-  50%  { transform: scale(0.95); opacity: 0.9; }
-  100% { transform: scale(1); opacity: 1; }
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(0.95);
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .defense-stance {
-  animation: defend-pulse 0.5s ease-in-out;
+    animation: defend-pulse 0.5s ease-in-out;
 }
 
 @keyframes item-consume {
-  0%   { opacity: 1; transform: scale(1); }
-  50%  { opacity: 0.7; transform: scale(1.1); }
-  100% { opacity: 0; transform: scale(0.8); }
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.7;
+        transform: scale(1.1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
 }
 
 .item-use {
-  animation: item-consume 0.6s ease-in-out forwards;
+    animation: item-consume 0.6s ease-in-out forwards;
+}
+
+
+
+
+
+.modal-overlay-combat-consumables {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #eeeeefaa;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content-combat {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 20px 25px;
+    min-width: 280px;
+    max-width: 90%;
+    box-shadow: 0 0 10px #978c8c;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.modal-content-combat h3 {
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+.modal-item {
+    background-color: #fff;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background 0.2s ease;
+    padding: 0;
+    margin: 5px 0;
+}
+
+.modal-item:hover {
+    text-decoration: underline;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }

@@ -108,16 +108,12 @@ export const actions = {
         },
     },
     combat: {
-        attack: [
-            { message: "ataque físico", key: "attack", narrative: false }
+        left: [
+            { message: "mano izquierda", key: "left", narrative: false }
         ],
 
-        magic_attack: [
-            { message: "ataque mágico", key: "magic_attack", narrative: false }
-        ],
-
-        defense: [
-            { message: "defender", key: "defense", narrative: false }
+        right: [
+            { message: "mano derecha", key: "right", narrative: false }
         ],
 
         consumable: [

@@ -48,7 +48,6 @@ const monster = getMonster();
 
 export function obtenerEventoAleatorio() {
   const eventos = [
-    /*
     {
       nombre: "Comerciante ambulante",
       descripcion: "Te cruzás con un comerciante ambulante que empuja su carreta llena de objetos exóticos. Te ofrece una muestra gratuita... aunque parece sospechoso.",
@@ -76,13 +75,14 @@ export function obtenerEventoAleatorio() {
       action: getReward(),
       key: "ruin"
     },
-  */
+    /*
     {
       nombre: "¡Aparece un monstruo!",
       descripcion: monster.descripcion,
       monster: monster.monster,
       key: 'monster'
     }
+  */
   ];
 
   const indice = Math.floor(Math.random() * eventos.length);
