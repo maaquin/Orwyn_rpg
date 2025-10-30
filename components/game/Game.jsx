@@ -1,6 +1,7 @@
 import { Sidebar } from './Sidebar';
 import { Text } from './Text';
 import { useEffect, useState, useRef } from 'react';
+import { useWindowSize } from './functions/WindowsSize';
 import {
   getValdoren,
   getDrakmir,
@@ -22,13 +23,13 @@ const cities = {
 
 export const Game = () => {
   const [dataGame, setDataGame] = useState(null);
-  const [id, setId] = useState(null);
   const [mapData, setMapData] = useState(null);
   const [cityData, setCityData] = useState(null);
   const [showFadeOnLoad, setShowFadeOnLoad] = useState(true);
   const [settings, setSettings] = useState(null);
   const [handle, setHandle] = useState(false);
   const [items, setItems] = useState(null);
+  const [isPlayer, setIsPlayer] = useState(false);
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -37,7 +38,6 @@ export const Game = () => {
       if (!playerId) return;
 
       setId(playerId)
-      console.log('id: ',playerId)
       try {
         const res = await fetch(`/api/player/${playerId}`);
         const data = await res.json();
@@ -139,6 +139,10 @@ export const Game = () => {
     }
   };
 
+  const { width } = useWindowSize();
+  const MOBILE_BREAKPOINT = 768;
+  const isMobile = width !== undefined && width <= MOBILE_BREAKPOINT;
+
   return (
     <div className='game-container'>
 
@@ -151,8 +155,12 @@ export const Game = () => {
 
       <Sidebar
         data={dataGame}
+        isMobile={isMobile}
+        isPlayer={isPlayer}
+        setIsPlayer={setIsPlayer}
+        setDataGame={setDataGame}
       />
-      <div className='game'>
+      <div className='game' style={{ display: isPlayer ? 'none' : '' }}>
         <Text
           dataGame={dataGame}
           setDataGame={setDataGame}
@@ -161,8 +169,12 @@ export const Game = () => {
           moves={getMoves}
           handle={setHandle}
           items={items}
+          isMobile={isMobile}
         />
       </div>
+      <span className='close-player-info' style={{ display: !isPlayer ? 'none' : '' }} onClick={() => setIsPlayer(false)}>
+        Cerrar información del jugador
+      </span>
     </div>
   );
 };

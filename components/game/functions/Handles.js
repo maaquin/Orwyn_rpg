@@ -4,7 +4,7 @@ import { combate } from './CombatManager';
 import { data } from 'react-router';
 
 export const Handles = ({ setEvent, askLLM, dataGame, setDataGame, mapData, cityData, setHola,
-                            handle, input, setInput, settings, setAction, setAnimKey}) => {
+    handle, input, setInput, settings, setAction, setAnimKey }) => {
 
     function getNamesByKey(objects, targetKey) {
         return Object.values(objects)
@@ -76,12 +76,12 @@ export const Handles = ({ setEvent, askLLM, dataGame, setDataGame, mapData, city
 
         } else if (result === 'left') {
             setAction('left');
-            setAnimKey(prev => prev + 1); 
+            setAnimKey(prev => prev + 1);
             return;
 
         } else if (result === 'right') {
             setAction('right');
-            setAnimKey(prev => prev + 1); 
+            setAnimKey(prev => prev + 1);
             return;
 
         } else if (result === 'consumable') {
@@ -105,9 +105,6 @@ export const Handles = ({ setEvent, askLLM, dataGame, setDataGame, mapData, city
             const player = dataGame.playerData;
             const monster = action.monster;
 
-            console.log(player)
-            console.log(monster)
-
             combat = combate({ player, monster, setDataGame })
         }
 
@@ -122,18 +119,31 @@ export const Handles = ({ setEvent, askLLM, dataGame, setDataGame, mapData, city
         handle(true);
     }
 
-    function fontSize() {
+    function fontSize(isMobile) {
         if (!settings || !settings.fontSize) return 1;
 
-        switch (settings.fontSize.toLowerCase()) {
-            case 'small':
-                return .9;
-            case 'medium':
-                return 1.2;
-            case 'large':
-                return 1.4;
-            default:
-                return 1.2;
+        if (isMobile) {
+            switch (settings.fontSize.toLowerCase()) {
+                case 'small':
+                    return .8;
+                case 'medium':
+                    return 1;
+                case 'large':
+                    return 1.2;
+                default:
+                    return 1;
+            }
+        } else {
+            switch (settings.fontSize.toLowerCase()) {
+                case 'small':
+                    return .9;
+                case 'medium':
+                    return 1.2;
+                case 'large':
+                    return 1.4;
+                default:
+                    return 1.2;
+            }
         }
     }
 

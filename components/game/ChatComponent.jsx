@@ -8,7 +8,7 @@ import { Moves } from './buttons/Moves';
 import { Handles } from './functions/Handles';
 import { Typewriter } from 'react-simple-typewriter';
 
-export const ChatComponent = ({ dataGame, setDataGame, mapData, moves, cityData, handle, items }) => {
+export const ChatComponent = ({ dataGame, setDataGame, mapData, moves, cityData, handle, items, isMobile }) => {
   const [input, setInput] = useState('');
   const [response, setResponse] = useState(null);
   const [data, setData] = useState(null);
@@ -30,8 +30,6 @@ export const ChatComponent = ({ dataGame, setDataGame, mapData, moves, cityData,
     });
 
   const lastMessage = history[history.length - 1];
-
-  console.log(response)
 
   useEffect(() => {
     // Obtener settings y fetch inicial
@@ -185,8 +183,6 @@ export const ChatComponent = ({ dataGame, setDataGame, mapData, moves, cityData,
     }
   }, [history, buttons]);
 
-  console.log(response)
-
   useEffect(() => {
     // Si hay cityData o dataGame
     if (cityData) {
@@ -223,6 +219,8 @@ export const ChatComponent = ({ dataGame, setDataGame, mapData, moves, cityData,
         6. Usa un bloque narrativo continuo, sin dividir el texto en secciones ni poner subtítulos como “Capítulo I” o “Lema de la aventura”.
         7. No utilices elementos visuales (como listas, negritas, signos especiales o formato markdown). Es un juego de texto clásico.
         8. No anticipes eventos. Deja que el jugador decida qué hacer. Termina con una situación abierta o una pregunta implícita que invite a tomar una decisión, sin opciones numeradas ni comandos.
+        9. Mantén tus respuestas entre 30 y 80 palabras. No escribas párrafos largos ni textos extensos. El ritmo del juego debe ser ágil y claro.
+        10. Antes de enviar la respuesta léela nuevamente y confirma que efectivamente no van más de 80 palabras.
           
         Padres:\n  Padre: ${data.father.name}, profesión: ${data.father.profession}\n  Madre: ${data.mother.name}, profesión: ${data.mother.profession}\n  
         `);
@@ -230,13 +228,15 @@ export const ChatComponent = ({ dataGame, setDataGame, mapData, moves, cityData,
     }
   }, [data]);
 
-  console.log(isDone)
+  useEffect(() => {
+    setIsDone(false);
+  },[response])
 
   return (
     <div className="text-narrative-container">
       {error && <p className="text-red-500 mt-2">{error}</p>}
       {dataGame && response && buttons && (
-        <div className="text-rpg-game" style={{ fontSize: `${fontSize()}rem` }}>
+        <div className="text-rpg-game" style={{ fontSize: `${fontSize(isMobile)}rem` }}>
           <div className='p-container'>
             <p>
               <Typewriter
@@ -265,6 +265,7 @@ export const ChatComponent = ({ dataGame, setDataGame, mapData, moves, cityData,
               handle={handle}
               setIsDone={setIsDone}
               isDone={isDone}
+              setResponse={setResponse}
             />
             <Ask
               dataGame={dataGame}

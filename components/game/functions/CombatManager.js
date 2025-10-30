@@ -17,10 +17,7 @@ function atacar(atacante, defensor) {
     const probAcierto = (atacante.accuracy * 1.5 + atacante.speed) / 200; // escala 0–1 aprox
     const acierta = Math.random() < probAcierto;
 
-    if (!acierta) {
-        console.log(`${atacante.name} falla su ataque 😬`);
-        return;
-    }
+    if (!acierta) return;
 
     // 25% de probabilidad de usar magia si tiene ataque mágico alto
     const usaMagia = atacante.magic_attack > atacante.attack && Math.random() < 0.25;
@@ -29,11 +26,8 @@ function atacar(atacante, defensor) {
     const daño = calcularDaño(atacante, defensor, tipo);
     defensor.health -= daño;
 
-    console.log(`${atacante.name} ataca (${tipo}) y hace ${daño} de daño a ${defensor.name}`);
-
     if (defensor.health <= 0) {
         defensor.health = 0;
-        console.log(`${defensor.name} ha sido derrotado 💀`);
     }
 }
 

@@ -224,7 +224,6 @@ export const NewCharacter = () => {
 
             localStorage.removeItem("llm_iniciado");
 
-            console.log('pre star game')
             await startGame({ defaultData });
 
             navigate.push('/orwyn-game');

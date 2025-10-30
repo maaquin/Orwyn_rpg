@@ -17,8 +17,10 @@
 }
 
 .options-card {
-    width: 70%;
-    height: 90%;
+    width: 80%;
+    max-width: 800px;
+    height: auto;
+    min-height: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,6 +31,7 @@
     border: 1px solid rgba(39, 31, 31, 0.2);
     border-radius: 40px;
     gap: 30px;
+    padding: 30px 20px;
 }
 
 .options-row-container {
@@ -73,4 +76,78 @@
     background-color: #302924c3;
     color: #fff;
     cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .options-card {
+        width: 80%; /* Aumentar el ancho de la tarjeta */
+        max-width: 600px;
+        min-height: 400px;
+        padding: 20px 10px;
+    }
+
+    .title-new-character {
+        font-size: 2rem;
+    }
+
+    .options-row-container {
+        width: 85%; /* Usar más ancho de la tarjeta */
+    }
+
+    .option-row {
+        font-size: 1.4rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .option-row select {
+        font-size: 1.1rem;
+        padding: 4px 8px;
+    }
+
+    .options-card button {
+        font-size: 1.2rem;
+        padding: 8px 25px;
+    }
+}
+
+/* Ajustes para móviles (ej. menos de 480px) */
+@media (max-width: 480px) {
+    .options-card {
+        width: 80%; /* Máximo ancho en móvil */
+        border-radius: 20px; /* Redondear menos */
+        gap: 20px; /* Menos espacio entre elementos */
+    }
+
+    .title-new-character {
+        font-size: 1.5rem;
+        margin-bottom: 5px;
+    }
+
+    .options-row-container {
+        width: 100%; /* Ocupar todo el ancho disponible */
+        padding: 0 10px;
+    }
+
+    .option-row {
+        flex-direction: column; /* Apilar el label y el select */
+        align-items: flex-start; /* Alinear a la izquierda */
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem; /* Más espacio entre filas apiladas */
+        padding: 0;
+    }
+    
+    .option-row span {
+        margin-bottom: 5px; /* Espacio entre el label y el select */
+    }
+
+    .option-row select {
+        width: 100%; /* El select ocupa todo el ancho */
+        max-width: 100%;
+        font-size: 1rem;
+    }
+
+    .options-card button {
+        font-size: 1rem;
+        padding: 8px 20px;
+    }
 }

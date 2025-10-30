@@ -1,39 +1,39 @@
 .map-view {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
 }
 
 .options {
-    position: relative;
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 20px;
+  position: relative;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
 }
 
 .options button {
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    top: 25px;
-    left: 25px;
-    background-color: #ddd;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 25px;
+  left: 25px;
+  background-color: #ddd;
 }
 
 .options button:hover {
-    background-color: #302924;
-    color: #fff;
+  background-color: #302924;
+  color: #fff;
 }
 
 .options label {
-    display: flex;
-    font-size: 1.5rem;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  font-size: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 .switch {
@@ -52,7 +52,10 @@
 .slider {
   position: absolute;
   cursor: pointer;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-color: #ddd;
   border-radius: 24px;
   transition: 0.4s;
@@ -70,33 +73,33 @@
   transition: 0.4s;
 }
 
-input:checked + .slider {
+input:checked+.slider {
   background-color: #302924;
 }
 
-input:checked + .slider::before {
+input:checked+.slider::before {
   transform: translateX(16px);
 }
 
 .map {
-    width: 70%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .map-image {
-    position: relative;
-    height: 90%;
-    aspect-ratio: 1;
-    z-index: 1;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
 }
 
 .map-image img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
 }
 
 .grid-container {
@@ -117,4 +120,32 @@ input:checked + .slider::before {
 
 .cell:hover {
   background-color: #dddddd76;
+}
+
+
+
+
+
+
+
+
+.map-container-modal {
+  height: 100vh;
+  width: 100vw;
+  background: rgba(97, 96, 92, 0.279);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.map-box {
+  height: 75%;
+  aspect-ratio: 1;
+  background-color: #302924;
 }

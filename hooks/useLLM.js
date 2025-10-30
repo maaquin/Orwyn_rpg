@@ -13,8 +13,6 @@ export function useLLM() {
 
         const recentHistory = history.slice(-1);
 
-        console.log(history)
-
         const lastMessage = {
             role: 'context',
             content: `este fue el último escenario en que estuvo el jugador.
@@ -22,8 +20,6 @@ export function useLLM() {
         }
 
         const messagesToSend = [newMessage, lastMessage];
-
-        console.log(messagesToSend)
 
         try {
             const res = await fetch('/api/llm', {

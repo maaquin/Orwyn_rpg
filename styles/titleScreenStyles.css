@@ -98,3 +98,54 @@
     cursor: default;
     border: none;
 }
+
+
+
+@media (max-width: 768px) {
+    .title h1 {
+        font-size: 7rem; /* Reducir el tamaño del título principal */
+    }
+
+    .title {
+        margin-bottom: 50px;
+    }
+    
+    .buttons-container {
+        /* Los botones apilados en columna */
+        flex-direction: column; 
+        gap: 15px; /* Reducir el espacio entre botones */
+        width: 80%; /* Limitar el ancho del contenedor de botones */
+        max-width: 300px; /* Ancho máximo para no ser demasiado grandes */
+    }
+    
+    .buttons-container .btn-title-screen,
+    .disabled-btn {
+        width: 100%; /* Ocupar todo el ancho en columna */
+        font-size: 1.2rem; /* Ligeramente más pequeño */
+    }
+}
+
+/* Ajustes para móviles (ej. menos de 480px) */
+@media (max-width: 480px) {
+    .title h3 {
+        font-size: 1.5rem;
+    }
+    
+    .title h1 {
+        font-size: 4rem; /* Reducción significativa para móviles */
+    }
+
+    .title {
+        margin-bottom: 30px;
+    }
+
+    .buttons-container {
+        width: 90%;
+    }
+    
+    .buttons-container .btn-title-screen,
+    .disabled-btn {
+        font-size: 1rem;
+        padding: 12px 15px;
+    }
+}

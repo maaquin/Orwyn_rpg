@@ -1,6 +1,6 @@
 import { ChatComponent } from "./ChatComponent";
 
-export const Text = ({ dataGame, setDataGame, mapData, cityData, moves, handle, items }) => {
+export const Text = ({ dataGame, setDataGame, mapData, cityData, moves, handle, items, isMobile }) => {
 
   return (
     <div className='text-container'>
@@ -13,6 +13,7 @@ export const Text = ({ dataGame, setDataGame, mapData, cityData, moves, handle, 
         cityData={cityData}
         handle={handle}
         items={items}
+        isMobile={isMobile}
       />
     </div>
   );

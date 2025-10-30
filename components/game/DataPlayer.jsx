@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { Inventory } from "./Inventory";
 
-export const DataPlayer = ({ dataGame, toggleExpanded, isExpanded }) => {
+export const DataPlayer = ({ dataGame, toggleExpanded, isExpanded, setDataGame }) => {
     const { t } = useTranslation();
     const [player, setPlayer] = useState(null);
     const [info, setInfo] = useState(false);
@@ -31,10 +31,17 @@ export const DataPlayer = ({ dataGame, toggleExpanded, isExpanded }) => {
                 console.error('Error: ', e)
             }*/
 
-            dataGame.equipment.leftHand = equipment.left?.id;
-            dataGame.equipment.rightHand = equipment.right?.id;
-            dataGame.equipment.armor = equipment.chest?.id;
-            localStorage.setItem('player', JSON.stringify(dataGame));
+            const updatedData = {
+                ...dataGame,
+                equipment: {
+                    ...dataGame.equipment,
+                    leftHand: equipment.left?.id,
+                    rightHand: equipment.right?.id,
+                    armor: equipment.chest?.id
+                }
+            };
+            localStorage.setItem('player', JSON.stringify(updatedData));
+            setDataGame(updatedData);
         }
 
         handleEquipment()
@@ -62,7 +69,7 @@ export const DataPlayer = ({ dataGame, toggleExpanded, isExpanded }) => {
             setEquipment(prev => ({ ...prev, ['right']: r }));
             setEquipment(prev => ({ ...prev, ['chest']: c }));
         }
-    }, [dataGame]);
+    }, []);
 
     if (!player) {
         return null
