@@ -1,7 +1,9 @@
 import { responseMove } from './MoveTrue';
 import { generarContexto } from "./GenerateContext";
+import { combate } from './CombatManager';
+import { data } from 'react-router';
 
-export const Handles = ({ setEvent, askLLM, dataGame, mapData, cityData, setHola,
+export const Handles = ({ setEvent, askLLM, dataGame, setDataGame, mapData, cityData, setHola,
                             handle, input, setInput, settings, setAction, setAnimKey}) => {
 
     function getNamesByKey(objects, targetKey) {
@@ -57,7 +59,8 @@ export const Handles = ({ setEvent, askLLM, dataGame, mapData, cityData, setHola
 
     const handleOptionClick = async (action) => {
 
-        const result = await responseMove({ key: action.key, action: action.action || '', dataGame });
+        const result = await responseMove({ key: action.key, action: action.action || '', dataGame, setDataGame });
+        let combat = null;
 
         if (result === 'inventory_full') {
             const contextoTemp = generarContexto(dataGame, mapData, cityData, 'inventory_full');
@@ -98,6 +101,14 @@ export const Handles = ({ setEvent, askLLM, dataGame, mapData, cityData, setHola
 
             askLLM(contextoTemp.contexto);
             return;
+        } else if (action.key === 'monster') {
+            const player = dataGame.playerData;
+            const monster = action.monster;
+
+            console.log(player)
+            console.log(monster)
+
+            combat = combate({ player, monster, setDataGame })
         }
 
 
@@ -105,7 +116,7 @@ export const Handles = ({ setEvent, askLLM, dataGame, mapData, cityData, setHola
         setEvent(contextoTemp.event);
 
         if (action.narrative) {
-            askLLM(`${contextoTemp.contexto}\nAcción escogida: ${action.message}`);
+            askLLM(`${contextoTemp.contexto}\nAcción escogida: ${action.message} ${combat ? `\nEL resultado del combate fué: ${combat}` : ''}`);
         }
 
         handle(true);
@@ -126,12 +137,28 @@ export const Handles = ({ setEvent, askLLM, dataGame, mapData, cityData, setHola
         }
     }
 
+    function textSpeed() {
+        if (!settings || !settings.textSpeed) return 1;
+
+        switch (settings.textSpeed.toLowerCase()) {
+            case 'slow':
+                return 90;
+            case 'normal':
+                return 40;
+            case 'fast':
+                return 20;
+            default:
+                return 40;
+        }
+    }
+
     return {
         getNamesByKey,
         getNamesByKeyAndCity,
         getRandomUniqueItems,
         filterNonStackableDuplicates,
         fontSize,
+        textSpeed,
         handleAsk,
         handleOptionClick
     }

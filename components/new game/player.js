@@ -5,6 +5,11 @@ export const player = {
   ],
   inventory: [],
   history: [],
+  equipment:{
+    lefthand:'',
+    righthand:'',
+    armor:''
+  },
   playerData: {
     hometown: "",
     money: "",

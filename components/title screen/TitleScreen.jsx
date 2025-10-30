@@ -11,7 +11,7 @@ export const TitleScreen = () => {
     const videoRef = useRef(null);
 
     useEffect(() => {
-        const data = localStorage.getItem("playerId");
+        const data = localStorage.getItem("player");
         const settings = localStorage.getItem('settings');
 
         if (data) {

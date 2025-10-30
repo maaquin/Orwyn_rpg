@@ -1,15 +1,15 @@
 import { Handles } from "../functions/Handles"
 
-export const Moves = ({ buttons, dataGame, mapData, cityData, setEvent, askLLM, setHandle, handle, setAction, setAnimKey, disabled }) => {
+export const Moves = ({ buttons, dataGame, setDataGame, mapData, cityData, setEvent, askLLM, setHandle, handle, setAction, setAnimKey, isDone, setIsDone }) => {
     const { handleOptionClick } = Handles({
-        dataGame, mapData, cityData, setEvent,
+        dataGame, setDataGame, mapData, cityData, setEvent,
         askLLM, setHandle, handle, setAction, setAnimKey
     });
 
     return (
         <div className='moves-text-rpg-game'>
             {buttons.map((btn, index) => (
-                <div className={disabled ? 'option_move disabled' : 'option_move'}>
+                <div className={!isDone ? 'option_move disabled' : 'option_move'}>
                     <img
                         src="images/ornaments/option_move.webp"
                         className='separator-game-header'
@@ -17,8 +17,8 @@ export const Moves = ({ buttons, dataGame, mapData, cityData, setEvent, askLLM, 
                     />
                     <button
                         key={index}
-                        onClick={() => handleOptionClick(btn)}
-                        disabled={disabled}
+                        onClick={() => {handleOptionClick(btn); setIsDone(false)}}
+                        disabled={!isDone}
                     >
                         {btn.message}
                     </button>

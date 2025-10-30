@@ -1,12 +1,13 @@
 import { ChatComponent } from "./ChatComponent";
 
-export const Text = ({ dataGame, mapData, cityData, moves, handle, items }) => {
+export const Text = ({ dataGame, setDataGame, mapData, cityData, moves, handle, items }) => {
 
   return (
     <div className='text-container'>
       <img src="images/ornaments/separator.webp" className='separator-game-header' alt="separator" />
       <ChatComponent
         dataGame={dataGame}
+        setDataGame={setDataGame}
         mapData={mapData}
         moves={moves}
         cityData={cityData}

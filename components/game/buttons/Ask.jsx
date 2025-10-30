@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { Handles } from '../functions/Handles';
 
-export const Ask = ({ dataGame, input, setInput, mapData, cityData }) => {
+export const Ask = ({ dataGame, input, setInput, mapData, cityData, setEvent, askLLM, setHandle, handle }) => {
 
     const { t } = useTranslation();
-    const { handleAsk } = Handles({ dataGame, mapData, cityData, input });
+    const { handleAsk } = Handles({ dataGame, mapData, cityData, input, setEvent, askLLM, setHandle, handle, setInput });
 
     return (
         <>

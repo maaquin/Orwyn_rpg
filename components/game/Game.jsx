@@ -33,10 +33,11 @@ export const Game = () => {
 
   useEffect(() => {
     const fetchPlayer = async () => {
-      const playerId = localStorage.getItem("playerId");
+      /*const playerId = localStorage.getItem("playerId");
       if (!playerId) return;
 
       setId(playerId)
+      console.log('id: ',playerId)
       try {
         const res = await fetch(`/api/player/${playerId}`);
         const data = await res.json();
@@ -49,7 +50,13 @@ export const Game = () => {
         }
       } catch (err) {
         console.error("Error", err);
-      }
+      } */
+
+      const player = JSON.parse(localStorage.getItem("player"));
+      if (!player) return;
+
+      setDataGame(player);
+      await fetchMapAndCity(player.location);
     };
 
     fetchPlayer();
@@ -130,7 +137,7 @@ export const Game = () => {
     } else {
       setCityData(null);
     }
-  };  
+  };
 
   return (
     <div className='game-container'>
@@ -148,6 +155,7 @@ export const Game = () => {
       <div className='game'>
         <Text
           dataGame={dataGame}
+          setDataGame={setDataGame}
           mapData={mapData}
           cityData={cityData}
           moves={getMoves}

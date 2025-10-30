@@ -15,7 +15,7 @@ export const DataPlayer = ({ dataGame, toggleExpanded, isExpanded }) => {
 
     useEffect(() => {
         async function handleEquipment() {
-            try {
+            /*try {
                 await fetch(`/api/player/${dataGame._id}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
@@ -28,8 +28,13 @@ export const DataPlayer = ({ dataGame, toggleExpanded, isExpanded }) => {
                     })
                 });
             } catch (e) {
-                console.error('Error: ',e)
-            }
+                console.error('Error: ', e)
+            }*/
+
+            dataGame.equipment.leftHand = equipment.left?.id;
+            dataGame.equipment.rightHand = equipment.right?.id;
+            dataGame.equipment.armor = equipment.chest?.id;
+            localStorage.setItem('player', JSON.stringify(dataGame));
         }
 
         handleEquipment()
@@ -44,7 +49,6 @@ export const DataPlayer = ({ dataGame, toggleExpanded, isExpanded }) => {
             });
 
             setInventory(filledInventory);
-
 
             let left = dataGame.equipment.leftHand;
             let right = dataGame.equipment.rightHand;

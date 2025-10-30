@@ -170,7 +170,7 @@ export const NewCharacter = () => {
     }
 
     const startGame = async ({ defaultData }) => {
-        try {
+        /* try {
             const res = await fetch('/api/player/create', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -180,13 +180,16 @@ export const NewCharacter = () => {
             const data = await res.json();
 
             if (res.ok) {
-                localStorage.setItem('playerId', data.playerId);
+                localStorage.setItem('player', data.playerId);
             } else {
                 console.error("Fallo al crear jugador:", data.message);
             }
         } catch (err) {
             console.error("Error al crear jugador:", err);
-        }
+        } */
+
+
+        localStorage.setItem('player', JSON.stringify(defaultData));
     };
 
     const handleSubmit = async (e) => {

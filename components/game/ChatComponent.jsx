@@ -5,25 +5,25 @@ import { useLLM } from '@/hooks/useLLM';
 import { generarContexto } from "./functions/GenerateContext";
 import { Ask } from './buttons/Ask';
 import { Moves } from './buttons/Moves';
-import { Combat } from './buttons/Combat';
 import { Handles } from './functions/Handles';
+import { Typewriter } from 'react-simple-typewriter';
 
-export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, items }) => {
+export const ChatComponent = ({ dataGame, setDataGame, mapData, moves, cityData, handle, items }) => {
   const [input, setInput] = useState('');
   const [response, setResponse] = useState(null);
   const [data, setData] = useState(null);
   const [settings, setSettings] = useState(null);
   const [npcs, setNpcs] = useState(null);
-  const [visibleTexto, setVisibleTexto] = useState('');
   const [buttons, setButtons] = useState([]);
   const [event, setEvent] = useState(null);
   const [monster, setMonster] = useState(null);
   const [hola, setHandle] = useState(false);
+  const [isDone, setIsDone] = useState(false);
 
   const { askLLM, history, loading, error } = useLLM();
   const {
     getNamesByKey, getNamesByKeyAndCity, getRandomUniqueItems,
-    filterNonStackableDuplicates, fontSize } =
+    filterNonStackableDuplicates, fontSize, textSpeed } =
     Handles({
       setEvent, askLLM, dataGame, mapData, cityData,
       setHandle, handle, input, setInput, settings
@@ -31,13 +31,15 @@ export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, item
 
   const lastMessage = history[history.length - 1];
 
+  console.log(response)
+
   useEffect(() => {
     // Obtener settings y fetch inicial
     const settingsNow = localStorage.getItem('settings');
     const settingsNew = JSON.parse(settingsNow);
     setSettings(settingsNew);
 
-    const fetchSession = async () => {
+    /* const fetchSession = async () => {
       const playerId = localStorage.getItem("playerId");
       if (!playerId) return;
 
@@ -54,9 +56,16 @@ export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, item
       } catch (err) {
         console.error("Error", err);
       }
+    fetchSession();
+     
+    }; */
+
+    const fetchSession = JSON.parse(localStorage.getItem('dataGame'));
+    if (fetchSession) {
+      setResponse(fetchSession.currentText);
+      setButtons(fetchSession.options);
     };
 
-    fetchSession();
   }, []); // Solo al montar
 
   useEffect(() => {
@@ -65,29 +74,6 @@ export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, item
       setMonster(event.monster);
     }
   }, [event]);
-
-  useEffect(() => {
-    // Texto tipo máquina de escribir
-    if (dataGame?.playerData?.status === 'combat' || !response) return;
-
-    let i = -1;
-    let cancelled = false;
-    setVisibleTexto('');
-
-    function escribirLetra() {
-      if (cancelled || i >= response.length) return;
-
-      setVisibleTexto(prev => prev + response.charAt(i));
-      i++;
-
-      setTimeout(escribirLetra, settings.textSpeed);
-    }
-
-    escribirLetra();
-    return () => {
-      cancelled = true;
-    };
-  }, [response, settings]);
 
   useEffect(() => {
     // Actualiza botones según el estado del juego
@@ -178,21 +164,28 @@ export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, item
         console.error("Error al parsear respuesta:", e);
       }
     }
-  }, [history]);
 
-  useEffect(() => {
-    // Actualizar narrativa con response y botones
-    if (!dataGame) return;
+    if (lastMessage) {
 
-    fetch(`/api/narrative/${dataGame._id}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        currentText: response || 'response',
+      /*fetch(`/api/narrative/${dataGame._id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          currentText: lastMessage.content || 'response',
+          options: buttons
+        })
+      }).catch(console.error);
+      */
+
+      const fetchSession = {
+        currentText: lastMessage.content || 'response',
         options: buttons
-      })
-    }).catch(console.error);
-  }, [buttons, response, dataGame]);
+      }
+      localStorage.setItem('dataGame', JSON.stringify(fetchSession));
+    }
+  }, [history, buttons]);
+
+  console.log(response)
 
   useEffect(() => {
     // Si hay cityData o dataGame
@@ -204,7 +197,6 @@ export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, item
       setData(dataGame.playerData.parents);
     }
   }, [cityData, dataGame]);
-
 
   // Mensaje inicial automático
   useEffect(() => {
@@ -238,49 +230,54 @@ export const ChatComponent = ({ dataGame, mapData, moves, cityData, handle, item
     }
   }, [data]);
 
+  console.log(isDone)
+
   return (
     <div className="text-narrative-container">
       {error && <p className="text-red-500 mt-2">{error}</p>}
       {dataGame && response && buttons && (
         <div className="text-rpg-game" style={{ fontSize: `${fontSize()}rem` }}>
-
-          {dataGame.playerData.status !== 'combat' ? (
-            <>
-              <div className='p-container'>
-                <p>{visibleTexto}</p>
-              </div>
-              <div className='separator-moves-text'/>
-              <div>
-                <Moves
-                  buttons={buttons}
-                  dataGame={dataGame}
-                  mapData={mapData}
-                  cityData={cityData}
-                  setEvent={setEvent}
-                  askLLM={askLLM}
-                  setHandle={setHandle}
-                  handle={handle}
-                  disabled={response.length != visibleTexto.length}
-                />
-                <Ask
-                  dataGame={dataGame}
-                  input={input}
-                  setInput={setInput}
-                  mapData={mapData}
-                  cityData={cityData}
-                />
-              </div>
-            </>
-          ) : (
-            <Combat
-              mapData={mapData}
-              dataGame={dataGame}
-              mons={monster}
+          <div className='p-container'>
+            <p>
+              <Typewriter
+                key={response}
+                words={[response]}
+                typeSpeed={settings ? textSpeed(settings.textSpeed) : 40}
+                deleteSpeed={0}
+                delaySpeed={1000}
+                cursor
+                cursorStyle="|"
+                onLoopDone={() => setIsDone(true)}
+              />
+            </p>
+          </div>
+          <div className='separator-moves-text' />
+          <div>
+            <Moves
               buttons={buttons}
+              dataGame={dataGame}
+              setDataGame={setDataGame}
+              mapData={mapData}
+              cityData={cityData}
               setEvent={setEvent}
+              askLLM={askLLM}
+              setHandle={setHandle}
+              handle={handle}
+              setIsDone={setIsDone}
+              isDone={isDone}
+            />
+            <Ask
+              dataGame={dataGame}
+              input={input}
+              setInput={setInput}
+              mapData={mapData}
+              cityData={cityData}
+              setEvent={setEvent}
+              askLLM={askLLM}
+              setHandle={setHandle}
               handle={handle}
             />
-          )}
+          </div>
         </div>
       )}
     </div>

@@ -115,9 +115,9 @@ export const Options = () => {
                             <div className="option-row">
                                 <span>{t('text_speed')}</span>
                                 <select value={settings.textSpeed} onChange={(e) => handleChange('textSpeed', e.target.value)}>
-                                    <option value="80">{t('slow')}</option>
-                                    <option value="35">{t('normal')}</option>
-                                    <option value="15">{t('fast')}</option>
+                                    <option value="slow">{t('slow')}</option>
+                                    <option value="normal">{t('normal')}</option>
+                                    <option value="fast">{t('fast')}</option>
                                 </select>
                             </div>
 

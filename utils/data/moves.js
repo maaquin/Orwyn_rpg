@@ -79,8 +79,9 @@ export const actions = {
             return {
                 message: randomMessage,
                 key: event.key,
+                monster: event.monster ? event.monster : '',
                 action: event.action?.action || null,
-                narrative: event.key === 'monster' ? false : true
+                narrative: true
             };
 
         },
