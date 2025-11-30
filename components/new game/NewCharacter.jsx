@@ -248,7 +248,7 @@ export const NewCharacter = () => {
                 <div className="overlay-fade-onload" />
             )}
 
-            <div className="new-card">
+            <div className="new-card" style={{ overflowY: showRaceModal || showClassModal ? 'hidden' : 'auto' }}>
                 <p className="title-new-character">{t('data_player')}</p>
                 <div className="new-sub-container">
                     {/* Selección de Raza */}
@@ -314,24 +314,24 @@ export const NewCharacter = () => {
                             </div>
                         </form>
                     </div>
-
-                    {/* Modals */}
-                    <Modal
-                        isOpen={showRaceModal}
-                        onClose={() => setShowRaceModal(false)}
-                        options={races}
-                        onSelect={selectRaza}
-                        grid={3}
-                    />
-                    <Modal
-                        isOpen={showClassModal}
-                        onClose={() => setShowClassModal(false)}
-                        options={classes}
-                        onSelect={selectClass}
-                        grid={2}
-                    />
                 </div>
             </div>
+
+            {/* Modals */}
+            <Modal
+                isOpen={showRaceModal}
+                onClose={() => setShowRaceModal(false)}
+                options={races}
+                onSelect={selectRaza}
+                grid={3}
+            />
+            <Modal
+                isOpen={showClassModal}
+                onClose={() => setShowClassModal(false)}
+                options={classes}
+                onSelect={selectClass}
+                grid={2}
+            />
         </div>
     );
 };

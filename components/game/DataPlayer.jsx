@@ -5,7 +5,7 @@ import { Inventory } from "./Inventory";
 export const DataPlayer = ({ dataGame, toggleExpanded, isExpanded, setDataGame }) => {
     const { t } = useTranslation();
     const [player, setPlayer] = useState(null);
-    const [info, setInfo] = useState(false);
+    const [info, setInfo] = useState(true);
     const [inventory, setInventory] = useState(new Array(12).fill(null));
     const [equipment, setEquipment] = useState({
         left: null,

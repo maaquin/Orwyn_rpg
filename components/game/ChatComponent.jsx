@@ -230,7 +230,26 @@ export const ChatComponent = ({ dataGame, setDataGame, mapData, moves, cityData,
 
   useEffect(() => {
     setIsDone(false);
-  },[response])
+  }, [response])
+
+  useEffect(() => {
+    if (response) {
+      setIsDone(false);
+
+      // 2. Calculamos cuánto debería tardar (velocidad * letras + un pequeño margen)
+      const speed = settings ? textSpeed(settings.textSpeed) : 40;
+      const estimatedTime = (response.length * speed) + 500; // 500ms de margen
+
+      // 3. Forzamos el done si la librería falla
+      const timer = setTimeout(() => {
+        setIsDone(true);
+      }, estimatedTime);
+
+      return () => clearTimeout(timer);
+    }
+  }, [response, settings]);
+
+  console.log('done: ', isDone)
 
   return (
     <div className="text-narrative-container">
@@ -248,6 +267,7 @@ export const ChatComponent = ({ dataGame, setDataGame, mapData, moves, cityData,
                 cursor
                 cursorStyle="|"
                 onLoopDone={() => setIsDone(true)}
+                loop={1}
               />
             </p>
           </div>

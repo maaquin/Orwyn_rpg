@@ -1,9 +1,10 @@
 .new-container {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 
 .new-card {
@@ -12,31 +13,53 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     background: rgba(252, 251, 250, 0.279);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(39, 31, 31, 0.2);
     border-radius: 40px;
-    gap: 50px;
+    gap: 30px;
+    padding: 40px;
+    box-sizing: border-box;
+    
+    /* Personalización de la barra de scroll */
+    scrollbar-width: thin;
+    scrollbar-color: #302924 rgba(255, 255, 255, 0.1);
+}
+
+/* Scrollbar para Webkit (Chrome, Safari) */
+.new-card::-webkit-scrollbar {
+    width: 8px;
+}
+.new-card::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+.new-card::-webkit-scrollbar-thumb {
+    background-color: #302924;
+    border-radius: 4px;
 }
 
 .new-sub-container {
     width: 100%;
-    height: 55%;
+    height: auto; /* Quitamos altura fija para permitir flexibilidad */
     position: relative;
     display: flex;
     flex-direction: row;
-    align-items: start;
+    align-items: flex-start; /* Alineación superior */
     justify-content: center;
     gap: 50px;
+    flex-wrap: wrap; /* Permite que los elementos bajen si no caben */
 }
 
 .title-new-character {
     font-size: 3.5rem;
     margin: 0;
+    text-align: center;
 }
 
+/* ... (Tus estilos de race-grid, race-option, img-race-grid, selected se mantienen igual) ... */
 .race-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -74,6 +97,13 @@
     object-fit: cover;
 }
 
+/* ... Estilos del formulario ... */
+
+.data-player-container {
+    /* Agregamos un ancho mínimo para que no se aplaste */
+    min-width: 250px; 
+}
+
 .data-player-container form {
     display: flex;
     flex-direction: column;
@@ -88,6 +118,8 @@
     padding: 10px;
     font-size: 1.3rem;
     font-family: 'Lora', serif;
+    width: 100%; /* Asegura que ocupen el espacio disponible */
+    box-sizing: border-box;
 }
 
 .data-player-container select {
@@ -99,6 +131,8 @@
     display: flex;
     flex-direction: row;
     gap: 30px;
+    width: 100%;
+    justify-content: center;
 }
 
 .data-player-container button {
@@ -109,6 +143,8 @@
     border-radius: 15px;
     font-size: 1.3rem;
     transition: all .3s;
+    padding: 10px 20px; /* Padding explícito */
+    cursor: pointer;
 }
 
 .data-player-container button:hover {
@@ -116,24 +152,22 @@
     color: #fff;
 }
 
+/* ... Estilos del Modal ... */
+
 .modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(57, 49, 40, 0.256);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(39, 31, 31, 0.2);
-    border-radius: 40px;
+    background: rgba(57, 49, 40, 0.6); /* Un poco más oscuro para mejor contraste */
+    backdrop-filter: blur(5px); /* Reducir blur para rendimiento en móviles */
+    -webkit-backdrop-filter: blur(5px);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 999;
     transition: all 0.3s;
-
     opacity: 0;
     transform: scale(0.95);
     pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .modal-overlay.active {
@@ -144,21 +178,26 @@
 
 .modal-content {
     background: white;
-    padding: 1rem;
+    padding: 2rem;
     border-radius: 10px;
     max-width: 500px;
     width: 90%;
     position: relative;
+    max-height: 80vh; /* Evita que el modal sea más alto que la pantalla */
+    overflow-y: auto; /* Scroll dentro del modal si es necesario */
 }
 
 .close-btn {
     position: absolute;
-    top: 8px;
+    top: 10px;
     right: 10px;
-    font-size: 1.5rem;
+    font-size: 2rem;
     border: none;
     background: none;
     cursor: pointer;
+    z-index: 10;
+    padding: 0 10px;
+    border: solid 1.5px #302924;
 }
 
 .options-grid {
@@ -166,10 +205,16 @@
     gap: 1rem;
     margin-top: 1rem;
     text-align: center;
+    /* Ajustamos el grid para móviles automáticamente si el prop JS falla */
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)) !important; 
 }
 
 .option-item {
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .option-item img {
@@ -177,6 +222,8 @@
     height: 80px;
     object-fit: contain;
 }
+
+/* ... Estilos de selección de imagen principal ... */
 
 .selected-image-display,
 .selected-image-display-true {
@@ -186,12 +233,13 @@
     justify-content: center;
     cursor: pointer;
     margin-bottom: 1rem;
+    border-radius: 20px; /* Suavizar bordes */
+    background-color: rgba(255,255,255,0.2);
 }
 
 .selected-image-display {
     width: 150px;
     height: 150px;
-
 }
 
 .selected-image-display-true {
@@ -204,6 +252,7 @@
 .selected-image-display-true img {
     height: 100%;
     width: 100%;
+    object-fit: contain;
 }
 
 .section-info-new-character {
@@ -213,12 +262,14 @@
 .section-info-new-character h1 {
     font-size: 2rem;
     margin: 0;
+    margin-bottom: 10px;
 }
 
 .section-info-new-character p {
     display: block;
     text-align: justify;
     font-family: Helvetica, Arial, sans-serif;
+    line-height: 1.4;
 }
 
 .race-container {
@@ -228,15 +279,13 @@
     align-items: center;
 }
 
-
 .toast-notification {
+    /* ... (Mismo código) ... */
     position: fixed;
     top: 20px;
     right: 20px;
-    background: rgba(177, 79, 79, 0.543);
+    background: rgba(177, 79, 79, 0.9); /* Más opaco */
     color: #fff;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     padding: 12px 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -245,22 +294,116 @@
 }
 
 @keyframes fadeInOut {
-    0% {
-        opacity: 0;
-        transform: translateY(-10px);
+    0% { opacity: 0; transform: translateY(-10px); }
+    10% { opacity: 1; transform: translateY(0); }
+    90% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-10px); }
+}
+
+/* =========================================
+   MEDIA QUERIES (RESPONSIVE)
+   ========================================= */
+
+/* Laptops pequeños y Tablets (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .new-card {
+        width: 90%;
+        height: 90%;
+        padding: 20px;
     }
 
-    10% {
-        opacity: 1;
-        transform: translateY(0);
+    .title-new-character {
+        font-size: 2.5rem;
+    }
+    
+    .new-sub-container {
+        gap: 30px;
+    }
+}
+
+/* Móviles y Tablets verticales (max-width: 768px) */
+@media (max-width: 768px) {
+    .new-container {
+        /* En móviles a veces la barra de dirección tapa vh, usamos altura dinámica */
+        height: 100vh; 
+        height: 100dvh; 
     }
 
-    90% {
-        opacity: 1;
+    .new-card {
+        width: 95%;
+        height: 95%;
+        border-radius: 20px;
+        padding: 20px 10px; /* Menos padding lateral */
+        gap: 20px;
+        /* Importante: aseguramos que el contenido se apile y se pueda scrollear */
+        justify-content: flex-start; 
     }
 
-    100% {
-        opacity: 0;
-        transform: translateY(-10px);
+    .new-sub-container {
+        flex-direction: column; /* Apilar verticalmente */
+        align-items: center;
+        gap: 40px;
+    }
+
+    .title-new-character {
+        font-size: 2rem; /* Título más pequeño */
+        margin-top: 10px;
+    }
+
+    .race-container {
+        width: 100%;
+        max-width: 300px; /* Limitar el ancho al apilarse */
+        border-bottom: 1px solid rgba(255,255,255,0.2); /* Separador visual */
+        padding-bottom: 20px;
+    }
+
+    /* Quitar borde del último elemento para que no se vea feo */
+    .data-player-container {
+        width: 100%;
+        max-width: 300px;
+        padding-bottom: 20px;
+    }
+
+    .section-info-new-character {
+        max-width: 100%; /* Texto ocupa el ancho disponible */
+        text-align: center;
+    }
+
+    .section-info-new-character p {
+        text-align: center; /* Mejor lectura en móvil centrado bajo la imagen */
+        font-size: 0.95rem;
+    }
+
+    /* Ajustar inputs para dedos */
+    .data-player-container input,
+    .data-player-container select,
+    .data-player-container button {
+        font-size: 1.1rem;
+        padding: 12px;
+    }
+
+    /* Modal Grid en móvil: 2 columnas forzadas para que se vean bien las opciones */
+    .options-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+/* Pantallas muy pequeñas (max-width: 400px) */
+@media (max-width: 400px) {
+    .title-new-character {
+        font-size: 1.8rem;
+    }
+    
+    .new-card {
+        padding: 15px 5px;
+    }
+    
+    .buttons-new-character {
+        flex-direction: column; /* Botones uno encima del otro */
+        gap: 10px;
+    }
+    
+    .buttons-new-character button {
+        width: 100%;
     }
 }
